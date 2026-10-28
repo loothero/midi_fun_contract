@@ -48,7 +48,7 @@ fn song() -> SongInputs {
 // Literal wire oracle from the public field-order contract, independent of Serde.
 fn song_wire() -> Array<felt252> {
     array![
-        2, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 1,
+        3, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 1,
         37, 4, 1, 17, 1, 9, 1, 0, 1
     ]
 }
@@ -71,13 +71,12 @@ fn sound_check_matches_independent_wire() {
             mode_id: 26,
             tonic_keynum: 103,
             family: 2,
-            tier: 5,
             tempo_us: 1048575,
             velocity_ceiling: 127,
             articulation_profile: 3,
         },
     );
-    let expected = array![2, 0, 0xffffffffffffffff, 1242, 26, 103, 2, 5, 1048575, 127, 3];
+    let expected = array![3, 0, 0xffffffffffffffff, 1242, 26, 103, 2, 1048575, 127, 3];
     assert(encode_inputs(x) == expected, 'check wire');
     assert(decode_inputs(expected.span()) == x, 'check decode');
 }
@@ -138,19 +137,19 @@ fn canonical_types_have_builtin_store() {
 #[test]
 #[should_panic(expected: 'unknown inputs version')]
 fn reject_unknown_version() {
-    decode_inputs(array![3].span());
+    decode_inputs(array![2].span());
 }
 
 #[test]
 #[should_panic(expected: 'invalid inputs encoding')]
 fn reject_truncated_recipe() {
-    decode_inputs(array![2, 1, 11].span());
+    decode_inputs(array![3, 1, 11].span());
 }
 
 #[test]
 #[should_panic(expected: 'invalid inputs encoding')]
 fn reject_unknown_recipe_tag() {
-    decode_inputs(array![2, 2].span());
+    decode_inputs(array![3, 2].span());
 }
 
 #[test]
@@ -165,7 +164,7 @@ fn reject_trailing_data() {
 #[should_panic(expected: 'non canonical inputs')]
 fn reject_non_boolean_wire_value() {
     let values = array![
-        2, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 2, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 1,
+        3, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 2, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 1,
         37, 4, 1, 17, 1, 9, 1, 0, 1
     ];
     decode_inputs(values.span());
@@ -197,7 +196,6 @@ fn reject_sound_check_octave_overflow() {
                 mode_id: 4,
                 tonic_keynum: 104,
                 family: 0,
-                tier: 1,
                 tempo_us: 500000,
                 velocity_ceiling: 112,
                 articulation_profile: 0,

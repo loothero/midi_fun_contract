@@ -951,3 +951,290 @@ mod tests {
         same_file(76, 3, 1, 0);
     }
 }
+
+/// Internally materialize the fixed purchase sample. Zero is ordinary seed data;
+/// the legacy zero-as-Genesis sentinel is not part of this API.
+pub fn generate_recipe_inputs(
+    base: beast_composer_inputs::GenerationInputs, seed: felt252,
+) -> beast_composer_inputs::ComposerInputs {
+    use beast_composer_inputs::{ChannelPolicy, ComposerInputs};
+    beast_composer_inputs::validate_generation_inputs(base);
+    let mut song = base.base_song;
+    let t = treatment(seed);
+    song.score.section_count = t.sections;
+    song.treatment.rhythm_seed = t.rhythm_seed;
+    song.treatment.flip_side = t.flip_side;
+    song.treatment.development = t.development;
+    song.treatment.direction = if t.direction == 0 {
+        0
+    } else if t.direction == 1 {
+        1
+    } else {
+        2
+    };
+    song.treatment.spacing = t.spacing;
+    let roles: u32 = song.score.voice_count.into()
+        + if song.score.use_countersubject {
+            1
+        } else {
+            0
+        }
+        + 1;
+    let count = seeded_channels(seed);
+    song
+        .arrangement
+        .channel_count =
+            if count < roles {
+                count.try_into().unwrap()
+            } else {
+                roles.try_into().unwrap()
+            };
+    song.arrangement.channel_policy = ChannelPolicy::Seeded(seed);
+    let result = ComposerInputs::Song(song);
+    beast_composer_inputs::validate_inputs(result);
+    result
+}
+
+/// Generalized channel picker: candidate roles are actual canon/countersubject
+/// voices plus drums. Written policy is distinct from any future staff controls.
+fn recipe_pick(
+    sums: Span<u64>,
+    counts: Span<u64>,
+    voices: u32,
+    countersubject: bool,
+    count: u32,
+    policy: beast_composer_inputs::ChannelPolicy,
+) -> Array<u32> {
+    use beast_composer_inputs::ChannelPolicy;
+    let mut low: u32 = 0;
+    let mut v = 1;
+    while v < voices {
+        if *counts.at(v) > 0 && mean_less(sums, counts, v, low) {
+            low = v;
+        }
+        v += 1;
+    }
+    let mut order = array![0_u32];
+    if low != 0 {
+        order.append(low);
+    }
+    let mut rest = array![];
+    match policy {
+        ChannelPolicy::Genesis => {
+            rest.append(DRUMS);
+            if countersubject {
+                rest.append(voices);
+            }
+            let mut v = 1;
+            while v < voices {
+                if v != low {
+                    rest.append(v);
+                }
+                v += 1;
+            }
+        },
+        ChannelPolicy::Seeded(seed) => {
+            let mut v = 1;
+            while v < voices {
+                if v != low {
+                    rest.append(v);
+                }
+                v += 1;
+            }
+            if countersubject {
+                rest.append(voices);
+            }
+            rest.append(DRUMS);
+            let mut values: Felt252Dict<u32> = Default::default();
+            let n = rest.len();
+            let mut i = 0;
+            for value in rest.span() {
+                values.insert(i.into(), *value);
+                i += 1;
+            }
+            let mut h: u256 = poseidon_hash_span(array!['BEAST_CHANNEL_ORDER', seed].span()).into();
+            let mut i = n - 1;
+            while i > 0 {
+                let j: u32 = (h % (i + 1).into()).try_into().unwrap();
+                let a = values.get(i.into());
+                let b = values.get(j.into());
+                values.insert(i.into(), b);
+                values.insert(j.into(), a);
+                h /= 7;
+                i -= 1;
+            }
+            rest = array![];
+            let mut i = 0;
+            while i < n {
+                rest.append(values.get(i.into()));
+                i += 1;
+            }
+        },
+    }
+    order.append_span(rest.span());
+    let mut picked = array![];
+    let mut i = 0;
+    while i < count {
+        picked.append(*order.at(i));
+        i += 1;
+    }
+    picked
+}
+
+/// Complete written musical inputs, consumed directly. No Beast reconstruction,
+/// Genesis shortcut, live counters, clock reads or implicit variation seed.
+pub fn recipe_byte_array(x: beast_composer_inputs::SongInputs, mega: bool) -> ByteArray {
+    render_recipe(x, mega, Option::None)
+}
+
+pub fn staff_recipe_byte_array(
+    x: beast_composer_inputs::SongInputs,
+    mega: bool,
+    staff: crate::composition::evolution::StaffControls,
+) -> ByteArray {
+    render_recipe(x, mega, Option::Some(staff))
+}
+
+fn render_recipe(
+    x: beast_composer_inputs::SongInputs,
+    mega: bool,
+    staff: Option<crate::composition::evolution::StaffControls>,
+) -> ByteArray {
+    use beast_composer_inputs::SpecialArrangement;
+    beast_composer_inputs::validate_song(x);
+    let score = crate::composition::beast_v11::build_v11_score_from_inputs(x);
+    let p = score.params;
+    let runs = voice_runs(score.events.span());
+    let (sums, counts) = voice_stats(runs.span(), MAX_VOICES - 1);
+    let roles = p.voice_count + if p.use_countersubject {
+        1
+    } else {
+        0
+    } + 1;
+    // Determine the entire written priority order before current-staff note
+    // changes. Each eligible extra index is fixed for this immutable recipe.
+    let priority = recipe_pick(
+        sums.span(),
+        counts.span(),
+        p.voice_count,
+        p.use_countersubject,
+        roles,
+        x.arrangement.channel_policy,
+    );
+    let mut picked = array![];
+    let mut i: u32 = 0;
+    for role in priority.span() {
+        let base_count: u32 = x.arrangement.channel_count.into();
+        let include = if i < base_count {
+            true
+        } else {
+            match staff {
+                Option::Some(c) => crate::composition::evolution::extra_role_unlocked(
+                    c.unlocked_extra_mask, i - base_count,
+                ),
+                Option::None => false,
+            }
+        };
+        if include {
+            picked.append(*role);
+        }
+        i += 1;
+    }
+    let mut events = if x.arrangement.weak_ties {
+        tie_repeats(
+            score.events.span(),
+            runs.span(),
+            picked.span(),
+            sums.span(),
+            counts.span(),
+            score.section_ticks,
+        )
+    } else {
+        let mut kept = array![];
+        for e in score.events.span() {
+            if contains(picked.span(), e.voice_id) {
+                kept.append(*e);
+            }
+        }
+        kept
+    };
+    let mut tempo_us = p.tempo_us;
+    if let Option::Some(c) = staff {
+        events =
+            crate::composition::evolution::perform_staff_events(
+                events.span(), p.velocity_ceiling, c,
+            );
+        let nudged = crate::composition::drift::nudge_tempo(tempo_us, c.tempo_delta);
+        tempo_us =
+            if nudged > beast_composer_inputs::MAX_TEMPO_US {
+                beast_composer_inputs::MAX_TEMPO_US
+            } else {
+                nudged
+            };
+    }
+    let yeti = match x.arrangement.special {
+        SpecialArrangement::None => false,
+        SpecialArrangement::Yeti(name) => {
+            let (prefix, suffix): (u8, u8) = if name == 0 {
+                (0, 0)
+            } else {
+                let n = name - 1;
+                ((n / 18 + 1).try_into().unwrap(), (n % 18 + 1).try_into().unwrap())
+            };
+            let key = yeti_key(p.tonic_keynum, p.mode_id, named_mode_scale(p.mode_id));
+            // Profile hashing is 32-bit; reduce before existing u64 multiplications
+            // so the public u64 musical identity cannot overflow those helpers.
+            let ornament_id = p.species_id % 0x100000000;
+            events =
+                yeti_ornaments(
+                    events.span(),
+                    score.section_ticks,
+                    key,
+                    p.ornament_density,
+                    ornament_id,
+                    prefix,
+                    suffix,
+                );
+            events =
+                yeti_avalanche(
+                    events.span(), score.section_ticks, p.section_count.into(), p.tonic_keynum, key,
+                );
+            true
+        },
+    };
+    let form = BeastForm {
+        events,
+        score_hash: 0,
+        section_count: p.section_count,
+        length_ticks: p.section_count.into() * score.section_ticks,
+    };
+    let tracks = beast_form_to_full_tracks_arranged(
+        @form,
+        tempo_us,
+        p.tier,
+        Option::Some(
+            Voicing {
+                beast_type: x.arrangement.family,
+                species_id: p.species_id,
+                name_variant_id: p.name_variant_id,
+                voice_count: p.voice_count,
+                use_countersubject: p.use_countersubject,
+            },
+        ),
+        mega,
+        ((p.species_id % 2 + (p.name_variant_id % 2).into()) % 2).try_into().unwrap(),
+        Arrangement {
+            top_lead: x.arrangement.top_lead,
+            balanced: x.arrangement.balanced,
+            drums: contains(picked.span(), DRUMS),
+            rock: yeti,
+            extra: if yeti {
+                Option::Some((YETI_AVALANCHE_VOICE, YETI_AVALANCHE_PROGRAM))
+            } else {
+                Option::None
+            },
+            programs: Option::None,
+        },
+    );
+    smf_byte_array(SMF_FORMAT, SMF_DIVISION, tracks.span())
+}

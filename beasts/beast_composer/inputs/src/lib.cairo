@@ -3,7 +3,7 @@
 //! types/Store derives without the engine's compiler/player dependency graph.
 
 pub const EDITION_COMPOSITION_CONFIG_VERSION: u16 = 1;
-pub const COMPOSER_INPUTS_VERSION: u16 = 2;
+pub const COMPOSER_INPUTS_VERSION: u16 = 3;
 pub const GENERATION_INPUTS_VERSION: u16 = 1;
 pub const MAX_TEMPO_US: u32 = 1048575;
 
@@ -108,7 +108,6 @@ pub struct SoundCheckInputs {
     pub mode_id: u8,
     pub tonic_keynum: u8,
     pub family: u8,
-    pub tier: u8,
     pub tempo_us: u32,
     pub velocity_ceiling: u8,
     pub articulation_profile: u8,
@@ -126,6 +125,18 @@ pub enum ComposerInputs {
 #[derive(Copy, Drop, Debug, Serde, PartialEq, starknet::Store)]
 pub struct GenerationInputs {
     pub base_song: SongInputs,
+}
+
+/// Canonical named evolution identity. Paid generation never applies the
+/// shared Species Song39/40 source swap, and score/program name0 is separate.
+pub fn normalize_generation_identity(x: BeastMusicalIdentity) -> MusicIdentity {
+    let identity = MusicIdentity {
+        source_species_id: x.species_id, name_variant_id: x.name_variant_id,
+    };
+    validate_identity(identity);
+    assert(x.tier >= 1 && x.tier <= 5, 'invalid musical tier');
+    assert(x.family <= 2, 'invalid program family');
+    identity
 }
 
 pub fn validate_identity(x: MusicIdentity) {
@@ -200,7 +211,6 @@ pub fn validate_inputs(x: ComposerInputs) {
             // Highest Sound Check degree is 14 = tonic + two octaves.
             assert(check.tonic_keynum <= 103, 'invalid sound check tonic');
             assert(check.family <= 2, 'invalid program family');
-            assert(check.tier >= 1 && check.tier <= 5, 'invalid musical tier');
             validate_performance_base(
                 check.tempo_us, check.velocity_ceiling, check.articulation_profile,
             );
@@ -248,6 +258,8 @@ pub fn decode_generation_inputs(mut values: Span<felt252>) -> GenerationInputs {
     assert(encode_generation_inputs(x).span() == original, 'non canonical generation');
     x
 }
+
+pub mod evolution;
 
 #[cfg(test)]
 mod tests;
