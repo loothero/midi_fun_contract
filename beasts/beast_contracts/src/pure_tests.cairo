@@ -682,3 +682,104 @@ fn test_actual_pure_repeat_purchase_and_adjacent_edition_outputs() {
     assert_sound(@next_sound);
     assert(next_sound.midi != first_sound.midi, 'adjacent edition actual music');
 }
+
+// Conservative order-independent note-on/off multiset. Ignores channel IDs,
+// velocity, tempo, program changes, pan, volume and all non-note metadata.
+fn structural_note_fingerprint(sound: @TinySynthSound) -> felt252 {
+    let bytes = @sound.midi;
+    let mut digest: felt252 = 0;
+    let mut chunk: u32 = 14;
+    while chunk < bytes.len() {
+        let end = chunk + 8 + be32(bytes, chunk + 4);
+        let mut at = chunk + 8;
+        let mut time: u32 = 0;
+        let mut running: u8 = 0;
+        while at < end {
+            let (next, delta) = vlq(bytes, at);
+            at = next;
+            time += delta;
+            let first = bytes.at(at).unwrap();
+            let status = if first >= 128 {
+                at += 1;
+                first
+            } else {
+                running
+            };
+            if status == 255 {
+                at += 1;
+                let (next, len) = vlq(bytes, at);
+                at = next + len;
+                running = 0;
+                continue;
+            }
+            running = status;
+            let kind = status / 16;
+            let pitch = bytes.at(at).unwrap();
+            at += 1;
+            if kind != 12 && kind != 13 {
+                let velocity = bytes.at(at).unwrap();
+                at += 1;
+                if kind == 8 || kind == 9 {
+                    let on: felt252 = if kind == 9 && velocity > 0 {
+                        1
+                    } else {
+                        0
+                    };
+                    let drum: felt252 = if status % 16 == 9 {
+                        1
+                    } else {
+                        0
+                    };
+                    digest +=
+                        core::poseidon::poseidon_hash_span(
+                            array![time.into(), pitch.into(), on, drum].span(),
+                        );
+                }
+            }
+        }
+        chunk = end;
+    }
+    digest
+}
+#[test]
+#[available_gas(1000000000)]
+fn test_actual_pure_shape_separates_known_audible_collision_without_dynamics() {
+    let (generator, composer) = targets();
+    let base = generator
+        .get_generation_inputs(
+            EditionCompositionConfig { composition_seed: 9 },
+            2,
+            BeastMusicalIdentity { species_id: 21, name_variant_id: 37, tier: 5, family: 0 },
+        );
+    let a = core::poseidon::poseidon_hash_span(
+        array!['beasts_sound_purchase_v1', 1234, 5678, 3, 777].span(),
+    );
+    let b = core::poseidon::poseidon_hash_span(
+        array!['beasts_sound_purchase_v1', 1234, 5678, 122, 777].span(),
+    );
+    // At5045 these exact purchased samples have byte-identical3309-byte MIDI
+    // (SHA2564f3aab70a2d6a2367848c8f5661778c3661a50b38b202369ff853bd4d3b5f304).
+    let x = generator.generate_inputs(base, a);
+    let y = generator.generate_inputs(base, b);
+    let ComposerInputs::Song(xs) = x else {
+        panic!("fixture");
+    };
+    let ComposerInputs::Song(ys) = y else {
+        panic!("fixture");
+    };
+    assert(
+        xs.theme == ys.theme
+            && xs.score.tonic_keynum == ys.score.tonic_keynum
+            && xs.score.mode_id == ys.score.mode_id
+            && xs.arrangement.identity == ys.arrangement.identity,
+        'shared edition identity',
+    );
+    let first = composer.compose(x, 0);
+    let second = composer.compose(y, 0);
+    assert_sound(@first);
+    assert_sound(@second);
+    assert(
+        structural_note_fingerprint(@first) != structural_note_fingerprint(@second),
+        'audible shape distinction',
+    );
+}

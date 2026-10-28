@@ -973,6 +973,24 @@ pub fn generate_recipe_inputs(
         2
     };
     song.treatment.spacing = t.spacing;
+    // Independent purchase-shape choices keep the edition's motif, home key and
+    // program identity. They alter actual written entrances/counterpoint, not
+    // metadata, tiny tempo differences or a later performance's velocity.
+    let shape: u256 = poseidon_hash_span(array!['BEAST_SAMPLE_SHAPE_V1', seed].span()).into();
+    let shape: u16 = (shape % 512).try_into().unwrap();
+    let lag: u8 = (shape % 4).try_into().unwrap();
+    song.score.stretto_lag = 1 + (song.score.stretto_lag - 1 + lag) % 4;
+    song.score.use_inversion = song.score.use_inversion != (shape / 4 % 2 == 1);
+    let density: u8 = (shape / 8 % 8).try_into().unwrap();
+    song.score.ornament_density = (song.score.ornament_density + density) % 8;
+    song.treatment.trill = song.treatment.trill != (shape / 64 % 2 == 1);
+    if song.score.voice_count > 2 {
+        let fewer: u8 = (shape / 128 % 2).try_into().unwrap();
+        song.score.voice_count -= fewer;
+    }
+    song.score.use_countersubject = song.score.use_countersubject && shape / 256 % 2 == 0;
+    // The written role count is computed after shape selection. No absent voice
+    // may enter the channel picker, nor may a sample enable an unauthored CS.
     let roles: u32 = song.score.voice_count.into()
         + if song.score.use_countersubject {
             1

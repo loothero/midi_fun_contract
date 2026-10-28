@@ -15,8 +15,13 @@ vectors are checked by both languages.
 
 `GenerationInputs.base_song` is the complete immutable edition template. A fixed
 purchase sample derives section count, rhythm seed, side, development, direction,
-spacing and channel count/order from the supplied variation identity; all other
-base fields survive. `generate_inputs` never fetches a hash. A manager must derive
+spacing and channel count/order from the supplied variation identity. An independent
+`BEAST_SAMPLE_SHAPE_V1` hash also chooses the entry lag, inversion, ornament
+amount/trills, optionally one fewer written canon voice (never below2), and an
+optional countersubject only when the base permits one. Channel capacity is
+clamped after those written-role choices. Motif, key/mode, tiers, family/program
+identity, tempo, articulation and dynamics retain the edition template. These are
+musical variations; they do not imply collision-free sampling. `generate_inputs` never fetches a hash. A manager must derive
 and pin the purchase identity from its approved provenance.
 
 The edition factory accepts immutable `EditionCompositionConfig`, an edition
