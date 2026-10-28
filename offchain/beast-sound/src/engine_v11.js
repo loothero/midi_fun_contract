@@ -412,11 +412,16 @@ export function createEngineV11(engine) {
     try {
       const base = I.buildTheme({ ...p, tier: song.theme.tier, register_band: song.theme.register_band }, song.theme.motif_seed);
       const theme = { ...base, degrees: cadenceTheme(base.degrees) };
-      let slots = themeRhythm(p, theme.degrees, t.rhythm_seed);
+      const slotsFor = (seed) => {
+        let slots = themeRhythm(p, theme.degrees, seed);
       if (tr.trill) slots = slots.flatMap((sl, i) => sl.src === 'p' && sl.duration >= 240
         ? [{ ...sl, src: 't', duration: sl.duration / 2, degree: slots[i - 1].degree + 1 },
           { ...sl, src: 't', time: sl.time + sl.duration / 2, duration: sl.duration / 2, degree: slots[i - 1].degree }]
         : [sl]);
+        return slots;
+      };
+      const firstSeed = t.section_rhythm ? I.H('BEAST_SECTION_RHYTHM_V1', t.rhythm_seed, 0) : t.rhythm_seed;
+      const slots = slotsFor(firstSeed);
       const themeEnd = Math.max(...slots.map((x) => x.time + x.duration));
       const canonEnd = themeEnd + (p.voice_count - 1) * p.stretto_lag * TU;
       const bars = Math.ceil(canonEnd / BAR);
@@ -425,7 +430,11 @@ export function createEngineV11(engine) {
       const seed = Number(BigInt(t.rhythm_seed) % 4294967291n);
       const plan = keyPlan(p, t.flip_side);
       let events = [];
-      for (let s = 0; s < p.section_count; s++) events.push(...buildSection(p, theme, slots, s, s * ticks, csSeed, ticks, seed, plan, true, tr));
+      for (let s = 0; s < p.section_count; s++) {
+        const sectionSlots = t.section_rhythm && s > 0
+          ? slotsFor(I.H('BEAST_SECTION_RHYTHM_V1', t.rhythm_seed, s)) : slots;
+        events.push(...buildSection(p, theme, sectionSlots, s, s * ticks, csSeed, ticks, seed, plan, true, tr));
+      }
       events = shape(events, p, ticks, true, tr.prominence);
       if (p.articulation_profile === 3) events = events.map((e) => e.time % BAR === 0
         ? { ...e, velocity: Math.min(p.velocity_ceiling, e.velocity + 8) } : e);

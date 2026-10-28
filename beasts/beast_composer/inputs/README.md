@@ -6,8 +6,8 @@ pinned Beasts2.20 and MIDI2.21 toolchains. It imports no NFT, payment, RPC or pl
 implementation. `beast_composer::inputs` re-exports these exact types.
 
 The authoritative field declarations and validation are in `src/lib.cairo`.
-`ComposerInputs` wire version3 is a full scalar CairoSerde stream preceded by3;
-its variants are `SoundCheck=0`, `Song=1`. `GenerationInputs` wire version1 is1
+`ComposerInputs` wire version4 is a full scalar CairoSerde stream preceded by4;
+its variants are `SoundCheck=0`, `Song=1`. `GenerationInputs` wire version2 is2
 followed by the full baseSong, without a recipe discriminator. Unknown versions,
 invalid fields, boolean aliases, truncation and trailing data reject. Zero seeds
 are ordinary values. The JS codec is `beast-sound/inputs`; literal independent
@@ -21,7 +21,12 @@ amount/trills, optionally one fewer written canon voice (never below2), and an
 optional countersubject only when the base permits one. Channel capacity is
 clamped after those written-role choices. Motif, key/mode, tiers, family/program
 identity, tempo, articulation and dynamics retain the edition template. These are
-musical variations; they do not imply collision-free sampling. `generate_inputs` never fetches a hash. A manager must derive
+musical variations; they do not imply collision-free sampling. Generated inputs also
+set explicit `section_rhythm: true`, including for zero variation identity; written
+factory/shared bases use false. True derives independent section cell choices from
+`BEAST_SECTION_RHYTHM_V1`, the existing rhythm seed and the section index, retaining
+the family, density/trill vocabulary and final cadence. False preserves the written
+repeated phrase exactly. No seed value or channel policy acts as a hidden mode. `generate_inputs` never fetches a hash. A manager must derive
 and pin the purchase identity from its approved provenance.
 
 The edition factory accepts immutable `EditionCompositionConfig`, an edition

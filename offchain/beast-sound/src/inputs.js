@@ -1,7 +1,7 @@
 // Canonical normalized musical-input wire format shared with beast_composer_inputs.
 // This module has no token decoder, chain access, player or entropy source.
-export const COMPOSER_INPUTS_VERSION = 3;
-export const GENERATION_INPUTS_VERSION = 1;
+export const COMPOSER_INPUTS_VERSION = 4;
+export const GENERATION_INPUTS_VERSION = 2;
 export const MAX_TEMPO_US = 1048575;
 export const FIELD_P = (1n << 251n) + 17n * (1n << 192n) + 1n;
 const U64_MAX = (1n << 64n) - 1n;
@@ -28,7 +28,7 @@ const fields = {
     ['use_inversion', 'bool'], ['use_countersubject', 'bool'], ['ornament_density', 'u8'],
     ['articulation_profile', 'u8'], ['velocity_ceiling', 'u8'], ['tempo_us', 'u32']],
   treatment: [['rhythm_seed', 'felt'], ['flip_side', 'bool'], ['development', 'u8'],
-    ['direction', 'u8'], ['spacing', 'u8'], ['trill', 'bool'], ['prominence', 'u8']],
+    ['direction', 'u8'], ['spacing', 'u8'], ['trill', 'bool'], ['prominence', 'u8'], ['section_rhythm', 'bool']],
   arrangement: [['family', 'u8'], ['identity', 'identity'], ['channel_count', 'u8'],
     ['channel_policy', 'policy'], ['special', 'special'], ['top_lead', 'bool'],
     ['balanced', 'bool'], ['weak_ties', 'bool']],

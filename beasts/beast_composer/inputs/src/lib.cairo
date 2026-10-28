@@ -3,8 +3,8 @@
 //! types/Store derives without the engine's compiler/player dependency graph.
 
 pub const EDITION_COMPOSITION_CONFIG_VERSION: u16 = 1;
-pub const COMPOSER_INPUTS_VERSION: u16 = 3;
-pub const GENERATION_INPUTS_VERSION: u16 = 1;
+pub const COMPOSER_INPUTS_VERSION: u16 = 4;
+pub const GENERATION_INPUTS_VERSION: u16 = 2;
 pub const MAX_TEMPO_US: u32 = 1048575;
 
 /// Immutable deterministic edition-template configuration. Clock and sale policy
@@ -65,6 +65,8 @@ pub struct TreatmentInputs {
     pub spacing: u8,
     pub trill: bool,
     pub prominence: u8,
+    /// Choose independent supported rhythm cells per section; false repeats the written phrase.
+    pub section_rhythm: bool,
 }
 
 #[derive(Copy, Drop, Debug, Serde, PartialEq, starknet::Store)]

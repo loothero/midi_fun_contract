@@ -200,6 +200,7 @@ pub fn get_generation_inputs(
             spacing: 1,
             trill: prefix != 0 && prefix2_ornament_policy(suffix - 1).allow_trill,
             prominence: 2,
+            section_rhythm: false,
         },
         arrangement: ArrangementInputs {
             family: identity.family,

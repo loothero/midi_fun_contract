@@ -31,6 +31,7 @@ fn song() -> SongInputs {
             spacing: 0,
             trill: true,
             prominence: 2,
+            section_rhythm: false,
         },
         arrangement: ArrangementInputs {
             family: 0,
@@ -48,8 +49,8 @@ fn song() -> SongInputs {
 // Literal wire oracle from the public field-order contract, independent of Serde.
 fn song_wire() -> Array<felt252> {
     array![
-        3, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 1,
-        37, 4, 1, 17, 1, 9, 1, 0, 1
+        4, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 0,
+        1, 37, 4, 1, 17, 1, 9, 1, 0, 1
     ]
 }
 
@@ -76,7 +77,7 @@ fn sound_check_matches_independent_wire() {
             articulation_profile: 3,
         },
     );
-    let expected = array![3, 0, 0xffffffffffffffff, 1242, 26, 103, 2, 1048575, 127, 3];
+    let expected = array![4, 0, 0xffffffffffffffff, 1242, 26, 103, 2, 1048575, 127, 3];
     assert(encode_inputs(x) == expected, 'check wire');
     assert(decode_inputs(expected.span()) == x, 'check decode');
 }
@@ -85,8 +86,8 @@ fn sound_check_matches_independent_wire() {
 fn generation_has_own_version_and_no_recipe_tag() {
     let x = GenerationInputs { base_song: song() };
     let expected = array![
-        1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 1, 37,
-        4, 1, 17, 1, 9, 1, 0, 1
+        2, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 0, 1,
+        37, 4, 1, 17, 1, 9, 1, 0, 1
     ];
     assert(encode_generation_inputs(x) == expected, 'generation wire');
     assert(decode_generation_inputs(expected.span()) == x, 'generation decode');
@@ -143,13 +144,13 @@ fn reject_unknown_version() {
 #[test]
 #[should_panic(expected: 'invalid inputs encoding')]
 fn reject_truncated_recipe() {
-    decode_inputs(array![3, 1, 11].span());
+    decode_inputs(array![4, 1, 11].span());
 }
 
 #[test]
 #[should_panic(expected: 'invalid inputs encoding')]
 fn reject_unknown_recipe_tag() {
-    decode_inputs(array![3, 2].span());
+    decode_inputs(array![4, 2].span());
 }
 
 #[test]
@@ -164,8 +165,8 @@ fn reject_trailing_data() {
 #[should_panic(expected: 'non canonical inputs')]
 fn reject_non_boolean_wire_value() {
     let values = array![
-        3, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 2, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 1,
-        37, 4, 1, 17, 1, 9, 1, 0, 1
+        4, 1, 11, 2, 1, 4, 60, 3, 2, 4, 3, 2, 2, 1, 3, 5, 109, 500000, 13, 1, 1, 2, 0, 1, 2, 0, 0,
+        1, 37, 4, 1, 17, 1, 9, 1, 0, 1
     ];
     decode_inputs(values.span());
 }
@@ -247,5 +248,28 @@ fn reject_unassigned_pure_preset() {
 #[test]
 #[should_panic(expected: 'unknown generation version')]
 fn reject_generation_version() {
-    decode_generation_inputs(array![2].span());
+    decode_generation_inputs(array![1].span());
+}
+
+#[test]
+#[should_panic(expected: 'unknown inputs version')]
+fn reject_previous_composition_version3() {
+    decode_inputs(array![3].span());
+}
+
+#[test]
+#[should_panic(expected: 'non canonical inputs')]
+fn reject_non_boolean_section_rhythm() {
+    let original = song_wire();
+    let mut values = array![];
+    let mut i = 0;
+    for value in original.span() {
+        values.append(if i == 25 {
+            2
+        } else {
+            *value
+        });
+        i += 1;
+    }
+    decode_inputs(values.span());
 }

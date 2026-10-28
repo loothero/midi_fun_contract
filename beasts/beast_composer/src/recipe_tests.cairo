@@ -117,6 +117,8 @@ fn generated_sample_preserves_authored_base_outside_explicit_purchase_treatment(
             panic!("fixture");
         };
         assert(x.theme == base.base_song.theme, 'sample theme retained');
+        assert(x.treatment.section_rhythm, 'zero sample explicit rhythm');
+        assert(!base.base_song.treatment.section_rhythm, 'written base unchanged');
         assert(
             x.score.tempo_us == 400001 && x.score.voice_count == 1 && !x.score.use_countersubject,
             'sample fixed score',

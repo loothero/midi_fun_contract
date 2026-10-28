@@ -10,7 +10,7 @@ export interface ScoreInputs {
 }
 export interface TreatmentInputs {
   rhythm_seed: Integer; flip_side: boolean; development: number; direction: number;
-  spacing: number; trill: boolean; prominence: number;
+  spacing: number; trill: boolean; prominence: number; section_rhythm: boolean;
 }
 export type ChannelPolicy = { kind: 'Genesis' } | { kind: 'Seeded'; seed: Integer };
 export type SpecialArrangement = { kind: 'None' } | { kind: 'Yeti'; name_variant_id: number };
@@ -28,8 +28,8 @@ export interface SoundCheckInputs {
 }
 export type ComposerInputs = { kind: 'Song'; song: SongInputs } | { kind: 'SoundCheck'; check: SoundCheckInputs };
 export interface GenerationInputs { base_song: SongInputs }
-export const COMPOSER_INPUTS_VERSION: 3;
-export const GENERATION_INPUTS_VERSION: 1;
+export const COMPOSER_INPUTS_VERSION: 4;
+export const GENERATION_INPUTS_VERSION: 2;
 export const MAX_TEMPO_US: 1048575;
 export const FIELD_P: bigint;
 export function encodeInputs(inputs: ComposerInputs): bigint[];

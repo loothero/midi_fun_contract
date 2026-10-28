@@ -1586,7 +1586,14 @@ fn build_v11_score_with_boxed(
     };
     BoxTrait::new(
         build_score_from_material(
-            p, theme.span(), tr, rhythm_seed, ov.flip_side == Option::Some(true), ov.scale, false,
+            p,
+            theme.span(),
+            tr,
+            rhythm_seed,
+            ov.flip_side == Option::Some(true),
+            ov.scale,
+            false,
+            false,
         ),
     )
 }
@@ -1622,6 +1629,7 @@ pub fn build_v11_score_from_inputs(inputs: beast_composer_inputs::SongInputs) ->
         t.flip_side,
         crate::composition::genesis::named_mode_scale(p.mode_id),
         true,
+        t.section_rhythm,
     );
     // Accent is an explicit strong-beat dynamic layer. Tenuto retains the
     // already full-length normal gates; that intentional equivalence is tested.
@@ -1647,17 +1655,11 @@ pub fn build_v11_score_from_inputs(inputs: beast_composer_inputs::SongInputs) ->
 }
 
 #[inline(never)]
-fn build_score_from_material(
-    p: BeastCompositionParams,
-    theme: Span<i32>,
-    tr: Trajectory,
-    rhythm_seed: felt252,
-    flip_side: bool,
-    scale: Option<Span<u8>>,
-    bounded: bool,
-) -> V11Score {
-    let mut slots = theme_rhythm(@p, theme, rhythm_seed);
-    if tr.trill {
+fn written_slots(
+    p: @BeastCompositionParams, theme: Span<i32>, rhythm_seed: felt252, trill: bool,
+) -> Array<Slot> {
+    let mut slots = theme_rhythm(p, theme, rhythm_seed);
+    if trill {
         // a trill (upper neighbour and back) replaces each passing note of an eighth or longer
         let mut out: Array<Slot> = array![];
         let n = slots.len();
@@ -1685,6 +1687,32 @@ fn build_score_from_material(
         }
         slots = out;
     }
+    slots
+}
+
+fn section_rhythm_seed(seed: felt252, section: u32) -> felt252 {
+    core::poseidon::poseidon_hash_span(
+        array!['BEAST_SECTION_RHYTHM_V1', seed, section.into()].span(),
+    )
+}
+
+#[inline(never)]
+fn build_score_from_material(
+    p: BeastCompositionParams,
+    theme: Span<i32>,
+    tr: Trajectory,
+    rhythm_seed: felt252,
+    flip_side: bool,
+    scale: Option<Span<u8>>,
+    bounded: bool,
+    section_rhythm: bool,
+) -> V11Score {
+    let first_seed = if section_rhythm {
+        section_rhythm_seed(rhythm_seed, 0)
+    } else {
+        rhythm_seed
+    };
+    let slots = written_slots(@p, theme, first_seed, tr.trill);
     // even: the canon's end plus an episode of 1 or 2 bars, whichever makes the section even
     let mut theme_end: u32 = 0;
     for sl in slots.span() {
@@ -1708,10 +1736,21 @@ fn build_score_from_material(
     let sc8: u32 = p.section_count.into();
     let mut s: u32 = 0;
     while s < sc8 {
+        let varied = section_rhythm && s > 0;
+        let current = if varied {
+            written_slots(@p, theme, section_rhythm_seed(rhythm_seed, s), tr.trill)
+        } else {
+            array![]
+        };
+        let current_slots = if varied {
+            current.span()
+        } else {
+            slots.span()
+        };
         let sec = build_section(
             @p,
             theme,
-            slots.span(),
+            current_slots,
             s,
             s * section_ticks,
             cs_seed,

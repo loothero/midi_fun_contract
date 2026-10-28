@@ -1,6 +1,6 @@
 import { decodeInputs } from '../src/inputs.js';
-const baseWire = [3,1,2,2,1,4,60,3,2,4,3,2,1,1,3,0,109,500000,47,1,1,2,0,1,2,0,1,37,4,1,17,0,1,0,1].map(BigInt);
-export const SCORE_CASE_COUNT = 41;
+const baseWire = [4,1,2,2,1,4,60,3,2,4,3,2,1,1,3,0,109,500000,47,1,1,2,0,1,2,0,0,1,37,4,1,17,0,1,0,1].map(BigInt);
+export const SCORE_CASE_COUNT = 46;
 export function normalizedCase(index) {
   const x = decodeInputs(baseWire).song;
   const changes = [null,
@@ -19,7 +19,13 @@ export function normalizedCase(index) {
     () => x.arrangement.identity.name_variant_id = 38,
   ];
   if (!Number.isInteger(index) || index < 0 || index >= SCORE_CASE_COUNT) throw new Error('unknown normalized case');
-  if (index >=29) { x.score.mode_id = [4,5,6,7,8,26][(index-29)%6]; x.score.tonic_keynum = index <35 ?24:96; }
-  else changes[index]?.();
+  if (index >=29 && index <41) { x.score.mode_id = [4,5,6,7,8,26][(index-29)%6]; x.score.tonic_keynum = index <35 ?24:96; }
+  else if (index >=41) {
+    x.treatment.section_rhythm = true;
+    if (index ===42) x.treatment.rhythm_seed = 0n;
+    if (index ===43) x.theme.tier = 5;
+    if (index ===44) x.score.ornament_density = 7;
+    if (index ===45) { x.score.voice_count = 2; x.score.use_countersubject = false; x.arrangement.channel_count = 3; }
+  } else changes[index]?.();
   return x;
 }

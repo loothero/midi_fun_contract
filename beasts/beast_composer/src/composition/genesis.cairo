@@ -973,6 +973,8 @@ pub fn generate_recipe_inputs(
         2
     };
     song.treatment.spacing = t.spacing;
+    // Explicit paid-sample musical policy; zero remains ordinary seed data.
+    song.treatment.section_rhythm = true;
     // Independent purchase-shape choices keep the edition's motif, home key and
     // program identity. They alter actual written entrances/counterpoint, not
     // metadata, tiny tempo differences or a later performance's velocity.

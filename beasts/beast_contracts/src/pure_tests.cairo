@@ -415,7 +415,7 @@ fn test_actual_pure_unlocked_role_survives_lower_unlock_and_new_staff_preset() {
 
 fn rich_song() -> beast_composer::inputs::SongInputs {
     let wire = array![
-        3, 1, 2, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 0, 109, 500000, 47, 1, 1, 2, 0, 1, 2, 0, 1,
+        4, 1, 2, 2, 1, 4, 60, 3, 2, 4, 3, 2, 1, 1, 3, 0, 109, 500000, 47, 1, 1, 2, 0, 1, 2, 0, 0, 1,
         37, 6, 1, 17, 0, 1, 0, 1
     ];
     let ComposerInputs::Song(x) = beast_composer::inputs::decode_inputs(wire.span()) else {

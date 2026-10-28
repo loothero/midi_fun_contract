@@ -4,15 +4,15 @@ import { encodeInputs, decodeInputs, encodeGenerationInputs, decodeGenerationInp
   applyPerformance, FIELD_P } from '../src/inputs.js';
 
 // Literal field-order oracle also checked independently by Cairo inputs/src/tests.cairo.
-const songWire = [3,1,11,2,1,4,60,3,2,4,3,2,1,1,3,5,109,500000,13,1,1,2,0,1,2,0,1,37,4,1,17,1,9,1,0,1].map(BigInt);
-const checkWire = [3n,0n,18446744073709551615n,1242n,26n,103n,2n,1048575n,127n,3n];
+const songWire = [4,1,11,2,1,4,60,3,2,4,3,2,1,1,3,5,109,500000,13,1,1,2,0,1,2,0,0,1,37,4,1,17,1,9,1,0,1].map(BigInt);
+const checkWire = [4n,0n,18446744073709551615n,1242n,26n,103n,2n,1048575n,127n,3n];
 const song = {
   theme: { motif_seed: 11n, tier: 2, register_band: 1 },
   score: { mode_id: 4, tonic_keynum: 60, tier: 3, weakness: 2, voice_count: 4,
     section_count: 3, stretto_lag: 2, use_inversion: true, use_countersubject: true,
     ornament_density: 3, articulation_profile: 5, velocity_ceiling: 109, tempo_us: 500000 },
   treatment: { rhythm_seed: 13n, flip_side: true, development: 1, direction: 2,
-    spacing: 0, trill: true, prominence: 2 },
+    spacing: 0, trill: true, prominence: 2, section_rhythm: false },
   arrangement: { family: 0, identity: { source_species_id: 1n, name_variant_id: 37 },
     channel_count: 4, channel_policy: { kind: 'Seeded', seed: 17n },
     special: { kind: 'Yeti', name_variant_id: 9 }, top_lead: true, balanced: false, weak_ties: true },
@@ -25,16 +25,16 @@ test('Song and u64-max Sound Check match literal Cairo wire vectors exactly', ()
   assert.equal(decodeInputs(checkWire).check.identity.source_species_id, (1n << 64n) - 1n);
 });
 test('generation has its own version and no recipe discriminator', () => {
-  const expected = [1n, ...songWire.slice(2)];
+  const expected = [2n, ...songWire.slice(2)];
   assert.deepEqual(encodeGenerationInputs({ base_song: song }), expected);
   assert.deepEqual(decodeGenerationInputs(expected), { base_song: song });
 });
 test('all false/true combinations, modes, articulations, enum payloads and zero seeds roundtrip', () => {
-  for (let bits = 0; bits < 128; bits++) {
+  for (let bits = 0; bits < 256; bits++) {
     const x = recipe();
     [x.song.score.use_inversion, x.song.score.use_countersubject, x.song.treatment.flip_side,
       x.song.treatment.trill, x.song.arrangement.top_lead, x.song.arrangement.balanced,
-      x.song.arrangement.weak_ties] = Array.from({length:7}, (_,i) => !!(bits & 1 << i));
+      x.song.arrangement.weak_ties, x.song.treatment.section_rhythm] = Array.from({length:8}, (_,i) => !!(bits & 1 << i));
     x.song.theme.motif_seed = 0n; x.song.treatment.rhythm_seed = FIELD_P - 1n;
     x.song.arrangement.channel_policy = bits % 2 ? { kind: 'Genesis' } : { kind: 'Seeded', seed: 0n };
     x.song.arrangement.special = bits % 2 ? { kind: 'None' } : { kind: 'Yeti', name_variant_id: 1242 };
@@ -46,8 +46,8 @@ test('all false/true combinations, modes, articulations, enum payloads and zero 
   }
 });
 test('rejects wire ambiguity, unsafe numbers, unknown fields, versions, tags and trailing data', () => {
-  for (const wire of [[], [2n], [3n,2n], songWire.slice(0,-1), [...songWire,0n],
-    songWire.with(12,2n), songWire.with(2,FIELD_P), songWire.with(26,1n << 64n), songWire.with(29,2n)]) {
+  for (const wire of [[], [2n], [3n], [4n,2n], songWire.slice(0,-1), [...songWire,0n],
+    songWire.with(12,2n), songWire.with(2,FIELD_P), songWire.with(25,2n), songWire.with(27,1n << 64n), songWire.with(30,2n)]) {
     assert.throws(() => decodeInputs(wire));
   }
   const x = recipe(); x.song.score.use_inversion = 1; assert.throws(() => encodeInputs(x));
@@ -88,4 +88,8 @@ test('performance codes0–3 have exact order, units, saturation and immutable o
     assert.equal(p.tempo_us,1); assert.equal(p.velocity_ceiling,127);
   }
   assert.throws(() => applyPerformance(x,4)); assert.throws(() => applyPerformance(x,1.5));
+});
+
+test('generation codec rejects the previous version1 explicitly', () => {
+  assert.throws(() => decodeGenerationInputs([1n]), /unknown generation version/);
 });

@@ -31,6 +31,7 @@ fn normalized_case(index: u32) -> SongInputs {
             spacing: 0,
             trill: true,
             prominence: 2,
+            section_rhythm: false,
         },
         arrangement: ArrangementInputs {
             family: 0,
@@ -127,7 +128,7 @@ fn normalized_case(index: u32) -> SongInputs {
     if index == 28 {
         x.arrangement.identity.name_variant_id = 38;
     }
-    if index >= 29 {
+    if index >= 29 && index < 41 {
         x.score.mode_id = *array![4_u8, 5, 6, 7, 8, 26].at((index - 29) % 6);
         x.score.tonic_keynum = if index < 35 {
             24
@@ -135,7 +136,24 @@ fn normalized_case(index: u32) -> SongInputs {
             96
         };
     }
-    assert(index < 41, 'unknown normalized case');
+    if index >= 41 {
+        x.treatment.section_rhythm = true;
+        if index == 42 {
+            x.treatment.rhythm_seed = 0;
+        }
+        if index == 43 {
+            x.theme.tier = 5;
+        }
+        if index == 44 {
+            x.score.ornament_density = 7;
+        }
+        if index == 45 {
+            x.score.voice_count = 2;
+            x.score.use_countersubject = false;
+            x.arrangement.channel_count = 3;
+        }
+    }
+    assert(index < 46, 'unknown normalized case');
     x
 }
 fn parity_range(lo: u32, hi: u32) {
@@ -242,5 +260,11 @@ fn normalized_score_parity_09() {
 #[test]
 #[available_gas(1000000000)]
 fn normalized_score_parity_10() {
-    parity_range(40, 41);
+    parity_range(40, 44);
+}
+
+#[test]
+#[available_gas(1000000000)]
+fn normalized_score_parity_11() {
+    parity_range(44, 46);
 }
