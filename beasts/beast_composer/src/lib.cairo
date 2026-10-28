@@ -1,3 +1,6 @@
+/// Canonical dependency-free musical schema and codec.
+pub use beast_composer_inputs as inputs;
+
 #[cfg(test)]
 mod articulation_tests;
 #[cfg(test)]
