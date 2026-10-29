@@ -7,7 +7,6 @@ pub mod canon_rules;
 pub mod counterpoint;
 pub mod countersubject;
 pub mod drift;
-pub mod evolution;
 pub mod full_midi;
 pub mod genesis;
 pub mod invertible_counterpoint;
