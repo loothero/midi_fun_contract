@@ -10,6 +10,8 @@ pub mod composition;
 mod contrapuntal_tests;
 
 #[cfg(test)]
+mod evolution_tests;
+#[cfg(test)]
 mod genesis_tests;
 pub mod lcg;
 #[cfg(test)]

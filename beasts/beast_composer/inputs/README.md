@@ -1,5 +1,9 @@
 # Canonical musical inputs
 
+This branch adds the optional [Evolution reference](EVOLUTION.md) on top of the
+lean canonical-input/pure-composer reference. `compose` works independently;
+`compose_staff` is the add-on. Casey and his team own the final musical algorithm.
+
 `beast_composer_inputs` is the shared schema for the pure Beast music library.
 It uses only compiler-provided Starknet builtins for `Store` and builds under the
 pinned Beasts2.20 and MIDI2.21 toolchains. It imports no NFT, payment, RPC or player
@@ -37,6 +41,15 @@ identity uses name0 while the actual supplied name still controls key/ornaments.
 manager's named drift group; never derive that group from score/program name0.
 An initial shared Species Song39/40 source swap is authored once outside playback.
 
+`EvolutionConfig` format1 and explicit `EvolutionInputs` are in
+`src/evolution.cairo`. The manager resolves actual staffN/H(N), birth, group and
+the exact eligible milestone prefix. The library reads no chain state and
+subtracts no availability lag. Milestones are `birth+A*2^k`, `k=0..7`, inclusive
+at the staff; future overflow anchors are unreachable. Each feature's first
+successful roll permanently joins a fixed eligible role set under the same
+recipe/config/class. Authorized launch patches can change interpretation before
+those bindings freeze. No history scan, periodic transaction or keeper exists.
+
 The split pure classes are `BeastPureGenerator` (factory+fixed sample) and
 `BeastPureComposer` (complete matching MIDI+TinySynthSettings):
 
@@ -44,6 +57,7 @@ The split pure classes are `BeastPureGenerator` (factory+fixed sample) and
 get_generation_inputs(config, edition_id, identity) -> GenerationInputs
 generate_inputs(base, variation_identity) -> ComposerInputs
 compose(inputs, sound_effects) -> TinySynthSound
+compose_staff(inputs, sound_effects, evolution, context) -> TinySynthSound
 ```
 
 `compose` consumes authored fields directly. It does not reconstruct a token or
@@ -55,7 +69,7 @@ narrow walk;1/2 share the wider vocabulary. Normal and tenuto retain authored fu
 gates; staccato halves and portato quarters them by3/4 with a60tick minimum;
 accent adds8 on bar downbeats subject to the ceiling.
 
-Performance is transient and applied once before composition:
+Performance is transient and applied once before staff interpretation:
 
 | Code | Tempo subtraction (microseconds/quarter) | Velocity lift | Articulation | Mega |
 | --- | ---: | ---: | --- | --- |
@@ -64,15 +78,12 @@ Performance is transient and applied once before composition:
 |2|30000|8|portato|no|
 |3|45000|15|accent|yes|
 
-Tempo saturates at1 and velocity at127. `compose` returns the written recipe's
-performance rendition without temporal hashes, births or chain state. Existing
-legacy Drift remains available through its original entrypoints; this normalized
-reference does not silently apply it.
-
-Evolution is an optional, separately reviewed extension to this reference. The
-unchanged downstream Beasts integration remains pinned to the full B1 commit
-`eebed3a773283d4e103c1042ac372ba4bbf50f61`, including that extension. This split does
-not re-pin or change that integration.
+Tempo saturates at1 and velocity at127. Staff BPM nudges then use integer
+half-up rounding of `60e6*T/(60e6+delta*T)`, clamped to1..1048575. Staff role
+selection uses the complete written score's fixed priority before note
+interpretation, so later unlocks cannot evict previous roles. SoundCheck still
+checks birth when called through `compose_staff`, but needs no temporal hashes
+and returns its unchanged performance rendition. Original playback uses `compose`.
 
 Focused offline qualification:
 
