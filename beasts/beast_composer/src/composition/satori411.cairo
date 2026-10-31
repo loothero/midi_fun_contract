@@ -112,110 +112,105 @@ pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
     let expression = (x.score.tonic_keynum, x.score.articulation_profile, x.score.velocity_ceiling);
     let mut tempo = TrackWriterTrait::new();
     tempo.tempo(0, x.score.tempo_us);
-    let (
-        mut bar, mut lead, mut bass, mut harp, mut drums,
-    ): (u32, TrackWriter, TrackWriter, TrackWriter, TrackWriter) =
-        opaque(
-        (0, setup(0, 0, 50), setup(1, 15, 40), setup(2, 17, 80), setup(9, 0, 64)),
-    );
-    while bar < 36 {
-        let at = bar * 1920;
-        let (root, a, b, c): (u8, u8, u8, u8) = match bar % 4 {
-            0 => (45, 57, 60, 64),
-            1 => (41, 53, 57, 60),
-            2 => (36, 48, 52, 55),
-            _ => (43, 55, 59, 62),
+    let (mut role, mut out): (u8, Array<Array<u8>>) = opaque((0, array![tempo.finish_at(END)]));
+    while role < 4 {
+        let (channel, program, pan): (u8, u8, u8) = match role {
+            0 => (0, 0, 50),
+            1 => (1, 15, 40),
+            2 => (2, 17, 80),
+            _ => (9, 0, 64),
         };
-        let chord = array![a, b, c];
-        let rest = bar >= 24 && bar < 28;
-        let mut i: u32 = opaque(0);
-        while i < 8 {
-            note(
-                ref bass,
-                1,
-                at + i * 240,
-                root + if i % 4 == 2 {
-                    7
+        let (mut bar, mut writer): (u32, TrackWriter) = opaque((0, setup(channel, program, pan)));
+        while bar < 36 {
+            let at = bar * 1920;
+            let (root, a, b, c): (u8, u8, u8, u8) = match bar % 4 {
+                0 => (45, 57, 60, 64),
+                1 => (41, 53, 57, 60),
+                2 => (36, 48, 52, 55),
+                _ => (43, 55, 59, 62),
+            };
+            let chord = array![a, b, c];
+            let rest = bar >= 24 && bar < 28;
+            if role == 3 {
+                if bar >= 8 {
+                    let mut i: u32 = opaque(0);
+                    while i < 8 {
+                        writer
+                            .note_on(
+                                at + i * 240,
+                                9,
+                                42,
+                                capped(if i % 2 == 1 {
+                                    50
+                                } else {
+                                    76
+                                }, x.score.velocity_ceiling),
+                            );
+                        if !rest {
+                            if i == 0 || i == 4 {
+                                writer
+                                    .note_on(
+                                        at + i * 240, 9, 36, capped(110, x.score.velocity_ceiling),
+                                    );
+                            }
+                            if i == 2 || i == 6 {
+                                writer
+                                    .note_on(
+                                        at + i * 240, 9, 38, capped(100, x.score.velocity_ceiling),
+                                    );
+                            }
+                        }
+                        if bar == 16 && i == 0 {
+                            writer.note_on(at, 9, 49, capped(100, x.score.velocity_ceiling));
+                        }
+                        i += 1;
+                    }
+                }
+                if bar == 0 {
+                    writer.note_on(0, 9, 49, capped(100, x.score.velocity_ceiling));
+                }
+            } else {
+                let count: u32 = if role == 1 {
+                    8
+                } else if role == 2 && bar >= 1 {
+                    16
+                } else if role == 0 && bar >= 4 && !rest {
+                    4
                 } else {
                     0
-                },
-                200,
-                100,
-                expression,
-            );
-            i += 1;
-        }
-        if bar >= 1 {
-            let mut i: u32 = opaque(0);
-            while i < 16 {
-                let key = *chord.at(i % 3) + if i % 6 > 2 {
-                    24
-                } else {
-                    12
                 };
-                note(ref harp, 2, at + i * 120, key, 100, 70, expression);
-                i += 1;
-            }
-        }
-        if bar >= 4 && !rest {
-            note(ref lead, 0, at, b + 24, 920, 100, expression);
-            note(ref lead, 0, at + 960, c + 24, 440, 100, expression);
-            note(ref lead, 0, at + 1440, b + 24, 220, 100, expression);
-            note(ref lead, 0, at + 1680, a + 24, 220, 100, expression);
-        }
-        if bar >= 8 {
-            let mut i: u32 = opaque(0);
-            while i < 8 {
-                drums.note_on(at + i * 240, 9, 42, if i % 2 == 1 {
-                    50
-                } else {
-                    76
-                });
-                if !rest {
-                    if i == 0 || i == 4 {
-                        drums
-                            .note_on(
-                                at + i * 240,
-                                9,
-                                36,
-                                if x.score.velocity_ceiling < 110 {
-                                    x.score.velocity_ceiling
-                                } else {
-                                    110
-                                },
-                            );
-                    }
-                    if i == 2 || i == 6 {
-                        drums
-                            .note_on(
-                                at + i * 240,
-                                9,
-                                38,
-                                if x.score.velocity_ceiling < 100 {
-                                    x.score.velocity_ceiling
-                                } else {
-                                    100
-                                },
-                            );
-                    }
+                let mut i: u32 = opaque(0);
+                while i < count {
+                    let (offset, key, duration, velocity): (u32, u8, u32, u8) = if role == 1 {
+                        (i * 240, root + if i % 4 == 2 {
+                            7
+                        } else {
+                            0
+                        }, 200, 100)
+                    } else if role == 2 {
+                        (i * 120, *chord.at(i % 3) + if i % 6 > 2 {
+                            24
+                        } else {
+                            12
+                        }, 100, 70)
+                    } else {
+                        match i {
+                            0 => (0, b + 24, 920, 100),
+                            1 => (960, c + 24, 440, 100),
+                            2 => (1440, b + 24, 220, 100),
+                            _ => (1680, a + 24, 220, 100),
+                        }
+                    };
+                    note(ref writer, channel, at + offset, key, duration, velocity, expression);
+                    i += 1;
                 }
-                if bar == 16 && i == 0 {
-                    drums.note_on(at, 9, 49, capped(100, x.score.velocity_ceiling));
-                }
-                i += 1;
             }
+            bar += 1;
         }
-        // Crash at bar16 must precede later hits, but follows hat/kick at the same tick in source.
-        // It is the final event at that tick; writing it after the entire bar would go backwards.
-        if bar == 0 {
-            drums.note_on(0, 9, 49, capped(100, x.score.velocity_ceiling));
-        }
-        bar += 1;
+        out.append(writer.finish_at(END));
+        role += 1;
     }
-    array![
-        tempo.finish_at(END), lead.finish_at(END), bass.finish_at(END), harp.finish_at(END),
-        drums.finish_at(END)
-    ]
+    out
 }
 
 fn capped(velocity: u8, ceiling: u8) -> u8 {
