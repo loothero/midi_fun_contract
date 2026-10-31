@@ -5,6 +5,7 @@ use crate::inputs::{
     ArrangementInputs, ChannelPolicy, MusicIdentity, ScoreInputs, SongInputs, SpecialArrangement,
     ThemeInputs, TreatmentInputs,
 };
+use crate::opaque::opaque;
 
 pub const THEME_MARKER: felt252 = 'SATORI_LAB_411_V1';
 pub const RHYTHM_MARKER: felt252 = 'SATORI_FORM_36_V1';
@@ -99,14 +100,16 @@ fn note(
 
 /// Exact original arrangement at the written controls; effects alter tempo/gates/velocity only.
 /// Its defining triangle/pluck/harp palette is retained instead of mega/echo substitution.
+#[inline(never)]
 pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
     let mut tempo = TrackWriterTrait::new();
     tempo.tempo(0, x.score.tempo_us);
-    let mut lead = setup(0, 0, 50);
-    let mut bass = setup(1, 15, 40);
-    let mut harp = setup(2, 17, 80);
-    let mut drums = setup(9, 0, 64);
-    let mut bar: u32 = 0;
+    let (
+        mut bar, mut lead, mut bass, mut harp, mut drums,
+    ): (u32, TrackWriter, TrackWriter, TrackWriter, TrackWriter) =
+        opaque(
+        (0, setup(0, 0, 50), setup(1, 15, 40), setup(2, 17, 80), setup(9, 0, 64)),
+    );
     while bar < 36 {
         let at = bar * 1920;
         let (root, a, b, c): (u8, u8, u8, u8) = match bar % 4 {
@@ -117,7 +120,7 @@ pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
         };
         let chord = array![a, b, c];
         let rest = bar >= 24 && bar < 28;
-        let mut i: u32 = 0;
+        let mut i: u32 = opaque(0);
         while i < 8 {
             note(ref bass, 1, at + i * 240, root + if i % 4 == 2 {
                 7
@@ -127,7 +130,7 @@ pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
             i += 1;
         }
         if bar >= 1 {
-            let mut i: u32 = 0;
+            let mut i: u32 = opaque(0);
             while i < 16 {
                 let key = *chord.at(i % 3) + if i % 6 > 2 {
                     24
@@ -145,7 +148,7 @@ pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
             note(ref lead, 0, at + 1680, a + 24, 220, 100, x);
         }
         if bar >= 8 {
-            let mut i: u32 = 0;
+            let mut i: u32 = opaque(0);
             while i < 8 {
                 drums.note_on(at + i * 240, 9, 42, if i % 2 == 1 {
                     50

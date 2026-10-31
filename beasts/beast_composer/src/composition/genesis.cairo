@@ -958,7 +958,17 @@ pub fn genesis_song_inputs(
 ) -> SongInputs {
     let x = song_inputs(beast, prefix, suffix, seed, drift, prefix == 0 && seed == 0);
     if beast.id == 44 && (prefix == 0 || (prefix == 1 && suffix == 1)) {
-        crate::composition::satori411::from_base(x, special_name_id(prefix, suffix))
+        let mut authored = crate::composition::satori411::from_base(
+            x, special_name_id(prefix, suffix),
+        );
+        if seed != 0 {
+            authored = crate::composition::satori411::purchased(authored, seed);
+        }
+        if let Option::Some(clock) = drift {
+            authored =
+                drifted_song_inputs(authored, layered_drift(beast.id, prefix, suffix, clock));
+        }
+        authored
     } else {
         x
     }
