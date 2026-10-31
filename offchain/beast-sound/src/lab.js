@@ -911,7 +911,7 @@ export function soundCheckMidi(b, E) {
   const row = catalogueCheck(b.id, b.beast_type);
   const tonic = row.register + ((satori ? 57 : kp.tonic_keynum) % 12);
   const result = renderCatalogueCheck(row, { tonic, scale: MODE_SCALES[mode], mega: !!b.shiny });
-  return { midi: result.midi, result: { beast: b, params: { tempo_us: row.tempo_us }, form: { events: result.events, section_ticks: 15360, sections: [0] } }, info: { key: keyName({ mode_id: mode, tonic_keynum: tonic }), presets: [result.program], tempo_us: row.tempo_us, tempo: Math.round(60e6 / row.tempo_us), bpm: 60e6 / row.tempo_us, curated: true, phrase: row.phrase, species: b.id } };
+  return { midi: result.midi, result: { beast: b, params: { tempo_us: row.tempo_us }, form: { events: result.events, section_ticks: 15360, sections: [0] } }, info: { key: keyName({ mode_id: mode, tonic_keynum: tonic }), presets: [result.program], tempo_us: row.tempo_us, tempo: Math.round(60e6 / row.tempo_us), bpm: 60e6 / row.tempo_us, curated: true, mode_id: mode, tonic_keynum: tonic, phrase: row.phrase, species: b.id } };
 }
 
 /** A simulated per-Beast auction: the offer's seed chain and a gradual Dutch auction price. */

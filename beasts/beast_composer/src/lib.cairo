@@ -5,6 +5,9 @@ pub use beast_composer_inputs as inputs;
 mod articulation_tests;
 #[cfg(test)]
 mod canon_rules_tests;
+
+#[cfg(test)]
+mod check_catalogue_tests;
 pub mod composition;
 #[cfg(test)]
 mod contrapuntal_tests;
