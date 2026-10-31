@@ -4,6 +4,7 @@ pub mod beast_trait_map;
 pub mod beast_v11;
 pub mod beast_v3_sound;
 pub mod canon_rules;
+pub mod check_catalogue_data;
 pub mod counterpoint;
 pub mod countersubject;
 pub mod cyclops_sound_check;
