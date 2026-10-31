@@ -3,6 +3,7 @@
 This branch stages review material, not musical implementation. The baseline is upstream `caseywescott/midi_fun_contract` main at `cdcad0a` (2026-10-31).
 
 - [Implementation plan](PLAN.md) and [source audit](source-audit.md).
+- [Consolidate Beast Music in beasts-v3](CONSOLIDATION.md): source-grounded repository migration plan, separate from musical changes.
 - [75-species pairing sheet](pairings.csv), [structured pairings](pairings.json), and [rationale](pairing-rationale.md). These are audition proposals; explicit user choices override heuristic rows.
 - [Satori Species Song / Agony Bane assessment](satori-411/ASSESSMENT.md), with exact original MIDI/settings and reproduction evidence.
 - [Cyclops whole-sequence preset assessment](cyclops-504/assessment.json).
