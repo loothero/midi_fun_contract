@@ -32,3 +32,14 @@ test('purchases keep the authored form with deterministic key/tempo variation; e
   for(let fx=0;fx<4;fx++)assert.ok(satori411PerformanceMidi(1,fx).length>=9720);
   assert.deepEqual(satori411PerformanceMidi(1,0),satori411Midi());
 });
+
+test('all supported song modes and tonic boundaries remain valid; invalid tonics reject', () => {
+  for (const mode of [4,5,6,7,8,26]) for (const tonic of [24,96]) {
+    const song = satori411SongInputs(); song.score.mode_id=mode; song.score.tonic_keynum=tonic;
+    const midi = satori411Midi(song); assert.equal(midi.length,9720);
+  }
+  for(const tonic of [0,20,21,103]) {
+    const song = satori411SongInputs(); song.score.tonic_keynum=tonic;
+    assert.throws(()=>satori411Midi(song), /invalid song tonic/);
+  }
+});

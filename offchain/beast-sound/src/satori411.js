@@ -1,5 +1,7 @@
 // Explicit authored Satori recipe. The two reserved felt markers opt into this score;
 // ordinary historical species-44 recipes retain their procedural interpretation.
+import { encodeInputs } from './inputs.js';
+
 const felt = (s) => BigInt('0x' + [...s].map((c) => c.charCodeAt(0).toString(16)).join(''));
 export const SATORI411_THEME_MARKER = felt('SATORI_LAB_411_V1');
 export const SATORI411_RHYTHM_MARKER = felt('SATORI_FORM_36_V1');
@@ -26,6 +28,7 @@ const vlq = (n) => { const b = [n & 127]; while ((n >>= 7)) b.unshift((n & 127) 
 const chunk = (tag, b) => [...tag].map((c) => c.charCodeAt(0)).concat([b.length >>> 24 & 255, b.length >>> 16 & 255, b.length >>> 8 & 255, b.length & 255], b);
 export function satori411Midi(song = satori411SongInputs()) {
   if (!isSatori411Song(song)) throw new Error('not a Satori 411 recipe');
+  encodeInputs({ kind: 'Song', song }); // Enforce the existing Song domain (tonic24..96).
   const END = 69120, parts = Array.from({ length: 4 }, () => []), offset = song.score.tonic_keynum - 57;
   const push = (ch, time, priority, ...bytes) => parts[ch === 9 ? 3 : ch].push({ time, priority, bytes });
   const setup = (ch, program, pan) => { if (ch !== 9) push(ch, 0, 1, 0xc0 | ch, program); push(ch, 0, 1, 0xb0 | ch, 7, 100); push(ch, 0, 1, 0xb0 | ch, 10, pan); };
