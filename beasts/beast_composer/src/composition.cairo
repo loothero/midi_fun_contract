@@ -6,6 +6,7 @@ pub mod beast_v3_sound;
 pub mod canon_rules;
 pub mod counterpoint;
 pub mod countersubject;
+pub mod cyclops_sound_check;
 pub mod drift;
 pub mod editions;
 pub mod editions_data;

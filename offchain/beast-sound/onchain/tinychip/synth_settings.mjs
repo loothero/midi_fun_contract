@@ -173,6 +173,12 @@ export function beastSynthSettings(data = bankData(), programs = beastPrograms(0
   return { quality: 1, reverb: 30, master_vol: 40, voices: 64, waves: waves.map((w) => ({ Samples: tables[w] })), timbres };
 }
 
+/** The eight original track-504 Arp/FX timbres, with only their three sampled pulse waves. */
+export function cyclopsSoundCheckSynthSettings() {
+  const programs = [34, 35, 36, 37, 38, 39, 40, 41];
+  return beastSynthSettings(bankData(undefined, programs), programs, []);
+}
+
 const WAVE_TAGS = ['Sine', 'Square', 'Sawtooth', 'Triangle', 'WhiteNoise', 'MetallicNoise'];
 const OP_FIELDS = ['volume', 'ratio', 'offset_hz', 'attack', 'hold', 'decay', 'sustain', 'release', 'pitch_ratio', 'pitch_time', 'key_scale'];
 const P = 2n ** 251n + 17n * 2n ** 192n + 1n;
@@ -376,6 +382,10 @@ export function settingsCairo() {
   const fns = [...SETTINGS_VARIANTS, ...YETI_VARIANTS].map((v) => settingsFn(beastSynthSettings(undefined, variantPrograms(v)), beastWaves(undefined, variantPrograms(v)),
     `beast_synth_settings_${v.name}`, `SERDE_HASH_${v.name.toUpperCase()}`,
     `${v.yeti ? 'The Yeti (a Brute): also Pulse 12.5% Pluck (13), its avalanche' : FAMILIES[v.type].name + ' Beasts'}${v.mega ? ' that are mega (shiny): also the mega leads, Robot Hero Lead (50) and N163 Brass Wave (65)' : ''}.`));
+  const cyclops = cyclopsSoundCheckSynthSettings();
+  const cyclopsFn = settingsFn(cyclops, ['nP12', 'nP25', 'nP50'],
+    'cyclops_sound_check_synth_settings', 'SERDE_HASH_CYCLOPS_SOUND_CHECK',
+    'The authored Cyclops check: all eight Arp/FX timbres from original track 504.');
   const arm = (fn) => SETTINGS_VARIANTS.map((v) => `        (${v.type}, ${v.mega}) => ${fn(v)},`).join('\n');
   return `//! The Beast sound settings for onchain-midi-player: for each Beast type, its family of TinyChip
 //! presets (the programs Beast MIDI selects, in their own program slots) and the chip drum kit,
@@ -420,7 +430,7 @@ pub fn yeti_synth_settings_serde_hash(mega: bool) -> felt252 {
     }
 }
 
-${fns.join('\n')}${editionsCairo()}/// Every wave's samples, each once (\`WAVES_*\`: start * 0x100 + length).
+${fns.join('\n')}${cyclopsFn}${editionsCairo()}/// Every wave's samples, each once (\`WAVES_*\`: start * 0x100 + length).
 #[cairofmt::skip]
 const SAMPLES: [i8; ${SAMPLES.length}] = [${SAMPLES.join(', ')}];
 /// Every distinct operator list, each once (\`TIMBRES_*\`: ((first * 0x100 + count) * 2 + drum) *
