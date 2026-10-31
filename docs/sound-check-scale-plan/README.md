@@ -1,8 +1,10 @@
 # Beast Sound launch review
 
-This branch stages review material, not musical implementation. Consolidation is deferred by user decision; launch music work continues in the existing Composer/Manager repository split. The baseline is upstream `caseywescott/midi_fun_contract` main at `cdcad0a` (2026-10-31).
+This branch stages the music implementations and review material for audition. Final parity, contract-size and release qualification apply before launch; nothing has been deployed. Consolidation is deferred by user decision; launch music work continues in the existing Composer/Manager repository split. The baseline is upstream `caseywescott/midi_fun_contract` main at `cdcad0a` (2026-10-31).
 
 - [Implementation plan](PLAN.md) and [source audit](source-audit.md).
+- [Implemented catalogue candidates](CATALOGUE-CANDIDATES.md) and [Cyclops implementation](cyclops-504/IMPLEMENTATION.md).
+- Satori is implemented through explicit dual-marker recipes; old unmarked stored recipes retain their interpretation. The V3 companion must pin the matching engine before publishing the new shared recipe.
 - Deferred research only: [consolidation](CONSOLIDATION.md). User decided not to proceed; excluded from launch and from the active music work.
 - [75-species pairing sheet](pairings.csv), [structured pairings](pairings.json), and [rationale](pairing-rationale.md). These are audition proposals; explicit user choices override heuristic rows.
 - [Satori Species Song / Agony Bane assessment](satori-411/ASSESSMENT.md), with exact original MIDI/settings and reproduction evidence.

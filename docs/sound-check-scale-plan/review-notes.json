@@ -6,7 +6,7 @@
       "trackTitle": "Long track: loop and seam \u00b7 120 BPM",
       "species": "Satori",
       "preference": "Really good pairing; assess replacing the current Satori Species Song and using this as the base for the 1:1 Agony Bane Satori track.",
-      "status": "feasibility assessment complete; no musical implementation",
+      "status": "implemented on staging branch; final integrated qualification and listening review pending; not deployed",
       "reviewAgent": "satori_411_feasibility",
       "model": "GPT-6.1 Sol",
       "reasoningEffort": "medium",
@@ -17,7 +17,7 @@
       "trackTitle": "Bank: Arp/FX \u00b7 175 BPM",
       "species": "Cyclops",
       "preference": "Really fun pairing; use for mainnet Cyclops Sound Check. Determine whether the preset is available in midi_fun_contract.",
-      "status": "feasibility assessment complete; no musical implementation",
+      "status": "implemented on staging branch; final integrated qualification and listening review pending; not deployed",
       "reviewAgent": "cyclops_504_preset",
       "model": "GPT-6 Luna",
       "reasoningEffort": "max",
@@ -50,5 +50,12 @@
       "scope": "Other original-species Sound Checks",
       "intent": "Varied musical identities consistent with Species Songs; pairing sheet remains a proposal pending listening."
     }
-  ]
+  ],
+  "implementationWorktrees": {
+    "cyclops": "feat/cyclops-504-implementation",
+    "satori": "feat/satori-411-implementation",
+    "catalogue": "feat/catalogue-check-implementation",
+    "sampler": "feat/launch-music-preview",
+    "integration": "feat/beast-sound-check-launch-review"
+  }
 }

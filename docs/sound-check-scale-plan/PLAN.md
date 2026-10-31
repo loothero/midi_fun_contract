@@ -1,6 +1,6 @@
 # Replace the original 75 Beasts' Sound Checks with distinct original-lab-inspired warmups
 
-**Status: proposed implementation plan, no composer or contract changes.** Source/data analysis is complete; the musical proposals need listening in the actual player. All work is isolated in `/tmp/beast-sound-scale-plan/`. Exact source snapshots and findings are in [source-audit.md](source-audit.md); the supervised pairing agent's 75 recommendations are in [pairings.csv](pairings.csv), [pairings.json](pairings.json) and [pairing-rationale.md](pairing-rationale.md).
+**Status: implementation staged for audition; not deployed.** Cyclops, Satori and the general catalogue have dedicated implementations and regression coverage. The musical proposals still require listening review, and the combined engine must pass size/parity/release qualification. The steps below retain their planning context; follow the implementation sources and tests for current behavior. Source/data analysis is complete; the musical proposals need listening in the actual player. All work is isolated in `/tmp/beast-sound-scale-plan/`. Exact source snapshots and findings are in [source-audit.md](source-audit.md); the supervised pairing agent's 75 recommendations are in [pairings.csv](pairings.csv), [pairings.json](pairings.json) and [pairing-rationale.md](pairing-rationale.md).
 
 The user's latest preferences control the plan:
 
