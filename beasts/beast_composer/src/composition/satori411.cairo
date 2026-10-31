@@ -230,8 +230,14 @@ fn events(x: SongInputs) -> Array<NoteEvent> {
     out
 }
 
-fn original_drums(x: SongInputs) -> Array<u8> {
-    let (mut bar, mut writer): (u32, TrackWriter) = opaque((0, setup(9, 0, 64)));
+fn original_drums(x: SongInputs, reference: bool) -> Array<u8> {
+    let (mut bar, mut writer): (u32, TrackWriter) = opaque(
+        (0, if reference {
+            setup(9, 0, 64)
+        } else {
+            TrackWriterTrait::with_running_status()
+        }),
+    );
     while bar < 36 {
         let at = bar * 1920;
         let rest = bar >= 24 && bar < 28;
@@ -316,7 +322,7 @@ pub fn tracks(x: SongInputs, mega: bool, echo: bool) -> Array<Array<u8>> {
             },
         );
         if !mega {
-            out.append(original_drums(x));
+            out.append(original_drums(x, false));
         }
         return out;
     }
@@ -346,7 +352,7 @@ pub fn tracks(x: SongInputs, mega: bool, echo: bool) -> Array<Array<u8>> {
         out.append(writer.finish_at(END));
         role += 1;
     }
-    out.append(original_drums(x));
+    out.append(original_drums(x, true));
     out
 }
 
@@ -434,6 +440,9 @@ mod tests {
             for b in midi.span() {
                 values.append((*b).into());
             }
+            println!(
+                "SATORI_FX:{} LEN:{} HASH:{}", fx, midi.len(), poseidon_hash_span(values.span())
+            );
             assert(
                 poseidon_hash_span(values.span()) == *expected.at(fx.into()), 'effects reference',
             );
