@@ -1,5 +1,6 @@
 // Generate independent JS expected hashes for75species x4performance codes plus named/boundary cases.
 // node scripts/check_catalogue_parity.mjs [--check]
+import {cyclopsSoundCheckMidi} from '../offchain/beast-sound/src/cyclops_sound_check.js';
 import {readFileSync,writeFileSync,mkdtempSync,rmSync} from 'node:fs';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
@@ -11,7 +12,7 @@ const cases=[];
 function expected(id,name,fx){
  const b={id,...nameFromVariant(name),level:1,health:100,tier:speciesTier(id),beast_type:speciesType(id),shiny:0,animated:0};
  const base=soundCheckMidi(b,E);
- const result=id===64?base:renderCatalogueCheck(catalogueCheck(id,b.beast_type),{tonic:base.info.tonic_keynum,scale:MODE_SCALES[base.info.mode_id],tempo_us:Math.max(1,base.info.tempo_us-[0,25000,30000,45000][fx]),articulation_profile:[0,2,5,3][fx],velocity_ceiling:[100,112,108,115][fx],mega:fx===1||fx===3});
+ const result=id===64?cyclopsSoundCheckMidi(fx):renderCatalogueCheck(catalogueCheck(id,b.beast_type),{tonic:base.info.tonic_keynum,scale:MODE_SCALES[base.info.mode_id],tempo_us:Math.max(1,base.info.tempo_us-[0,25000,30000,45000][fx]),articulation_profile:[0,2,5,3][fx],velocity_ceiling:[100,112,108,115][fx],mega:fx===1||fx===3});
  const packed=E.bytesToFelts(result.midi);return [packed[0],poseidonHashMany(packed)];
 }
 for(let id=1;id<=75;id++)for(let fx=0;fx<4;fx++)cases.push([id,0,fx,...expected(id,0,fx)]);

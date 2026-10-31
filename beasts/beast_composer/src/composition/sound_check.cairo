@@ -57,14 +57,18 @@ pub fn sound_check_inputs(beast: PackableBeastV3) -> SoundCheckInputs {
             kp.tonic_keynum
         },
         family: beast.beast_type,
-        tempo_us: (meta / 0x8000000000).try_into().unwrap(),
+        tempo_us: if beast.id == 64 {
+            342857
+        } else {
+            (meta / 0x8000000000).try_into().unwrap()
+        },
         velocity_ceiling: 100,
         articulation_profile: 0,
     }
 }
 
 /// Perform a written candidate on its stable species preset (mega retains the song's lead parity).
-/// Cyclops is the user's exact eight-timbre reference and deliberately ignores performance changes.
+/// Cyclops retains its eight-timbre sequence and follows the same performance values.
 pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
     smf_bytes(1, 480, sound_check_tracks(x, mega).span())
 }
@@ -73,7 +77,7 @@ pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
 pub fn sound_check_tracks(x: SoundCheckInputs, mega: bool) -> Array<Array<u8>> {
     validate_inputs(opaque(ComposerInputs::SoundCheck(x)));
     if x.identity.source_species_id == 64 {
-        return cyclops_sound_check_tracks();
+        return cyclops_sound_check_tracks(x);
     }
     let scale = named_mode_scale(x.mode_id).unwrap();
     let (meta, mut head, mut response) = catalogue_check(x.identity.source_species_id, x.family);

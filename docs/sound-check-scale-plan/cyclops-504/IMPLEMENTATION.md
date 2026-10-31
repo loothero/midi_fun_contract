@@ -1,13 +1,26 @@
 # Cyclops original 504 implementation
 
-Species 64 uses the entire authored eight-sound sequence: programs 34–41, 342857 microseconds per quarter note (175 BPM), 38400 ticks / 27.42856 seconds. Original notes, velocities, gates, program changes and closing rest are preserved. The complete file is 735 bytes, SHA-256 `03783872ada54c91052ceb70fb80f35b4553702256ee589695c9eb09e6ce2ecb`.
+Species64 retains the entire authored eight-sound sequence: programs34–41,72 notes and38400 ticks. NormalFX0 is the exact original504 MIDI (735bytes, SHA-256 `03783872ada54c91052ceb70fb80f35b4553702256ee589695c9eb09e6ce2ecb`) and exact original772-byte settings text.
 
-All names, regular/shiny variants, effects 0–3 and drift use this same authored check. In particular, mega does not replace its eight sounds with programs 50/65, and generic tempo/articulation treatments do not alter it. This explicit exception preserves the user's whole-sequence choice. Species Songs, named/purchased songs and other checks retain their separate rules.
+## Four standard Check performances
 
-The settings generator supplies only eight timbres and the three sampled pulse waves they need. No new synth feature, input codec, storage, network service or family-wide preset expansion is introduced. Existing eight family/Yeti settings hashes remain unchanged. The legacy lab installs the new programs; the production sampler consumes `settingsKey: cyclops-check` and the exported settings helper.
+The user's correction supersedes the earlier all-effects-identical policy. Cyclops now follows the same Check tempo, gate and velocity rules as the other74 species. Its Mega performances keep the eight Arp/FX programs instead of replacing the selected bank with50/65. No echo, octave doubling or new composition structure is added.
 
-The Cairo helper stores one exact 81-byte delta-encoded phrase and repeats it under the eight programs, avoiding unnecessary writer bytecode. Independent fixtures extracted from original sampler 433f826 verify every MIDI byte and the original settings. The source inputs' other fields remain validated before species dispatch; they intentionally do not retune this authored piece.
+| FX | Performance | Tempo (microseconds/quarter) | Loop seconds | Notes |
+|---|---|---:|---:|---|
+|0|Normal|342857|27.42856|Exact original504;440/1100/58-tick gates, velocity100|
+|1|Mega|317857|25.42856|Standard25000us acceleration, tenuto; eight original timbres retained|
+|2|Portato|312857|25.02856|Standard30000us acceleration;330/825/58-tick gates, original short blips preserved|
+|3|Mega/accent|297857|23.82856|Standard45000us acceleration, bar-downbeat accents100/108|
 
-Validation in the isolated Cyclops worktree (temporary catalogue-owned dispatch hooks applied for compilation): JS reference tests passed, focused Cairo exact-MIDI/settings/effects tests passed, and `scarb build --package beast_contracts` succeeded. Pure Composer measured 81169 CASM felts with the previous generic checks plus Cyclops, below 81920. Combined catalogue/Satori size and full regression qualification remain integration responsibilities; this isolated measurement is not a deployment claim.
+Names do not retune this authored piece; all72 pitches and all eight program changes remain in their original order. The settings bank remains the same across0–3. Four distinct MIDI performances are expected even though the instrument slots/settings are retained. The helper supports the existing accepted custom Check articulation/velocity inputs too.
 
-The general-check agent owns the two early-return hooks in `sound_check.cairo` and JS `lab.js`; this implementation commit supplies their helper modules and settings routing. No deployment or public lab publication was performed.
+The settings generator supplies only the eight timbres and their three sampled pulse waves. No input codec, storage, network service, family-wide bank expansion or generic effects rule changes are introduced. The legacy lab installs these programs. The sampler must apply its existing `performCheck` to this authored Check, retaining `settingsKey: cyclops-check`; remove the prior authored-output bypass.
+
+## Stored recipe compatibility
+
+`sound_check_inputs` now explicitly writes Cyclops's actual342857us normal tempo before `apply_performance`. Previously the authored renderer ignored the recipe tempo; older Cyclops recipes may contain the provisional catalogue tempo instead. New input/fixture generation must use the new authoring function. An old recipe's stored tempo is now honored and is not silently reinterpreted as175BPM. Existing shared entries cannot be overwritten: append/reselect a newly authored Check when integrating the engine release. No V3 fixture repin, storage mutation or publication is performed by this source change.
+
+## Verification
+
+Independent normal504 MIDI/settings fixtures remain unchanged. The four-effect fixture comes from the existing production adapter's standard Check transform, and focused Cairo captures compare actual output against those bytes. Generated catalogue parity updates the three changed Cyclops effect expectations; other species expectations remain unchanged. Actual final class size and complete scoped parity must be checked after bytecode optimization before release.

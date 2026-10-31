@@ -35,3 +35,18 @@ test('legacy lab uses the same complete sequence for every named and shiny Cyclo
     assert.equal(result.settingsKey, 'cyclops-check');
   }
 });
+
+const effects = JSON.parse(readFileSync(new URL('./fixtures/cyclops-four-effects.json', import.meta.url)));
+test('Cyclops follows all four standard Check performances without replacing the eight sounds', () => {
+  const seen = new Set();
+  for (const expected of effects) {
+    const {midi, info} = cyclopsSoundCheckMidi(expected.fx);
+    assert.equal(Buffer.from(midi).toString('hex'), expected.midiHex);
+    const hash = createHash('sha256').update(midi).digest('hex');
+    assert.equal(hash, expected.hash);
+    assert.equal(info.tempo_us, 342857 - [0,25000,30000,45000][expected.fx]);
+    assert.deepEqual(info.presets, [34,35,36,37,38,39,40,41]);
+    seen.add(hash);
+  }
+  assert.equal(seen.size, 4);
+});
