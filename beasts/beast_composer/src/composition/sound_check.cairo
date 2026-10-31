@@ -1,11 +1,12 @@
 //! Curated single-voice species warmups: distinct contours, rhythms, held notes and short gates.
 //! Data is generated from the JS audition catalogue by scripts/check_catalogue.mjs.
 use midi::smf::{TrackWriter, TrackWriterTrait, smf_bytes};
+use crate::composition::beast_v11::articulated_duration;
 use crate::composition::beast_v3_sound::{PackableBeastV3, map_v3_beast_to_composition_params};
 use crate::composition::check_catalogue_data::catalogue_check;
 use crate::composition::cyclops_sound_check::cyclops_sound_check_tracks;
 use crate::composition::genesis::{genesis_mode, genesis_swap, named_mode_scale, neutral_live};
-use crate::inputs::{ComposerInputs, MusicIdentity, SoundCheckInputs, validate_inputs};
+use crate::inputs::{MusicIdentity, SoundCheckInputs, validate_sound_check};
 use crate::opaque::opaque;
 
 pub fn sound_check_smf_bytes(beast: PackableBeastV3) -> Array<u8> {
@@ -75,7 +76,7 @@ pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
 
 /// Track bodies shared by the byte-file and packed pure-composer entrypoints.
 pub fn sound_check_tracks(x: SoundCheckInputs, mega: bool) -> Array<Array<u8>> {
-    validate_inputs(opaque(ComposerInputs::SoundCheck(x)));
+    validate_sound_check(x);
     if x.identity.source_species_id == 64 {
         return cyclops_sound_check_tracks(x);
     }
@@ -207,22 +208,9 @@ fn write_note(
     let (tonic, scale, articulation_profile, velocity_ceiling) = expression.unbox();
     let d = encoded + 3;
     let pitch: u8 = (tonic + (d / 7) * 12 + (*scale.at(d % 7)).into() - 12).try_into().unwrap();
-    let gate = if articulation_profile == 1 || articulation_profile == 5 {
-        let short = if articulation_profile == 1 {
-            duration / 2
-        } else {
-            duration * 3 / 4
-        };
-        let floor = if short > 60 {
-            short
-        } else {
-            60
-        };
-        if floor < duration {
-            floor
-        } else {
-            duration
-        }
+    let short = articulated_duration(duration, articulation_profile);
+    let gate = if short < duration {
+        short
     } else {
         duration
     };
