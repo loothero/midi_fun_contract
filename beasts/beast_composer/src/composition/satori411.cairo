@@ -1,6 +1,12 @@
 //! Explicit authored Satori recipe from the original Sound Check lab's track 411.
 //! Reserved dual felt markers opt in without reinterpreting ordinary stored Satori inputs.
 use midi::smf::{TrackWriter, TrackWriterTrait};
+use crate::composition::beast_score::BeastForm;
+use crate::composition::beast_v11::shape;
+use crate::composition::full_midi::{
+    Arrangement, Voicing, beast_form_to_full_tracks_arranged, mega_lead_pick,
+};
+use crate::composition::melodic_canon::NoteEvent;
 use crate::inputs::{
     ArrangementInputs, ChannelPolicy, MusicIdentity, ScoreInputs, SongInputs, SpecialArrangement,
     ThemeInputs, TreatmentInputs,
@@ -118,11 +124,9 @@ fn note(
     key: u8,
     duration: u32,
     velocity: u8,
-    expression: (u8, u8, u8),
+    expression: (u8, u8),
 ) {
-    let (tonic, profile, ceiling) = expression;
-    // Validated tonic24..96 and authored pitches36..88 keep this in MIDI3..127.
-    let key = key + tonic - 57;
+    let (profile, ceiling) = expression;
     // All authored gates are100..920 ticks, so only the100-tick harp gate hits the60 floor.
     let duration = match profile {
         1 => if duration < 120 {
@@ -143,24 +147,12 @@ fn note(
     t.message(time + duration, 0x80 + channel, key, 64);
 }
 
-/// Exact original arrangement at the written controls; effects alter tempo/gates/velocity only.
-/// Its defining triangle/pluck/harp palette is retained instead of mega/echo substitution.
-#[inline(never)]
-pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
-    let expression = (x.score.tonic_keynum, x.score.articulation_profile, x.score.velocity_ceiling);
-    // Casey's low named register selects an earlier answering tone on the same motif.
+/// One authored score; effect arrangement and reference serialization consume the same notes.
+fn events(x: SongInputs) -> Array<NoteEvent> {
     let named = x.theme.register_band == 0;
-    let mut tempo = TrackWriterTrait::new();
-    tempo.tempo(0, x.score.tempo_us);
-    let (mut role, mut out): (u8, Array<Array<u8>>) = opaque((0, array![tempo.finish_at(END)]));
-    while role < 4 {
-        let (channel, program, pan): (u8, u8, u8) = match role {
-            0 => (0, 0, 50),
-            1 => (1, 15, 40),
-            2 => (2, 17, 80),
-            _ => (9, 0, 64),
-        };
-        let (mut bar, mut writer): (u32, TrackWriter) = opaque((0, setup(channel, program, pan)));
+    let (mut role, mut out): (u32, Array<NoteEvent>) = opaque((0, array![]));
+    while role < 3 {
+        let mut bar: u32 = opaque(0);
         while bar < 36 {
             let at = bar * 1920;
             let (root, a, b, c): (u8, u8, u8, u8) = match bar % 4 {
@@ -171,102 +163,190 @@ pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
             };
             let chord = array![a, b, c];
             let rest = bar >= 24 && bar < 28;
-            if role == 3 {
-                if bar >= 8 {
-                    let mut i: u32 = opaque(0);
-                    while i < 8 {
-                        writer
-                            .note_on(
-                                at + i * 240,
-                                9,
-                                42,
-                                capped(if i % 2 == 1 {
-                                    50
-                                } else {
-                                    76
-                                }, x.score.velocity_ceiling),
-                            );
-                        if !rest {
-                            if i == 0 || i == 4 {
-                                writer
-                                    .note_on(
-                                        at + i * 240, 9, 36, capped(110, x.score.velocity_ceiling),
-                                    );
-                            }
-                            if i == 2 || i == 6 {
-                                writer
-                                    .note_on(
-                                        at + i * 240, 9, 38, capped(100, x.score.velocity_ceiling),
-                                    );
-                            }
-                        }
-                        if bar == 16 && i == 0 {
-                            writer.note_on(at, 9, 49, capped(100, x.score.velocity_ceiling));
-                        }
-                        i += 1;
-                    }
-                }
-                if bar == 0 {
-                    writer.note_on(0, 9, 49, capped(100, x.score.velocity_ceiling));
-                }
+            let count: u32 = if role == 1 {
+                8
+            } else if role == 2 && bar >= 1 {
+                16
+            } else if role == 0 && bar >= 4 && !rest {
+                4
             } else {
-                let count: u32 = if role == 1 {
-                    8
-                } else if role == 2 && bar >= 1 {
-                    16
-                } else if role == 0 && bar >= 4 && !rest {
-                    4
-                } else {
-                    0
-                };
-                let mut i: u32 = opaque(0);
-                while i < count {
-                    let (offset, key, duration, velocity): (u32, u8, u32, u8) = if role == 1 {
-                        (i * 240, root + if i % 4 == 2 {
-                            7
-                        } else {
-                            0
-                        }, 200, 100)
-                    } else if role == 2 {
-                        (i * 120, *chord.at(i % 3) + if i % 6 > 2 {
-                            24
-                        } else {
-                            12
-                        }, 100, 70)
+                0
+            };
+            let mut i: u32 = opaque(0);
+            while i < count {
+                let (offset, key, duration, velocity): (u32, u8, u32, u8) = if role == 1 {
+                    (i * 240, root + if i % 4 == 2 {
+                        7
                     } else {
-                        match i {
-                            0 => (0, b + 24, if named {
+                        0
+                    }, 200, 100)
+                } else if role == 2 {
+                    (i * 120, *chord.at(i % 3) + if i % 6 > 2 {
+                        24
+                    } else {
+                        12
+                    }, 100, 70)
+                } else {
+                    match i {
+                        0 => (0, b + 24, if named {
+                            680
+                        } else {
+                            920
+                        }, 100),
+                        1 => (
+                            if named {
+                                720
+                            } else {
+                                960
+                            },
+                            c + 24,
+                            if named {
                                 680
                             } else {
-                                920
-                            }, 100),
-                            1 => (
-                                if named {
-                                    720
-                                } else {
-                                    960
-                                },
-                                c + 24,
-                                if named {
-                                    680
-                                } else {
-                                    440
-                                },
-                                100,
-                            ),
-                            2 => (1440, b + 24, 220, 100),
-                            _ => (1680, a + 24, 220, 100),
-                        }
-                    };
-                    note(ref writer, channel, at + offset, key, duration, velocity, expression);
-                    i += 1;
-                }
+                                440
+                            },
+                            100,
+                        ),
+                        2 => (1440, b + 24, 220, 100),
+                        _ => (1680, a + 24, 220, 100),
+                    }
+                };
+                out
+                    .append(
+                        NoteEvent {
+                            time: at + offset,
+                            pitch: key + x.score.tonic_keynum - 57,
+                            duration,
+                            velocity,
+                            voice_id: role,
+                        },
+                    );
+                i += 1;
             }
             bar += 1;
+        }
+        role += 1;
+    }
+    out
+}
+
+fn original_drums(x: SongInputs) -> Array<u8> {
+    let (mut bar, mut writer): (u32, TrackWriter) = opaque((0, setup(9, 0, 64)));
+    while bar < 36 {
+        let at = bar * 1920;
+        let rest = bar >= 24 && bar < 28;
+        if bar >= 8 {
+            let mut i: u32 = opaque(0);
+            while i < 8 {
+                writer
+                    .note_on(
+                        at + i * 240,
+                        9,
+                        42,
+                        capped(if i % 2 == 1 {
+                            50
+                        } else {
+                            76
+                        }, x.score.velocity_ceiling),
+                    );
+                if !rest {
+                    if i == 0 || i == 4 {
+                        writer.note_on(at + i * 240, 9, 36, capped(110, x.score.velocity_ceiling));
+                    }
+                    if i == 2 || i == 6 {
+                        writer.note_on(at + i * 240, 9, 38, capped(100, x.score.velocity_ceiling));
+                    }
+                }
+                if bar == 16 && i == 0 {
+                    writer.note_on(at, 9, 49, capped(100, x.score.velocity_ceiling));
+                }
+                i += 1;
+            }
+        }
+        if bar == 0 {
+            writer.note_on(0, 9, 49, capped(100, x.score.velocity_ceiling));
+        }
+        bar += 1;
+    }
+    writer.finish_at(END)
+}
+
+/// Normal written playback preserves original411's MIDI encoding and channel mix exactly.
+/// Effects reuse Casey's v1.1 dynamics and full MIDI mega/echo arranger, not a palette exemption.
+#[inline(never)]
+pub fn tracks(x: SongInputs, mega: bool, echo: bool) -> Array<Array<u8>> {
+    let mut notes = events(x);
+    if mega || echo {
+        shape(
+            ref notes,
+            x.score.velocity_ceiling,
+            x.score.articulation_profile,
+            END,
+            x.treatment.prominence.into(),
+        );
+        let form = BeastForm { events: notes, score_hash: 0, section_count: 1, length_ticks: END };
+        let mut out = beast_form_to_full_tracks_arranged(
+            @form,
+            x.score.tempo_us,
+            x.score.tier,
+            Option::Some(
+                Voicing {
+                    beast_type: 1,
+                    species_id: 44,
+                    name_variant_id: x.arrangement.identity.name_variant_id.into(),
+                    voice_count: 3,
+                    use_countersubject: false,
+                },
+            ),
+            mega,
+            mega_lead_pick(44, x.arrangement.identity.name_variant_id.into()),
+            Arrangement {
+                top_lead: false,
+                balanced: false,
+                drums: mega,
+                rock: false,
+                extra: Option::None,
+                programs: Option::Some(array![0, 15, 17].span()),
+                echo,
+                grace: 0,
+                grace_all: false,
+                fill: 0,
+                tonic: 0,
+                scale: [].span(),
+            },
+        );
+        if !mega {
+            out.append(original_drums(x));
+        }
+        return out;
+    }
+    let mut tempo = TrackWriterTrait::new();
+    tempo.tempo(0, x.score.tempo_us);
+    let (mut role, mut out): (u32, Array<Array<u8>>) = opaque((0, array![tempo.finish_at(END)]));
+    while role < 3 {
+        let (program, pan): (u8, u8) = match role {
+            0 => (0, 50),
+            1 => (15, 40),
+            _ => (17, 80),
+        };
+        let mut writer = setup(role.try_into().unwrap(), program, pan);
+        for e in notes.span() {
+            if e.voice_id == role {
+                note(
+                    ref writer,
+                    role.try_into().unwrap(),
+                    e.time,
+                    e.pitch,
+                    e.duration,
+                    e.velocity,
+                    (x.score.articulation_profile, x.score.velocity_ceiling),
+                );
+            }
         }
         out.append(writer.finish_at(END));
         role += 1;
     }
+    out.append(original_drums(x));
     out
 }
 
@@ -306,7 +386,7 @@ mod tests {
     #[test]
     fn test_satori411_staccato_floor_matches_casey_song_performance() {
         let mut writer = TrackWriterTrait::new();
-        note(ref writer, 0, 0, 60, 100, 100, (57, 1, 127));
+        note(ref writer, 0, 0, 60, 100, 100, (1, 127));
         assert(
             writer.finish() == array![0, 144, 60, 100, 60, 128, 60, 64, 0, 255, 47, 0],
             '60tick minimum gate',
@@ -317,7 +397,7 @@ mod tests {
     fn test_satori411_exact_reference_midi() {
         let x = beast_song_inputs(beast(), 0, 0);
         assert(is_satori411(x), 'authored base');
-        let midi = smf_bytes(1, 480, tracks(x).span());
+        let midi = smf_bytes(1, 480, tracks(x, false, false).span());
         assert(midi.len() == 9720, 'reference length');
         let mut values = array![];
         for b in midi.span() {
@@ -335,9 +415,9 @@ mod tests {
     fn test_satori411_effects_match_independent_js_reference() {
         let expected = array![
             0x3a4739617e5f179a399de21702ade6db98d14ef1fcd7be8dad21c843ec9fb34,
-            0x6627a496c5ec579cbb850a1b987f2a54d091c163070d24e031b4331d37db968,
-            0x4283cd922559a5c7ca930214722ff6b60b657ec914d63c63312e381189c3b6,
-            0x2df10612091fe82a168300bf837d6e75c040d4932fac5bb4595f0ba5cef2751,
+            0x351e6ec341c7695175fd344912be0a9c84bfd6647f9d7dc7d52a8c6a60fdf20,
+            0x3daf09a452f33f54c593905de1af3a6d6f258bb3a0a5c950b598282cb20cb7b,
+            0x6cd701a2b816f766161e54e1a6320102606555d9f8394d4255bb41899202dec,
         ];
         let base = beast_song_inputs(beast(), 1, 1);
         let mut fx: u8 = 0;
@@ -349,7 +429,7 @@ mod tests {
                 ComposerInputs::Song(x) => x,
                 _ => panic!("song expected"),
             };
-            let midi = smf_bytes(1, 480, tracks(x).span());
+            let midi = smf_bytes(1, 480, tracks(x, fx == 1 || fx == 3, fx >= 2).span());
             let mut values = array![];
             for b in midi.span() {
                 values.append((*b).into());
@@ -379,8 +459,8 @@ mod tests {
         legacy_marked.arrangement.identity.name_variant_id = 1;
         assert(
             smf_bytes(
-                1, 480, tracks(legacy_marked).span(),
-            ) == smf_bytes(1, 480, tracks(shared).span()),
+                1, 480, tracks(legacy_marked, false, false).span(),
+            ) == smf_bytes(1, 480, tracks(shared, false, false).span()),
             'old marked base unchanged',
         );
     }

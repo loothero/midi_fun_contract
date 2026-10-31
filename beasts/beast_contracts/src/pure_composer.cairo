@@ -75,18 +75,18 @@ fn compose_with(
             edition_byte_array(species, mega, edition.edition, edition.seed, day, echo)
         },
     };
-    TinySynthSound { midi, settings: settings_for(performed, mega) }
+    TinySynthSound { midi, settings: settings_for(performed, mega, echo) }
 }
 
 /// The sounds the file can select: the family's presets and the drum kit, plus the mega leads when
 /// mega. A Yeti special has the Yeti's settings (the Brute family and the avalanche preset: the
 /// Yeti is a Brute; an authored Yeti special on another family plays them too), and an edition its
 /// style's presets (`edition_synth_settings`).
-pub fn settings_for(inputs: ComposerInputs, mega: bool) -> TinySynthSettings {
+pub fn settings_for(inputs: ComposerInputs, mega: bool, echo: bool) -> TinySynthSettings {
     let (family, special) = match inputs {
         ComposerInputs::Song(x) => {
             if beast_composer::composition::satori411::is_satori411(x) {
-                return crate::synth_settings::satori411_synth_settings();
+                return crate::synth_settings::satori411_effect_synth_settings(mega, echo);
             }
             (x.arrangement.family, x.arrangement.special)
         },

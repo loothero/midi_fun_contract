@@ -1435,7 +1435,7 @@ fn special_name_id(prefix: u8, suffix: u8) -> u16 {
 pub fn song_tracks(x: SongInputs, mega: bool, echo: bool, day: u64) -> Array<Array<u8>> {
     if crate::composition::satori411::is_satori411(x) {
         crate::inputs::validate_song(x);
-        return crate::composition::satori411::tracks(x);
+        return crate::composition::satori411::tracks(x, mega, echo);
     }
     let (theme, s, t, a) = (x.theme, x.score, x.treatment, x.arrangement);
     let (grace, fill) = song_ornaments(
