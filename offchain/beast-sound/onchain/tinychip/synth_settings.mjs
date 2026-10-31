@@ -179,6 +179,17 @@ export function cyclopsSoundCheckSynthSettings() {
   return beastSynthSettings(bankData(undefined, programs), programs, []);
 }
 
+/** Exact original lab411 balance, before later bass/harp level trims. */
+export function satori411SynthSettings() {
+  const programs = [0, 15, 17], drums = [36, 38, 42, 46, 49], data = bankData();
+  const settings = beastSynthSettings(data, programs, drums);
+  const waves = beastWaves(data, programs, drums);
+  for (const t of settings.timbres) if (!t.drum && (t.slot === 15 || t.slot === 17)) {
+    t.operators = timbreOperators(data.presets[t.slot], 1, waves);
+  }
+  return settings;
+}
+
 const WAVE_TAGS = ['Sine', 'Square', 'Sawtooth', 'Triangle', 'WhiteNoise', 'MetallicNoise'];
 const OP_FIELDS = ['volume', 'ratio', 'offset_hz', 'attack', 'hold', 'decay', 'sustain', 'release', 'pitch_ratio', 'pitch_time', 'key_scale'];
 const P = 2n ** 251n + 17n * 2n ** 192n + 1n;
@@ -386,6 +397,8 @@ export function settingsCairo() {
   const cyclopsFn = settingsFn(cyclops, ['nP12', 'nP25', 'nP50'],
     'cyclops_sound_check_synth_settings', 'SERDE_HASH_CYCLOPS_SOUND_CHECK',
     'The authored Cyclops check: all eight Arp/FX timbres from original track 504.');
+  fns.push(settingsFn(satori411SynthSettings(), beastWaves(undefined, [0, 15, 17], [36, 38, 42, 46, 49]),
+    'satori411_synth_settings', 'SERDE_HASH_SATORI411', 'Authored Satori lab411: original triangle, bass and harp balance.'));
   const arm = (fn) => SETTINGS_VARIANTS.map((v) => `        (${v.type}, ${v.mega}) => ${fn(v)},`).join('\n');
   return `//! The Beast sound settings for onchain-midi-player: for each Beast type, its family of TinyChip
 //! presets (the programs Beast MIDI selects, in their own program slots) and the chip drum kit,

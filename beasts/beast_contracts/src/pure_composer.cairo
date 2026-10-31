@@ -84,6 +84,11 @@ fn compose_with(
 /// Yeti is a Brute; an authored Yeti special on another family plays them too), and an edition its
 /// style's presets (`edition_synth_settings`).
 pub fn settings_for(inputs: ComposerInputs, mega: bool) -> TinySynthSettings {
+    if let ComposerInputs::Song(x) = inputs {
+        if beast_composer::composition::satori411::is_satori411(x) {
+            return crate::synth_settings::satori411_synth_settings();
+        }
+    }
     let (family, special) = match inputs {
         ComposerInputs::Song(x) => (x.arrangement.family, x.arrangement.special),
         ComposerInputs::SoundCheck(x) => {

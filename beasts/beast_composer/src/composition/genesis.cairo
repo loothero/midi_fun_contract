@@ -956,14 +956,24 @@ fn compose_tracks(
 pub fn genesis_song_inputs(
     beast: PackableBeastV3, prefix: u8, suffix: u8, seed: felt252, drift: Option<DriftClock>,
 ) -> SongInputs {
-    song_inputs(beast, prefix, suffix, seed, drift, prefix == 0 && seed == 0)
+    let x = song_inputs(beast, prefix, suffix, seed, drift, prefix == 0 && seed == 0);
+    if beast.id == 44 && (prefix == 0 || (prefix == 1 && suffix == 1)) {
+        crate::composition::satori411::from_base(x, special_name_id(prefix, suffix))
+    } else {
+        x
+    }
 }
 
 /// The base of a Beast's bought tracks: its own song as written (its name track, or its species'
 /// Genesis Track without the default swap). `bought_song_inputs(beast_song_inputs(b, p, s), seed)`
 /// is `genesis_song_inputs(b, p, s, seed, None)`.
 pub fn beast_song_inputs(beast: PackableBeastV3, prefix: u8, suffix: u8) -> SongInputs {
-    song_inputs(beast, prefix, suffix, 0, Option::None, false)
+    let x = song_inputs(beast, prefix, suffix, 0, Option::None, false);
+    if beast.id == 44 && (prefix == 0 || (prefix == 1 && suffix == 1)) {
+        crate::composition::satori411::from_base(x, special_name_id(prefix, suffix))
+    } else {
+        x
+    }
 }
 
 /// A bought track's written treatment and channels from its base and seed: the seed's development,
@@ -994,6 +1004,9 @@ pub fn bought_song_inputs(base: SongInputs, seed: felt252) -> SongInputs {
 /// countersubject dropped, each by its own bit; the channels at most the roles left. The theme,
 /// key and instruments stay the base's.
 pub fn purchase_song_inputs(base: SongInputs, seed: felt252) -> SongInputs {
+    if crate::composition::satori411::is_satori411(base) {
+        return crate::composition::satori411::purchased(base, seed);
+    }
     let mut x = bought_song_inputs(base, seed);
     let shape: u256 = poseidon_hash_span(array!['BEAST_SAMPLE_SHAPE_V1', seed].span()).into();
     let shape: u16 = (shape % 512).try_into().unwrap();
@@ -1067,6 +1080,9 @@ pub fn drifted_song_inputs(x: SongInputs, d: Drift) -> SongInputs {
         } else {
             2
         };
+    }
+    if crate::composition::satori411::is_satori411(x) {
+        y.treatment.rhythm_seed = crate::composition::satori411::RHYTHM_MARKER;
     }
     y
 }
@@ -1406,6 +1422,10 @@ fn special_name_id(prefix: u8, suffix: u8) -> u16 {
 /// grow with time (`song_ornaments`). Plays what this engine supports: tied inner voices and the
 /// written phrase in every section.
 pub fn song_tracks(x: SongInputs, mega: bool, echo: bool, day: u64) -> Array<Array<u8>> {
+    if crate::composition::satori411::is_satori411(x) {
+        crate::inputs::validate_song(x);
+        return crate::composition::satori411::tracks(x);
+    }
     let (theme, s, t, a) = (x.theme, x.score, x.treatment, x.arrangement);
     let (grace, fill) = song_ornaments(
         s.ornament_density, a.channel_policy, a.identity.source_species_id.into(), day,
