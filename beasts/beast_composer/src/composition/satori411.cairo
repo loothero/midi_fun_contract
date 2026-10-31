@@ -90,7 +90,8 @@ fn note(
     expression: (u8, u8, u8),
 ) {
     let (tonic, profile, ceiling) = expression;
-    let key: i32 = key.into() + tonic.into() - 57;
+    // Validated tonic24..96 and authored pitches36..88 keep this in MIDI3..127.
+    let key = key + tonic - 57;
     let duration = match profile {
         1 => duration / 2,
         3 | 5 => duration * 3 / 4,
@@ -101,8 +102,9 @@ fn note(
     } else {
         velocity
     };
-    t.note_on(time, channel, key.try_into().unwrap(), velocity);
-    t.note_off(time + duration, channel, key.try_into().unwrap(), 64);
+    // This private helper is called only for authored channels0..2.
+    t.message(time, 0x90 + channel, key, velocity);
+    t.message(time + duration, 0x80 + channel, key, 64);
 }
 
 /// Exact original arrangement at the written controls; effects alter tempo/gates/velocity only.
@@ -260,6 +262,36 @@ mod tests {
             ) == 0x39a228c2995119595b72ef561bf06664a107d5ff150025cddc14c896fc931d,
             'reference midi',
         );
+    }
+
+    #[test]
+    fn test_satori411_effects_match_independent_js_reference() {
+        let expected = array![
+            0x39a228c2995119595b72ef561bf06664a107d5ff150025cddc14c896fc931d,
+            0x45ee15fb8461c91c83778c1b1d3230ccc346760da49ca49eb7d02062863fb46,
+            0x474631bc7d71006e52052d8cbc3255d1128f241f6a4b4fd8934fc6f7cac8188,
+            0x5bf4500c5a38e19b87f54fc0596c99729a422a6ec3fa4bb24c258b5217cce18,
+        ];
+        let base = beast_song_inputs(beast(), 1, 1);
+        let mut fx: u8 = 0;
+        while fx < 4 {
+            let performed = crate::composition::performance::apply_performance(
+                ComposerInputs::Song(base), fx,
+            );
+            let x = match performed {
+                ComposerInputs::Song(x) => x,
+                _ => panic!("song expected"),
+            };
+            let midi = smf_bytes(1, 480, tracks(x).span());
+            let mut values = array![];
+            for b in midi.span() {
+                values.append((*b).into());
+            }
+            assert(
+                poseidon_hash_span(values.span()) == *expected.at(fx.into()), 'effects reference',
+            );
+            fx += 1;
+        }
     }
 
     #[test]
