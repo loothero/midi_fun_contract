@@ -1,8 +1,10 @@
-# Consolidate Beast Music in beasts-v3
+# Consolidate Beast Music in beasts-v3 — deferred
+
+**User decision, 2026-10-31: do not proceed.** Launch is in two days and the user judges the post-launch benefit insufficient. This proposal is retained only as historical research. It is outside the active launch scope, is not a prerequisite for any music change, and must not be resumed unless the user explicitly reopens it. Continue using midi_fun_contract for the Composer and beasts-v3 for the Sound Manager.
 
 Plan only, assessed on 2026-10-31. No implementation, contract changes, declarations, deployments or chain-state verification are part of this assessment. Updated after review to bound the migration and require explicit MIT preservation in beasts-v3.
 
-## Recommendation
+## Historical recommendation (superseded by user decision)
 
 Make `Provable-Games/beasts-v3` the source and release owner for all **Beast-specific** music: the Cairo composer, pure generator/composer classes, canonical inputs/codecs, TinyChip settings, JS reference engine, musical fixtures, parity tools and authoring labs. Keep its existing Sound Manager in its own package and contract. Keep the generic Cairo MIDI library and generic player implementation as separately pinned dependencies.
 
@@ -10,7 +12,7 @@ This is a repository/package consolidation, not an onchain contract merger. It r
 
 Start with a behavior-preserving import. Do not combine it with the 75-species music redesign in [PLAN.md](PLAN.md), codec redesign, generator changes, new token decoding, mass formatting or onchain updates. Once the imported release is qualified, that music roadmap can be implemented entirely in beasts-v3 through separate changes.
 
-**Decision after review:** proceed with the bounded source consolidation below before substantial new music implementation. The benefit is simpler ownership and coordinated releases, not improved sound, lower gas or a smaller composer. If qualification would jeopardize a fixed launch deadline, retain the existing external pin for launch and defer the move; do not weaken equivalence checks to meet that deadline.
+**Superseded recommendation:** the prior review recommended a bounded source consolidation. The user has rejected proceeding for this launch; the migration phases and gates below are inactive reference material.
 
 The initial migration has four fixed boundaries:
 

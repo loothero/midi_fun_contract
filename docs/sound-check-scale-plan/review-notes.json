@@ -25,5 +25,30 @@
       "assessment": "cyclops-504/assessment.json"
     }
   ],
-  "designDirection": "Distinct musical identities across Beasts; diversity of motif, rhythm, sound and pacing, not the same scale transposed. Track 406 is an additional reference."
+  "designDirection": "Distinct musical identities across Beasts; diversity of motif, rhythm, sound and pacing, not the same scale transposed. Track 406 is an additional reference.",
+  "consolidation": {
+    "status": "deferred; do not proceed",
+    "decisionDate": "2026-10-31",
+    "reason": "User: launch in two days; post-launch value does not justify consolidation.",
+    "repositoryBoundary": "Composer stays in midi_fun_contract; Sound Manager stays in beasts-v3.",
+    "resumeCondition": "Only on explicit user request; not a prerequisite for music work."
+  },
+  "activePriorities": [
+    {
+      "species": "Cyclops",
+      "scope": "Mainnet Sound Check",
+      "reference": "504",
+      "intent": "Whole eight-sound sequence at 175 BPM, retaining its timbres and program changes."
+    },
+    {
+      "species": "Satori",
+      "scope": "Species Song and Agony Bane base",
+      "reference": "411",
+      "intent": "Preserve the reviewed arrangement and original synth balance; named-generation semantics remain to be settled."
+    },
+    {
+      "scope": "Other original-species Sound Checks",
+      "intent": "Varied musical identities consistent with Species Songs; pairing sheet remains a proposal pending listening."
+    }
+  ]
 }

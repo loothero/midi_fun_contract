@@ -4,6 +4,8 @@
 
 The user's latest preferences control the plan:
 
+- **Consolidation is deferred by user decision.** Keep the Composer in midi_fun_contract and Sound Manager in beasts-v3. With launch in two days, the repository migration is outside scope and must not block the musical changes.
+
 - Beasts must have different musical identities. A single ascending/descending pattern transposed 75 ways is insufficient.
 - The user's own original sampler, particularly its variety and #406's pacing/motif/stereo movement, is the reference.
 - **Cyclops64: the WHOLE original #504 sequence, all eight sounds, is the preferred mainnet Sound Check.** This overrides a generic Brute preset recommendation. Its eight client-bank programs and token-effects behavior require explicit qualification.
