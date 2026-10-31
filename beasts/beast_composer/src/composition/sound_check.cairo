@@ -3,7 +3,7 @@
 use midi::smf::{TrackWriter, TrackWriterTrait, smf_bytes};
 use crate::composition::beast_v3_sound::{PackableBeastV3, map_v3_beast_to_composition_params};
 use crate::composition::check_catalogue_data::catalogue_check;
-use crate::composition::cyclops_sound_check::cyclops_sound_check_smf_bytes;
+use crate::composition::cyclops_sound_check::cyclops_sound_check_tracks;
 use crate::composition::genesis::{genesis_mode, genesis_swap, named_mode_scale, neutral_live};
 use crate::inputs::{ComposerInputs, MusicIdentity, SoundCheckInputs, validate_inputs};
 use crate::opaque::opaque;
@@ -66,9 +66,14 @@ pub fn sound_check_inputs(beast: PackableBeastV3) -> SoundCheckInputs {
 /// Perform a written candidate on its stable species preset (mega retains the song's lead parity).
 /// Cyclops is the user's exact eight-timbre reference and deliberately ignores performance changes.
 pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
+    smf_bytes(1, 480, sound_check_tracks(x, mega).span())
+}
+
+/// Track bodies shared by the byte-file and packed pure-composer entrypoints.
+pub fn sound_check_tracks(x: SoundCheckInputs, mega: bool) -> Array<Array<u8>> {
     validate_inputs(opaque(ComposerInputs::SoundCheck(x)));
     if x.identity.source_species_id == 64 {
-        return cyclops_sound_check_smf_bytes();
+        return cyclops_sound_check_tracks();
     }
     let scale = named_mode_scale(x.mode_id).unwrap();
     let (meta, mut head, mut response) = catalogue_check(x.identity.source_species_id, x.family);
@@ -100,6 +105,7 @@ pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
     } else {
         64
     });
+    let expression = BoxTrait::new((tonic, scale, x.articulation_profile, x.velocity_ceiling));
     let original_head = head;
     let mut time = 0;
     // Four two-bar sections: head, two held tones, answering phrase, articulation with a final
@@ -111,7 +117,7 @@ pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
             let mut k: u32 = 0;
             while k < 2 {
                 write_note(
-                    ref track, time, 1800, ((h % 16) + 4).try_into().unwrap(), tonic, scale, 100, x,
+                    ref track, time, 1800, ((h % 16) + 4).try_into().unwrap(), 100, expression,
                 );
                 time += 1920;
                 h /= 16;
@@ -153,14 +159,12 @@ pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
                         slot * 5 / 6
                     },
                     (degrees % 16).try_into().unwrap(),
-                    tonic,
-                    scale,
                     if short {
                         100
                     } else {
                         96
                     },
-                    x,
+                    expression,
                 );
                 time += slot;
                 degrees /= 16;
@@ -183,7 +187,7 @@ pub fn sound_check_from_inputs(x: SoundCheckInputs, mega: bool) -> Array<u8> {
         }
         section += 1;
     }
-    smf_bytes(1, 480, array![tempo.finish_at(15360), track.finish_at(15360)].span())
+    array![tempo.finish_at(15360), track.finish_at(15360)]
 }
 
 /// Five-bit effective degree -4..11 represented as a nibble +4; avoid negative pitch arithmetic.
@@ -193,15 +197,14 @@ fn write_note(
     time: u32,
     duration: u32,
     encoded: u32,
-    tonic: u32,
-    scale: Span<u8>,
     velocity: u8,
-    x: SoundCheckInputs,
+    expression: Box<(u32, Span<u8>, u8, u8)>,
 ) {
+    let (tonic, scale, articulation_profile, velocity_ceiling) = expression.unbox();
     let d = encoded + 3;
     let pitch: u8 = (tonic + (d / 7) * 12 + (*scale.at(d % 7)).into() - 12).try_into().unwrap();
-    let gate = if x.articulation_profile == 1 || x.articulation_profile == 5 {
-        let short = if x.articulation_profile == 1 {
+    let gate = if articulation_profile == 1 || articulation_profile == 5 {
+        let short = if articulation_profile == 1 {
             duration / 2
         } else {
             duration * 3 / 4
@@ -220,13 +223,13 @@ fn write_note(
         duration
     };
     let velocity: u32 = velocity.into()
-        + if x.articulation_profile == 3 && time % 1920 == 0 {
+        + if articulation_profile == 3 && time % 1920 == 0 {
             8
         } else {
             0
         };
-    let velocity: u8 = if velocity > x.velocity_ceiling.into() {
-        x.velocity_ceiling
+    let velocity: u8 = if velocity > velocity_ceiling.into() {
+        velocity_ceiling
     } else {
         velocity.try_into().unwrap()
     };

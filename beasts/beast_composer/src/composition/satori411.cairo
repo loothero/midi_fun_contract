@@ -12,9 +12,12 @@ pub const RHYTHM_MARKER: felt252 = 'SATORI_FORM_36_V1';
 const END: u32 = 69120;
 
 pub fn is_satori411(x: SongInputs) -> bool {
-    x.arrangement.identity.source_species_id == 44
-        && x.theme.motif_seed == THEME_MARKER
-        && x.treatment.rhythm_seed == RHYTHM_MARKER
+    marked(x.arrangement.identity.source_species_id, x.theme.motif_seed, x.treatment.rhythm_seed)
+}
+
+#[inline(never)]
+fn marked(species: u32, theme: felt252, rhythm: felt252) -> bool {
+    species == 44 && theme == THEME_MARKER && rhythm == RHYTHM_MARKER
 }
 
 /// Explicitly select the authored score. Existing recipes without both markers keep their music.

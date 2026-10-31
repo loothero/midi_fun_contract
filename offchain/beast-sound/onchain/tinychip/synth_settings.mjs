@@ -336,11 +336,7 @@ function editionsCairo() {
   }));
   const hashes = STYLES.flatMap((_, st) => [0, 1, 2].flatMap((t) => [false, true].map((mega) => '0x' + poseidonHashMany(serializeSettings(editionSynthSettings(st, t, mega, data))).toString(16))));
   return `
-/// The settings a Monthly Track Edition's file selects (editions_lite.js, edition 1 and later): style
-/// \`style\` (0 waltz, 1 chorale, 2 lullaby, 3 dirge, 4 boss battle, 5 sea shanty, 6 march, 7 dungeon
-/// crawl, 8 tango) for a Beast of \`beast_type\`, its lead,
-/// accompaniment, bass and pad presets as the editions page plays them (untrimmed), the mega leads
-/// when mega, and the drums ${EDITION_DRUMS.join(', ')} (the percussion figures). Every edition value carries the editions' ${waves.length} waves: ${waves.join(', ')}.
+${wrapDoc(`The settings a Monthly Track Edition's file selects (editions_lite.js, edition 1 and later): style \`style\` (0 waltz, 1 chorale, 2 lullaby, 3 dirge, 4 boss battle, 5 sea shanty, 6 march, 7 dungeon crawl, 8 tango) for a Beast of \`beast_type\`, its lead, accompaniment, bass and pad presets as the editions page plays them (untrimmed), the mega leads when mega, and the drums ${EDITION_DRUMS.join(', ')} (the percussion figures). Every edition value carries the editions' ${waves.length} waves: ${waves.join(', ')}.`)}
 pub fn edition_synth_settings(style: u32, beast_type: u32, mega: bool) -> TinySynthSettings {
     let palette = *EDITION_PALETTES.span().at(style * 3 + beast_type);
     let timbres = EDITION_TIMBRES.span();
@@ -500,12 +496,29 @@ fn unpack_operators(first: u32, count: u32) -> Span<Operator> {
         };
         let (volume, ratio) = (read(ref r), read(ref r));
         let offset_hz: i32 = read(ref r).try_into().unwrap();
-        let (attack, hold, decay, sustain, release) = (read(ref r), read(ref r), read(ref r), read(ref r), read(ref r));
+        let (attack, hold, decay, sustain, release) = (
+            read(ref r), read(ref r), read(ref r), read(ref r), read(ref r),
+        );
         let (pitch_ratio, pitch_time) = (read(ref r), read(ref r));
-        out.append(Operator {
-            route, wave, volume, ratio, offset_hz, attack, hold, decay, sustain, release, pitch_ratio,
-            pitch_time, key_scale: 0, filter: Option::None,
-        });
+        out
+            .append(
+                Operator {
+                    route,
+                    wave,
+                    volume,
+                    ratio,
+                    offset_hz,
+                    attack,
+                    hold,
+                    decay,
+                    sustain,
+                    release,
+                    pitch_ratio,
+                    pitch_time,
+                    key_scale: 0,
+                    filter: Option::None,
+                },
+            );
     }
     out.span()
 }

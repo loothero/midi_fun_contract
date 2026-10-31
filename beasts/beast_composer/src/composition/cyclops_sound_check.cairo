@@ -14,6 +14,11 @@ pub const CYCLOPS_CHECK_LENGTH: u32 = 38400;
 const PHRASE: [u8; 81] = [0, 144, 60, 100, 131, 56, 128, 60, 64, 40, 144, 64, 100, 131, 56, 128, 64, 64, 40, 144, 67, 100, 131, 56, 128, 67, 64, 40, 144, 72, 100, 131, 56, 128, 72, 64, 40, 144, 67, 100, 136, 76, 128, 67, 64, 130, 84, 144, 60, 100, 58, 128, 60, 64, 129, 54, 144, 64, 100, 58, 128, 64, 64, 129, 54, 144, 67, 100, 58, 128, 67, 64, 129, 54, 144, 72, 100, 58, 128, 72, 64];
 
 pub fn cyclops_sound_check_smf_bytes() -> Array<u8> {
+    smf_bytes(1, 480, cyclops_sound_check_tracks().span())
+}
+
+/// The same authored score as track bodies for the shared packed-SMF composition path.
+pub fn cyclops_sound_check_tracks() -> Array<Array<u8>> {
     // Program34, volume100, centeredpan64. Later blocks change only the program.
     let mut lead: Array<u8> = array![0, 192, 34, 0, 176, 7, 100, 0, 176, 10, 64];
     for i in 0_u32..8 {
@@ -27,5 +32,5 @@ pub fn cyclops_sound_check_smf_bytes() -> Array<u8> {
     lead.append_span(array![133, 22, 255, 47, 0].span());
     // Tempo342857us and End-of-Track at38400ticks (VLQ82ac00).
     let tempo: Array<u8> = array![0, 255, 81, 3, 5, 59, 73, 130, 172, 0, 255, 47, 0];
-    smf_bytes(1, 480, array![tempo, lead].span())
+    array![tempo, lead]
 }

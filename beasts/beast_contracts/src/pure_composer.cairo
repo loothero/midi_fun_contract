@@ -7,10 +7,9 @@ use beast_composer::composition::editions::edition_byte_array;
 use beast_composer::composition::full_midi::{SMF_DIVISION, SMF_FORMAT};
 use beast_composer::composition::genesis::{drifted_song_inputs, song_tracks};
 use beast_composer::composition::performance::{apply_performance, is_mega};
-use beast_composer::composition::sound_check::sound_check_from_inputs;
+use beast_composer::composition::sound_check::sound_check_tracks;
 use beast_composer::inputs::drift::DriftInputs;
 use beast_composer::inputs::{ComposerInputs, SpecialArrangement};
-use midi::pack::bytes_to_byte_array;
 use midi::smf::smf_byte_array;
 use midi::types::{TinySynthSettings, TinySynthSound};
 
@@ -64,8 +63,8 @@ fn compose_with(
         ComposerInputs::Song(song) => smf_byte_array(
             SMF_FORMAT, SMF_DIVISION, song_tracks(song, mega, echo, day).span(),
         ),
-        ComposerInputs::SoundCheck(check) => bytes_to_byte_array(
-            sound_check_from_inputs(check, mega).span(),
+        ComposerInputs::SoundCheck(check) => smf_byte_array(
+            SMF_FORMAT, SMF_DIVISION, sound_check_tracks(check, mega).span(),
         ),
         ComposerInputs::Edition(edition) => {
             let species = edition.identity.source_species_id;
@@ -84,13 +83,13 @@ fn compose_with(
 /// Yeti is a Brute; an authored Yeti special on another family plays them too), and an edition its
 /// style's presets (`edition_synth_settings`).
 pub fn settings_for(inputs: ComposerInputs, mega: bool) -> TinySynthSettings {
-    if let ComposerInputs::Song(x) = inputs {
-        if beast_composer::composition::satori411::is_satori411(x) {
-            return crate::synth_settings::satori411_synth_settings();
-        }
-    }
     let (family, special) = match inputs {
-        ComposerInputs::Song(x) => (x.arrangement.family, x.arrangement.special),
+        ComposerInputs::Song(x) => {
+            if beast_composer::composition::satori411::is_satori411(x) {
+                return crate::synth_settings::satori411_synth_settings();
+            }
+            (x.arrangement.family, x.arrangement.special)
+        },
         ComposerInputs::SoundCheck(x) => {
             if x.identity.source_species_id == 64 {
                 return crate::synth_settings::cyclops_sound_check_synth_settings();

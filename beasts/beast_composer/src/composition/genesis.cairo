@@ -89,6 +89,7 @@ pub fn genesis_mode(id: u64, mode_id: u8) -> u8 {
 
 /// A mode's scale as named, semitones from the tonic (Locrian, harmonic minor and Dorian #4
 /// included).
+#[inline(never)]
 pub fn named_mode_scale(mode_id: u8) -> Option<Span<u8>> {
     let packed: u32 = match mode_id {
         4 => 0xa975320,
