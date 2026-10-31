@@ -190,8 +190,8 @@ const TIMBRES_SATORI411_SYNTH_SETTINGS: [u32; 8] = [1024, 11403791, 11535377, 13
 /// Poseidon hash of `satori411_mega_synth_settings`'s Serde, as the generator computes it (tests
 /// check Cairo agrees).
 pub const SERDE_HASH_SATORI411_MEGA: felt252 =
-    0x37c1a9bf3b68ad801ea2e3f3023f5be831b9e2691480b278c342929bd90b986;
-/// Authored Satori with Casey mega=true, echo=false. Quality 1, reverb 30, volume 40, 64 voices; waves: nP12, nP25, nP50, nTRI, nN16; 10 timbres.
+    0x63b813b95354c7139ec2b70afa7addb3832856a04593ed0834132b88f355d5b;
+/// Authored Satori with Casey mega=true, echo=false. Quality 1, reverb 30, volume 40, 64 voices; waves: nP12, nP25, nP50, nTRI, nN16; 16 timbres.
 #[cairofmt::skip]
 pub fn satori411_mega_synth_settings() -> TinySynthSettings {
     settings_from(1, 30, 40, 64, WAVES_SATORI411_MEGA_SYNTH_SETTINGS.span(), TIMBRES_SATORI411_MEGA_SYNTH_SETTINGS.span())
@@ -199,7 +199,7 @@ pub fn satori411_mega_synth_settings() -> TinySynthSettings {
 #[cairofmt::skip]
 const WAVES_SATORI411_MEGA_SYNTH_SETTINGS: [u32; 5] = [8, 2052, 3074, 3616, 11808];
 #[cairofmt::skip]
-const TIMBRES_SATORI411_MEGA_SYNTH_SETTINGS: [u32; 10] = [1024, 11403791, 11535377, 2884658, 3146817, 1311524, 1443110, 1835818, 2229038, 2622257];
+const TIMBRES_SATORI411_MEGA_SYNTH_SETTINGS: [u32; 16] = [1024, 11403791, 11535377, 2884658, 3146817, 1311524, 1443110, 1704745, 1835818, 1966891, 2097965, 2229038, 2360111, 2491184, 2622257, 2753330];
 
 /// Poseidon hash of `satori411_echo_synth_settings`'s Serde, as the generator computes it (tests
 /// check Cairo agrees).
@@ -218,8 +218,8 @@ const TIMBRES_SATORI411_ECHO_SYNTH_SETTINGS: [u32; 9] = [1024, 11403791, 1153537
 /// Poseidon hash of `satori411_mega_echo_synth_settings`'s Serde, as the generator computes it
 /// (tests check Cairo agrees).
 pub const SERDE_HASH_SATORI411_MEGA_ECHO: felt252 =
-    0x50261c74a7c58881d1b9bd65d3cf14ac73dc51fb7103f367846499028cfb5be;
-/// Authored Satori with Casey mega=true, echo=true. Quality 1, reverb 30, volume 40, 64 voices; waves: nP12, nP25, nP50, nTRI, nN16; 11 timbres.
+    0x2791e8058cab0768e74ee8e19bdc61083758fa0c7af524e344eec786b88ae46;
+/// Authored Satori with Casey mega=true, echo=true. Quality 1, reverb 30, volume 40, 64 voices; waves: nP12, nP25, nP50, nTRI, nN16; 17 timbres.
 #[cairofmt::skip]
 pub fn satori411_mega_echo_synth_settings() -> TinySynthSettings {
     settings_from(1, 30, 40, 64, WAVES_SATORI411_MEGA_ECHO_SYNTH_SETTINGS.span(), TIMBRES_SATORI411_MEGA_ECHO_SYNTH_SETTINGS.span())
@@ -227,7 +227,7 @@ pub fn satori411_mega_echo_synth_settings() -> TinySynthSettings {
 #[cairofmt::skip]
 const WAVES_SATORI411_MEGA_ECHO_SYNTH_SETTINGS: [u32; 5] = [8, 2052, 3074, 3616, 11808];
 #[cairofmt::skip]
-const TIMBRES_SATORI411_MEGA_ECHO_SYNTH_SETTINGS: [u32; 11] = [1024, 11403791, 11535377, 4194828, 2884658, 3146817, 1311524, 1443110, 1835818, 2229038, 2622257];
+const TIMBRES_SATORI411_MEGA_ECHO_SYNTH_SETTINGS: [u32; 17] = [1024, 11403791, 11535377, 4194828, 2884658, 3146817, 1311524, 1443110, 1704745, 1835818, 1966891, 2097965, 2229038, 2360111, 2491184, 2622257, 2753330];
 /// Poseidon hash of `cyclops_sound_check_synth_settings`'s Serde, as the generator computes it
 /// (tests check Cairo agrees).
 pub const SERDE_HASH_CYCLOPS_SOUND_CHECK: felt252 =

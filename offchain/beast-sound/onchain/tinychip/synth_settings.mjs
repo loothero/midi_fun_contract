@@ -181,7 +181,7 @@ export function cyclopsSoundCheckSynthSettings() {
 
 /** Exact original lab411 balance, before later bass/harp level trims. */
 export function satori411SynthSettings(mega = false, echo = false) {
-  const programs = [0, 15, 17, ...(echo ? [12] : []), ...(mega ? [50,65] : [])], drums = [36, 38, 42, 46, 49], data = bankData();
+  const programs = [0, 15, 17, ...(echo ? [12] : []), ...(mega ? [50,65] : [])], drums = mega ? BEAST_DRUMS : [36, 38, 42, 46, 49], data = bankData();
   const settings = beastSynthSettings(data, programs, drums);
   const waves = beastWaves(data, programs, drums);
   for (const t of settings.timbres) if (!t.drum && (t.slot === 15 || t.slot === 17)) {
@@ -398,7 +398,7 @@ export function settingsCairo() {
   for (const [mega,echo,name] of [[true,false,'mega'],[false,true,'echo'],[true,true,'mega_echo']]) {
     const settings=satori411SynthSettings(mega,echo);
     const programs=[0,15,17,...(echo?[12]:[]),...(mega?[50,65]:[])];
-    fns.push(settingsFn(settings, beastWaves(undefined,programs,[36,38,42,46,49]),
+    fns.push(settingsFn(settings, beastWaves(undefined,programs,mega ? BEAST_DRUMS : [36,38,42,46,49]),
       `satori411_${name}_synth_settings`,`SERDE_HASH_SATORI411_${name.toUpperCase()}`,`Authored Satori with Casey mega=${mega}, echo=${echo}.`));
   }
   const arm = (fn) => SETTINGS_VARIANTS.map((v) => `        (${v.type}, ${v.mega}) => ${fn(v)},`).join('\n');

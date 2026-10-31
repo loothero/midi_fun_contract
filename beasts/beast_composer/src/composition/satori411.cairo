@@ -440,9 +440,36 @@ mod tests {
             for b in midi.span() {
                 values.append((*b).into());
             }
-            println!(
-                "SATORI_FX:{} LEN:{} HASH:{}", fx, midi.len(), poseidon_hash_span(values.span())
+            assert(
+                poseidon_hash_span(values.span()) == *expected.at(fx.into()), 'effects reference',
             );
+            fx += 1;
+        }
+    }
+
+    #[test]
+    fn test_satori411_shared_effects_match_independent_js_reference() {
+        let expected = array![
+            0x39a228c2995119595b72ef561bf06664a107d5ff150025cddc14c896fc931d,
+            0xa140fe708316c6749b98826fa8e1ada705788841e718e5141d271b78537a2,
+            0x5d233d77f025935d685635431020fc43313b6d8dc6917f3bbf8c6d76e98c8f5,
+            0x37a5e41eb09cf79931fea26874225a7372fa4e01f7662e8ee7a05dbcacdb634,
+        ];
+        let base = beast_song_inputs(beast(), 0, 0);
+        let mut fx: u8 = 0;
+        while fx < 4 {
+            let performed = crate::composition::performance::apply_performance(
+                ComposerInputs::Song(base), fx,
+            );
+            let x = match performed {
+                ComposerInputs::Song(x) => x,
+                _ => panic!("song expected"),
+            };
+            let midi = smf_bytes(1, 480, tracks(x, fx == 1 || fx == 3, fx >= 2).span());
+            let mut values = array![];
+            for b in midi.span() {
+                values.append((*b).into());
+            }
             assert(
                 poseidon_hash_span(values.span()) == *expected.at(fx.into()), 'effects reference',
             );
