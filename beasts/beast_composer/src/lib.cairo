@@ -26,6 +26,7 @@ pub mod modes;
 #[cfg(test)]
 mod name_track_tests;
 pub mod opaque;
+pub mod packed_data;
 #[cfg(test)]
 mod params_pack_tests;
 pub mod rng;

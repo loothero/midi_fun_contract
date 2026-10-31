@@ -1423,12 +1423,28 @@ fn stretch_at(events: Span<NoteEvent>, section_ticks: u32) -> Stretch {
     stretch
 }
 
+/// Casey's common gate treatment, including the minimum sixty-tick articulated note.
+#[inline(never)]
+pub(crate) fn articulated_duration(duration: u32, profile: u8) -> u32 {
+    let gate = match profile {
+        1 => duration / 2,
+        5 => duration * 3 / 4,
+        _ => { return duration; },
+    };
+    if gate > 60 {
+        gate
+    } else {
+        60
+    }
+}
+
 /// Phrase arc per voice and section, accents on bar downbeats (the first bar of each pair harder),
 /// the lead's prominence, articulation by profile, under the velocity ceiling.
 ///
 /// The events come in a few long stretches (a voice's line, then its episode, in each section), so
 /// the pitch range of a voice and section is looked up once per stretch, and what depends only on
 /// the stretch is worked out once, not once per event.
+#[inline(never)]
 pub fn shape(
     ref events: Array<NoteEvent>,
     velocity_ceiling: u8,
@@ -1506,23 +1522,7 @@ pub fn shape(
             } else {
                 v
             }).try_into().unwrap();
-            let duration = if profile == 1 {
-                let x = e.duration / 2;
-                if x > 60 {
-                    x
-                } else {
-                    60
-                }
-            } else if profile == 5 {
-                let x = e.duration * 3 / 4;
-                if x > 60 {
-                    x
-                } else {
-                    60
-                }
-            } else {
-                e.duration
-            };
+            let duration = articulated_duration(e.duration, profile);
             out.append(NoteEvent { velocity: vel, duration, ..e });
         }
         at += s.len;

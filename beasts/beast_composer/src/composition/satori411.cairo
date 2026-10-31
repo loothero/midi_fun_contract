@@ -2,9 +2,9 @@
 //! Reserved dual felt markers opt in without reinterpreting ordinary stored Satori inputs.
 use midi::smf::{TrackWriter, TrackWriterTrait};
 use crate::composition::beast_score::BeastForm;
-use crate::composition::beast_v11::shape;
+use crate::composition::beast_v11::{articulated_duration, shape};
 use crate::composition::full_midi::{
-    Arrangement, Voicing, beast_form_to_full_tracks_arranged, mega_lead_pick,
+    Arrangement, Voicing, beast_form_to_full_tracks_arranged, mega_lead_pick, note_on_off,
 };
 use crate::composition::melodic_canon::NoteEvent;
 use crate::inputs::{
@@ -106,6 +106,7 @@ pub fn purchased(mut x: SongInputs, seed: felt252) -> SongInputs {
     x
 }
 
+#[inline(never)]
 fn setup(channel: u8, program: u8, pan: u8) -> TrackWriter {
     let mut t = TrackWriterTrait::new();
     if channel != 9 {
@@ -127,24 +128,15 @@ fn note(
     expression: (u8, u8),
 ) {
     let (profile, ceiling) = expression;
-    // All authored gates are100..920 ticks, so only the100-tick harp gate hits the60 floor.
-    let duration = match profile {
-        1 => if duration < 120 {
-            60
-        } else {
-            duration / 2
-        },
-        5 => duration * 3 / 4,
-        _ => duration,
-    };
+    // Authored gates100..920 share Casey's exact duration rule (portato never hits its floor).
+    let duration = articulated_duration(duration, profile);
     let velocity = if velocity > ceiling {
         ceiling
     } else {
         velocity
     };
-    // This private helper is called only for authored channels0..2.
-    t.message(time, 0x90 + channel, key, velocity);
-    t.message(time + duration, 0x80 + channel, key, 64);
+    // Use the same exact on/off encoder as the general full-MIDI arranger.
+    note_on_off(ref t, channel, time, duration, key, velocity);
 }
 
 /// One authored score; effect arrangement and reference serialization consume the same notes.
@@ -161,7 +153,6 @@ fn events(x: SongInputs) -> Array<NoteEvent> {
                 2 => (36, 48, 52, 55),
                 _ => (43, 55, 59, 62),
             };
-            let chord = array![a, b, c];
             let rest = bar >= 24 && bar < 28;
             let count: u32 = if role == 1 {
                 8
@@ -181,11 +172,20 @@ fn events(x: SongInputs) -> Array<NoteEvent> {
                         0
                     }, 200, 100)
                 } else if role == 2 {
-                    (i * 120, *chord.at(i % 3) + if i % 6 > 2 {
-                        24
-                    } else {
-                        12
-                    }, 100, 70)
+                    (
+                        i * 120,
+                        match i % 3 {
+                            0 => a,
+                            1 => b,
+                            _ => c,
+                        } + if i % 6 > 2 {
+                            24
+                        } else {
+                            12
+                        },
+                        100,
+                        70,
+                    )
                 } else {
                     match i {
                         0 => (0, b + 24, if named {
@@ -230,7 +230,8 @@ fn events(x: SongInputs) -> Array<NoteEvent> {
     out
 }
 
-fn original_drums(x: SongInputs, reference: bool) -> Array<u8> {
+#[inline(never)]
+fn original_drums(ceiling: u8, reference: bool) -> Array<u8> {
     let (mut bar, mut writer): (u32, TrackWriter) = opaque(
         (0, if reference {
             setup(9, 0, 64)
@@ -246,31 +247,28 @@ fn original_drums(x: SongInputs, reference: bool) -> Array<u8> {
             while i < 8 {
                 writer
                     .note_on(
-                        at + i * 240,
-                        9,
-                        42,
-                        capped(if i % 2 == 1 {
+                        at + i * 240, 9, 42, capped(if i % 2 == 1 {
                             50
                         } else {
                             76
-                        }, x.score.velocity_ceiling),
+                        }, ceiling),
                     );
                 if !rest {
                     if i == 0 || i == 4 {
-                        writer.note_on(at + i * 240, 9, 36, capped(110, x.score.velocity_ceiling));
+                        writer.note_on(at + i * 240, 9, 36, capped(110, ceiling));
                     }
                     if i == 2 || i == 6 {
-                        writer.note_on(at + i * 240, 9, 38, capped(100, x.score.velocity_ceiling));
+                        writer.note_on(at + i * 240, 9, 38, capped(100, ceiling));
                     }
                 }
                 if bar == 16 && i == 0 {
-                    writer.note_on(at, 9, 49, capped(100, x.score.velocity_ceiling));
+                    writer.note_on(at, 9, 49, capped(100, ceiling));
                 }
                 i += 1;
             }
         }
         if bar == 0 {
-            writer.note_on(0, 9, 49, capped(100, x.score.velocity_ceiling));
+            writer.note_on(0, 9, 49, capped(100, ceiling));
         }
         bar += 1;
     }
@@ -322,7 +320,7 @@ pub fn tracks(x: SongInputs, mega: bool, echo: bool) -> Array<Array<u8>> {
             },
         );
         if !mega {
-            out.append(original_drums(x, false));
+            out.append(original_drums(x.score.velocity_ceiling, false));
         }
         return out;
     }
@@ -352,7 +350,7 @@ pub fn tracks(x: SongInputs, mega: bool, echo: bool) -> Array<Array<u8>> {
         out.append(writer.finish_at(END));
         role += 1;
     }
-    out.append(original_drums(x, true));
+    out.append(original_drums(x.score.velocity_ceiling, true));
     out
 }
 

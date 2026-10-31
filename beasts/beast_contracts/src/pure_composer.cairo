@@ -26,13 +26,13 @@ pub trait IBeastPureComposer<T> {
 }
 
 pub fn compose_sound(inputs: ComposerInputs, sound_effects: u8) -> TinySynthSound {
-    compose_with(inputs, sound_effects, Option::None)
+    compose_with(inputs, sound_effects, Option::None).unbox()
 }
 
 pub fn compose_drift_sound(
     inputs: ComposerInputs, sound_effects: u8, drift: DriftInputs,
 ) -> TinySynthSound {
-    compose_with(inputs, sound_effects, Option::Some(drift))
+    compose_with(inputs, sound_effects, Option::Some(drift)).unbox()
 }
 
 /// `compose`, and with a day (`Some`) `compose_drift`: one body for both (CASM size). The drift
@@ -41,7 +41,7 @@ pub fn compose_drift_sound(
 #[inline(never)]
 fn compose_with(
     inputs: ComposerInputs, sound_effects: u8, drift: Option<DriftInputs>,
-) -> TinySynthSound {
+) -> Box<TinySynthSound> {
     let drifted = match (inputs, drift) {
         (
             ComposerInputs::Song(song), Option::Some(d),
@@ -75,7 +75,7 @@ fn compose_with(
             edition_byte_array(species, mega, edition.edition, edition.seed, day, echo)
         },
     };
-    TinySynthSound { midi, settings: settings_for(performed, mega, echo) }
+    BoxTrait::new(TinySynthSound { midi, settings: settings_for(performed, mega, echo) })
 }
 
 /// The sounds the file can select: the family's presets and the drum kit, plus the mega leads when
