@@ -81,16 +81,23 @@ fn setup(channel: u8, program: u8, pan: u8) -> TrackWriter {
 
 #[inline(never)]
 fn note(
-    ref t: TrackWriter, channel: u8, time: u32, key: u8, duration: u32, velocity: u8, x: SongInputs,
+    ref t: TrackWriter,
+    channel: u8,
+    time: u32,
+    key: u8,
+    duration: u32,
+    velocity: u8,
+    expression: (u8, u8, u8),
 ) {
-    let key: i32 = key.into() + x.score.tonic_keynum.into() - 57;
-    let duration = match x.score.articulation_profile {
+    let (tonic, profile, ceiling) = expression;
+    let key: i32 = key.into() + tonic.into() - 57;
+    let duration = match profile {
         1 => duration / 2,
         3 | 5 => duration * 3 / 4,
         _ => duration,
     };
-    let velocity = if velocity > x.score.velocity_ceiling {
-        x.score.velocity_ceiling
+    let velocity = if velocity > ceiling {
+        ceiling
     } else {
         velocity
     };
@@ -102,6 +109,7 @@ fn note(
 /// Its defining triangle/pluck/harp palette is retained instead of mega/echo substitution.
 #[inline(never)]
 pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
+    let expression = (x.score.tonic_keynum, x.score.articulation_profile, x.score.velocity_ceiling);
     let mut tempo = TrackWriterTrait::new();
     tempo.tempo(0, x.score.tempo_us);
     let (
@@ -122,11 +130,19 @@ pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
         let rest = bar >= 24 && bar < 28;
         let mut i: u32 = opaque(0);
         while i < 8 {
-            note(ref bass, 1, at + i * 240, root + if i % 4 == 2 {
-                7
-            } else {
-                0
-            }, 200, 100, x);
+            note(
+                ref bass,
+                1,
+                at + i * 240,
+                root + if i % 4 == 2 {
+                    7
+                } else {
+                    0
+                },
+                200,
+                100,
+                expression,
+            );
             i += 1;
         }
         if bar >= 1 {
@@ -137,15 +153,15 @@ pub fn tracks(x: SongInputs) -> Array<Array<u8>> {
                 } else {
                     12
                 };
-                note(ref harp, 2, at + i * 120, key, 100, 70, x);
+                note(ref harp, 2, at + i * 120, key, 100, 70, expression);
                 i += 1;
             }
         }
         if bar >= 4 && !rest {
-            note(ref lead, 0, at, b + 24, 920, 100, x);
-            note(ref lead, 0, at + 960, c + 24, 440, 100, x);
-            note(ref lead, 0, at + 1440, b + 24, 220, 100, x);
-            note(ref lead, 0, at + 1680, a + 24, 220, 100, x);
+            note(ref lead, 0, at, b + 24, 920, 100, expression);
+            note(ref lead, 0, at + 960, c + 24, 440, 100, expression);
+            note(ref lead, 0, at + 1440, b + 24, 220, 100, expression);
+            note(ref lead, 0, at + 1680, a + 24, 220, 100, expression);
         }
         if bar >= 8 {
             let mut i: u32 = opaque(0);
