@@ -1,0 +1,64 @@
+# Proposed species pairings and varied warmups
+
+The primary proposal gives each Beast a small, deliberate warmup identity: a family-compatible preset, a short contour, a rhythm, an octave, a tempo and an occasional gentle stereo answer. The underlying pitch classes and real mode come from its written Species Song. The 75 entries are therefore not one C-major scale transposed 75 times. [pairings.csv](pairings.csv) is the compact review sheet; [pairings.json](pairings.json) carries complete degree arrays, production key evidence, phrase rules, alternatives and usage counts.
+
+These are source- and data-grounded aesthetic recommendations, not an audio audition. Operator definitions support descriptions such as “short muted attack,” “delayed vibrato” and “layered harp”; associating those sounds with a Beast's character remains judgment for listening review. A 75-row table makes those judgments easy to change without another composition engine.
+
+## Explicit user choices take priority
+
+- **Cyclops #64:** the user chose **original demo #504 for its mainnet Sound Check**. This is the primary selection. The former dry-square/incantation suggestion is retained only as a labeled secondary family heuristic as a comparison only. The primary selection is the WHOLE #504 sequence, all eight sounds: programs 34–41 at 175 BPM. Each 4800-tick block plays C4/E4/G4/C5 quarters, a held G4 and four short C4/E4/G4/C5 blips, with no drums. Do not implement that heuristic in preference to #504. The user explicitly chose the whole loop and all eight sounds; preserve that full sequence, not a single selected timbre. #504 requires all eight presets outside the existing 20-essential bank. Its Brute settings also need the nP12/nP25 wave routes used by those sounds. The shiny reference art does not imply mega audio. Generic effects=1 changes tempo/velocity/articulation and substitutes mega 50/65; a literal #504 Check must bypass that transform, otherwise it is an adaptation. Literal reference pitches differ from the current Eb harmonic minor Song; adapting the tour into that mode would be a separate alternative, not an exact #504 reproduction.
+- **Satori #44:** the user chose **original demo #411 as a Species Song pairing**. The reference is A natural minor / Aeolian, 120 BPM, with lead program 0, triangle-pluck bass 15, harp 17 and drums, over Am–F–C–G. This changes Satori's current G harmonic minor song. The intended base is **Agony Bane, name variant 1**, with feasibility tracked in the separate #411 review. Its Check should be derived after that Song decision, so the old pulse/incantation recommendation is a secondary placeholder. Transposing a normal scale check cannot reproduce #411's complete song; an exact replacement requires separate composer work. The table preserves current production facts separately from this preference.
+
+Usage counts and distinct-tuple checks presently describe the family-compatible draft and include these two labeled secondary placeholders; Cyclops’s selected eight-sound tour sits outside that draft palette count. They are draft editorial statistics, not a claim that those choices override the user's selections.
+
+## Verified constraints
+
+The isolated source revisions are midi_fun_contract `cdcad0a4b5d6ef4f3ddb6555f3448cbb017766e1`, beasts-v3 `a7d13c676eafe84866795a8fa52d32c9fcc29e94`, and sampler `eb0cfefd27f68dd3a1778524f55eb932d40a4426`. The restored animated reference is `433f826:index.html`, SHA-256 `fd64b55b9883925ff3916182ad1822164ac57586b2f18caaafa1d0e4f69450c7`.
+
+The production baseline is beasts-v3's `fixtures/sound-manager/shared-tracks.json`, decoded using midi's `offchain/beast-sound/src/inputs.js:134`. These arrays are serialized Song recipes: the generation/theme identity and score key are authoritative for the current shared Species Songs. All 75 production mode/tonic pairs match the legacy lab's written Species Songs. Recipe-derived theme degree arrays also match all 75 lab themes. The fixture documents five MIDI differences beyond those shared theme/key facts: species 1, 2, 3, 37 and 73. Their legacy topline/range fields are marked for production-render verification instead of being presented as byte-identical production evidence.
+
+`offchain/beast-sound/src/full_midi.js:107` defines the existing palettes:
+
+| Family | Leads | Additional family presets |
+| --- | --- | --- |
+| Magic | 0 Triangle, 9 Wide Delayed Vibrato, 7 Soft Pulse | 15 Triangle Pluck, 17 Chip Harp, 13 Pulse 12.5% Pluck |
+| Hunter | 2 Pulse 25%, 1 Pulse 12.5%, 8 Fast Vibrato | 12 Pulse 25% Pluck, 19 Muted Pluck, 6 dry Pulse 25% Lead |
+| Brute | 3 Square, 4 4-bit Saw, 5 dry Square | 16 Saw Pluck, 14 Square Pluck, 18 Chip Piano |
+
+The source groups program 6 with the Hunter “plucks” for arrangement purposes, although its actual bank envelope sustains at full level. Program 18 has a decaying body with a small sustain, rather than a strictly zero-sustain pluck. The row rationales follow the operators, not only the group label. Bank definitions are in `offchain/beast-sound/onchain/tinychip/tinysynth-chip.js`; the 20 essentials are listed in `essentials.mjs:10`.
+
+All proposed base presets stay within the existing family bank. Both mega presets remain available through mega state: 50 Robot Hero and 65 N163 Brass. This covers all 20 sounds without assigning a mega-only sound to an ordinary Beast or expanding every settings payload. A user-selected outside-family/custom-bank exception such as Cyclops #504 must be handled explicitly by the implementation plan.
+
+The current check (`src/lab.js:914`) chooses a family preset by `(species-1)%6`, rotates it for a special name, and chooses mega by that index's parity. The Species Song instead gives the **theme** a lead from `species%3` (`full_midi.js:123`); its **topline** is whichever pitched voice has the highest mean pitch, and may be promoted to a different lead (`full_midi.js:189`). A single “song lead” label is ambiguous, so every row records both theme and topline alternatives. The strict-timbre alternative should use the verified actual production topline if that becomes the goal; the curated draft matches 21 legacy-equivalent topline presets and 16 theme presets while retaining more pluck variety.
+
+Canonical names come from beasts-v3's `packages/originals/src/catalogue.cairo`. This matters for #53 **Asag** and #70 **Metsavana**, whose older MIDI display table still says Balrog and Ent. The JSON retains those engine aliases as provenance, not as the public names.
+
+## How the phrase table creates variety
+
+The JSON defines ten archetypes: Incantation, Spiral, Veil, Spring, Flight, Hunt, Skitter, Stomp, Surge and Yodel. Each has a 16-note degree contour and held-note pair; four cadence variants and six two-bar rhythm grids supply small differences. Every row selects its contour and cadence explicitly. Rows whose response is `motif` quote the first four degrees of that production Song's theme three times, then close with the row's cadence. Descending responses reverse the head's first 12 degrees and append that cadence. This relation is encoded in `response_degrees`, so it can be reviewed without reverse-engineering hashes.
+
+The illustrative loop is eight bars at 480 PPQ, inspired by the original demos' scale / held-note / response / short-articulation progression. It is a proposal, not a requirement to repeat every diagnostic block for every species. Veils leave a four-beat final rest, Flights two beats, Incantations one beat; other archetypes continue to their tonic cadence. The last section's note count and silence are explicit row fields. Those pauses are part of the identity and loop shape rather than an accidental long end-of-track gap.
+
+Tempos use the original demos' seven-value palette: 90, 100, 120, 127.66, 131.87, 150 and 175 BPM. The actual written Species Songs are generally 120 BPM, with Yeti at 175, so these tempos are aesthetic choices rather than claims of exact Song-tempo parity. The Check remains a warmup in the Song's key even where the pace differs. The original low-demo sounds 14/15/16/18 use a tonic in MIDI 48–59; the other proposals use 60–71. This preserves pitch class while avoiding the very high literal spread-register tonic, which reaches MIDI 83. Song range facts remain in the row for review.
+
+The user's #406 reference is a broader cue for call/answer, motion and space. In the restored reference, #406 is **Pan sweep**, not one of the 20 preset scale demos: eight quarter notes alternate C5/G5 left/right; then a repeated G4–A4–B4–C#5 eighth-note figure moves left to right to left, with a four-second rest before its 16-second loop. Its plain custom triangle settings differ from bank preset 0. Literal #406 pitch classes do not fit every minor mode, so the table borrows the idea of a compact moving figure and an answer while realizing notes in each actual Song mode. Ten rows offer optional CC10 48/80 call/answer; the others center at 64. This is a gentle two-position answer, not a claim to reproduce #406's continuous hard-pan sweep. Stereo can remain centered everywhere without changing any pitch, and mono must retain the musical idea.
+
+## Fixed species, names, swaps, mega and drift
+
+For the fixed Species Song, resolve the same source identity the Song uses. Harpy #39 plays source #40's Eb harmonic minor Song and Pegasus #40 plays source #39's D Dorian Song (`src/lab.js:534`, production adapter `tools/production-composer.js:103`). Today's checks use their own spread keys and therefore disagree with those songs. The proposed fixed-song warmup uses the swapped Song key while keeping each named Beast's curated timbre/gesture.
+
+A special name currently changes a Check's key and preset selection. The lean identity recommendation is to retain the curated species preset/phrase and let a named-track warmup use its existing name-resolved mode/tonic. The product decision is whether a named Check previews the named track or the always-shared Species Song; it cannot imply both when their keys differ. The table's baseline is the **fixed, unnamed, as-written Species Song**.
+
+For mega, match the target Song's effective identity parity (`full_midi.js:138`), rather than the old Check's rotated family index parity. Ordinary unnamed checks generally select the opposite mega timbre from their own song today; the Harpy/Pegasus swap is the exception. The table proposes one mega timbre on the simple gesture, not the Song's full doubled/echo/drum arrangement.
+
+A fixed Check cannot match all drifted keys. `src/lab.js:811` can move a later monthly key to the dominant or subdominant. It is reasonable for this introductory warmup to stay as written; adding day/block inputs or RPC dependencies merely to chase that moving target is outside this plan.
+
+For the supplied Yeti URL (`track=song&b=68&e=1&p=1&day=20`), `onchain/drift-lab-demo.mjs:144` ignores edition/purchase controls in Song mode and calls `genesisMidi` with v2 drift and `dayAnchor()` stand-in hashes. Written Yeti is G harmonic minor, tonic MIDI 79 (G5), theme register band 2, dry Square preset 5, tempo 342857 µs/quarter (~175 BPM). Day 20 keeps that key/register/timbre and changes the tempo to 346821 (~173 BPM), channel selection, ornaments and entry spacing. `yeti-reference-analysis.json` stores the exact source-derived results. This is deterministic local analysis, not evidence that the hosted page or current chain state was listened to.
+
+## Review and validation
+
+The table currently has 75 species rows and 75 distinct preset/phrase/variant/tempo/register/pan tuples, including the two explicit provisional overrides. Every family-compatible draft row selects an existing family preset. All six rhythm arrays contain 16 slots totaling 3840 ticks (two bars). Every proposed degree realization in the row's current production scale is within MIDI 24–103. The production-key and theme comparisons above were run locally without RPC or transactions.
+
+After implementing a local preview, prioritize listening to the user-selected Cyclops #504 and Satori #411, then a representative set: Warlock 9/Incantation, Jiangshi 15/Spring, Anansi 13/Spiral, Banshee 9/Veil, Phoenix 8/Flight, Jaguar 12/Hunt, Mantis 19/Skitter, Kraken 4/Surge, Yeti 5/Yodel and Skeleton 14/Skitter. Review regular and mega state, true harmonic minor/Locrian/Dorian#4 intervals, the two swap species, named-key behavior, and headphone/mono playback. Listening judgments should be captured against the exact source revision so the final small table can be revised before a release.
+
+The reproducible audit helper is [audit-pairings.mjs](audit-pairings.mjs); run it with Node from any directory while the recorded isolated worktrees remain at `/tmp/beast-sound-scale-plan/`. It reads source and rewrites only the JSON/CSV planning artifacts. The raw legacy inspection and Yeti drift captures are retained alongside them.

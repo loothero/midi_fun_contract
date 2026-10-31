@@ -1,0 +1,279 @@
+[
+  {
+    "day": 0,
+    "params": {
+      "species_id": 68,
+      "name_variant_id": 0,
+      "mode_id": 8,
+      "tonic_keynum": 79,
+      "register_band": 2,
+      "tier": 4,
+      "weakness": 1,
+      "canon_config_id": 10,
+      "profile_id": 2,
+      "voice_count": 4,
+      "section_count": 2,
+      "stretto_bucket": 0,
+      "stretto_lag": 4,
+      "use_inversion": false,
+      "use_countersubject": true,
+      "use_compound_melody": true,
+      "ornament_density": 1,
+      "articulation_profile": 0,
+      "velocity_ceiling": 112,
+      "tempo_us": 342857,
+      "score_version": 1,
+      "_ornament": {
+        "profile_id": 2,
+        "density_cap": 1,
+        "allow_chromatic_approach": false,
+        "allow_suspension": false,
+        "allow_trill": false
+      },
+      "_state": {
+        "kill_bucket": 0,
+        "defeat_bucket": 0,
+        "summit_bucket": 0,
+        "encounter_bucket": 0,
+        "rank_tier": 4,
+        "is_crown": false
+      }
+    },
+    "info": {
+      "key": "G harmonic minor",
+      "voices": 4,
+      "sections": 2,
+      "tempo": 175,
+      "direction": 0,
+      "development": "sequence",
+      "spacing": "normal",
+      "prominence": 2,
+      "trill": false,
+      "ornamentDensity": 5,
+      "tied": 0,
+      "flourishes": null,
+      "channels": [
+        "theme",
+        "low voice",
+        "drums"
+      ]
+    },
+    "drift": {
+      "knob": null,
+      "label": "off"
+    },
+    "topline_voice": 0,
+    "topline_program": 5,
+    "theme_program": 5,
+    "ranges": {
+      "0": {
+        "sum": 6281,
+        "n": 74,
+        "min": 75,
+        "max": 96
+      },
+      "3": {
+        "sum": 2590,
+        "n": 36,
+        "min": 62,
+        "max": 82
+      },
+      "6": {
+        "sum": 1233,
+        "n": 14,
+        "min": 74,
+        "max": 103
+      }
+    }
+  },
+  {
+    "day": 1,
+    "params": {
+      "species_id": 68,
+      "name_variant_id": 0,
+      "mode_id": 8,
+      "tonic_keynum": 79,
+      "register_band": 2,
+      "tier": 4,
+      "weakness": 1,
+      "canon_config_id": 10,
+      "profile_id": 2,
+      "voice_count": 4,
+      "section_count": 2,
+      "stretto_bucket": 0,
+      "stretto_lag": 4,
+      "use_inversion": false,
+      "use_countersubject": true,
+      "use_compound_melody": true,
+      "ornament_density": 2,
+      "articulation_profile": 2,
+      "velocity_ceiling": 112,
+      "tempo_us": 346821,
+      "score_version": 1,
+      "_ornament": {
+        "profile_id": 2,
+        "density_cap": 1,
+        "allow_chromatic_approach": false,
+        "allow_suspension": false,
+        "allow_trill": false
+      },
+      "_state": {
+        "kill_bucket": 0,
+        "defeat_bucket": 0,
+        "summit_bucket": 0,
+        "encounter_bucket": 0,
+        "rank_tier": 4,
+        "is_crown": false
+      }
+    },
+    "info": {
+      "key": "G harmonic minor",
+      "voices": 4,
+      "sections": 2,
+      "tempo": 173,
+      "direction": 0,
+      "development": "sequence",
+      "spacing": "normal",
+      "prominence": 2,
+      "trill": false,
+      "ornamentDensity": 5,
+      "tied": 0,
+      "flourishes": null,
+      "channels": [
+        "theme",
+        "low voice",
+        "drums"
+      ]
+    },
+    "drift": {
+      "v": 2,
+      "rhythm": null,
+      "rotate": "877409029304955319997053555279101997205945674093161712276883975387450424703",
+      "dayKnob": 3,
+      "delta": -2,
+      "label": "month 1: rhythm as written · week 1: channels rotate, ornaments 2 of 7 · day: tempo -2 BPM, tenuto",
+      "day": 1
+    },
+    "topline_voice": 0,
+    "topline_program": 5,
+    "theme_program": 5,
+    "ranges": {
+      "0": {
+        "sum": 6281,
+        "n": 74,
+        "min": 75,
+        "max": 96
+      },
+      "3": {
+        "sum": 2590,
+        "n": 36,
+        "min": 62,
+        "max": 82
+      },
+      "6": {
+        "sum": 1233,
+        "n": 14,
+        "min": 74,
+        "max": 103
+      }
+    }
+  },
+  {
+    "day": 20,
+    "params": {
+      "species_id": 68,
+      "name_variant_id": 0,
+      "mode_id": 8,
+      "tonic_keynum": 79,
+      "register_band": 2,
+      "tier": 4,
+      "weakness": 1,
+      "canon_config_id": 10,
+      "profile_id": 2,
+      "voice_count": 4,
+      "section_count": 2,
+      "stretto_bucket": 0,
+      "stretto_lag": 3,
+      "use_inversion": false,
+      "use_countersubject": true,
+      "use_compound_melody": true,
+      "ornament_density": 3,
+      "articulation_profile": 2,
+      "velocity_ceiling": 112,
+      "tempo_us": 346821,
+      "score_version": 1,
+      "_ornament": {
+        "profile_id": 2,
+        "density_cap": 1,
+        "allow_chromatic_approach": false,
+        "allow_suspension": false,
+        "allow_trill": false
+      },
+      "_state": {
+        "kill_bucket": 0,
+        "defeat_bucket": 0,
+        "summit_bucket": 0,
+        "encounter_bucket": 0,
+        "rank_tier": 4,
+        "is_crown": false
+      }
+    },
+    "info": {
+      "key": "G harmonic minor",
+      "voices": 4,
+      "sections": 2,
+      "tempo": 173,
+      "direction": 0,
+      "development": "sequence",
+      "spacing": "normal",
+      "prominence": 2,
+      "trill": false,
+      "ornamentDensity": 5,
+      "tied": 5,
+      "flourishes": null,
+      "channels": [
+        "theme",
+        "low voice",
+        "countersubject"
+      ]
+    },
+    "drift": {
+      "v": 2,
+      "rhythm": null,
+      "rotate": "791234575666300753837729168805001223356926149275630497512388503768605012985",
+      "dayKnob": 3,
+      "delta": -2,
+      "label": "month 1: rhythm as written · week 3: channels rotate, ornaments 3 of 7, entries 3 beats apart · day: tempo -2 BPM, tenuto",
+      "day": 20
+    },
+    "topline_voice": 0,
+    "topline_program": 5,
+    "theme_program": 5,
+    "ranges": {
+      "0": {
+        "sum": 6470,
+        "n": 76,
+        "min": 75,
+        "max": 96
+      },
+      "3": {
+        "sum": 3162,
+        "n": 44,
+        "min": 62,
+        "max": 82
+      },
+      "4": {
+        "sum": 4575,
+        "n": 57,
+        "min": 67,
+        "max": 94
+      },
+      "6": {
+        "sum": 1233,
+        "n": 14,
+        "min": 74,
+        "max": 103
+      }
+    }
+  }
+]

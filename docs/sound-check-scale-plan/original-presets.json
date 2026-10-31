@@ -1,0 +1,3108 @@
+{
+  "schema": "sound-check-reference-audit/v1",
+  "source_repository": "https://github.com/Provable-Games/beast-sound-check",
+  "snapshots": [
+    {
+      "commit": "439b264d2d7d753e51a2484022bc364a2ded579a",
+      "index_html_sha256": "25795a7df3ae1f5d7bb39854ab245ebb041c1e1e70863273ea89bfa5f65aa8c1",
+      "page_version": "0.3.0",
+      "generated": "2026-10-05T17:04:07.308Z",
+      "records": [
+        {
+          "id": "201",
+          "title": "0 Triangle Lead (vibrato)",
+          "blurb": "Bank program 0; 2 operators; mid register demo.",
+          "midi_sha256": "a47d1395e125fedd394610e1e583ce0ed431b6462585d66e4dcaf5f50c84b01a",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 0
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360,
+          "trace": {
+            "ppq": 480,
+            "notes": [
+              {
+                "tick": 0,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 240,
+                "duration": 200,
+                "pitch": 62,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 480,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 720,
+                "duration": 200,
+                "pitch": 65,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 960,
+                "duration": 200,
+                "pitch": 67,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1200,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1440,
+                "duration": 200,
+                "pitch": 71,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1680,
+                "duration": 200,
+                "pitch": 72,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1920,
+                "duration": 200,
+                "pitch": 71,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2160,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2400,
+                "duration": 200,
+                "pitch": 67,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2640,
+                "duration": 200,
+                "pitch": 65,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2880,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 3120,
+                "duration": 200,
+                "pitch": 62,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 3360,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 3840,
+                "duration": 1860,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 5760,
+                "duration": 1860,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 7680,
+                "duration": 200,
+                "pitch": 57,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 7920,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8160,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8400,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8640,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8880,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9120,
+                "duration": 200,
+                "pitch": 57,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9360,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9600,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9840,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10080,
+                "duration": 200,
+                "pitch": 72,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10320,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10560,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10800,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 11040,
+                "duration": 200,
+                "pitch": 57,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 11280,
+                "duration": 200,
+                "pitch": 52,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 11520,
+                "duration": 40,
+                "pitch": 60,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 11760,
+                "duration": 40,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12000,
+                "duration": 40,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12240,
+                "duration": 40,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12480,
+                "duration": 40,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12720,
+                "duration": 40,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12960,
+                "duration": 40,
+                "pitch": 60,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13200,
+                "duration": 40,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13440,
+                "duration": 40,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13680,
+                "duration": 40,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13920,
+                "duration": 40,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14160,
+                "duration": 40,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14400,
+                "duration": 40,
+                "pitch": 60,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14640,
+                "duration": 40,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14880,
+                "duration": 40,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 15120,
+                "duration": 40,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              }
+            ],
+            "programs": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "program": 0
+              }
+            ],
+            "controls": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 10,
+                "value": 64
+              }
+            ],
+            "tempos": [
+              {
+                "tick": 0,
+                "tempo_us": 500000
+              }
+            ],
+            "end_tick": 15360
+          }
+        },
+        {
+          "id": "202",
+          "title": "1 Pulse 12.5% Lead",
+          "blurb": "Bank program 1; 2 operators; mid register demo.",
+          "midi_sha256": "72b2825e2b2f676508a5c21474904f9d0b7aea865f775eb37692808c25fd0de6",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 1
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "203",
+          "title": "2 Pulse 25% Lead",
+          "blurb": "Bank program 2; 2 operators; mid register demo.",
+          "midi_sha256": "7b19f1addd54a4eb11d67067b85f5419e42c80c05b6de98d4dac7978d301e815",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 2
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "204",
+          "title": "3 Square Lead",
+          "blurb": "Bank program 3; 2 operators; mid register demo.",
+          "midi_sha256": "2a4e2add8dadc63ab13eb9fcb15cde613827c07db924545c965d7f15120f0862",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 3
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "205",
+          "title": "4 4-bit Saw Lead",
+          "blurb": "Bank program 4; 2 operators; mid register demo.",
+          "midi_sha256": "5ca959148c6a123ef074152715bc9dd6619ba1a2122ecb5f0872dc7823ba299d",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 4
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "206",
+          "title": "5 Square Lead (dry)",
+          "blurb": "Bank program 5; 1 operator; mid register demo.",
+          "midi_sha256": "86f6ba96ca4bd6d43b084c272cc7d6f69def711498d8afe044bf1a0e71764f36",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 5
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "207",
+          "title": "6 Pulse 25% Lead (dry)",
+          "blurb": "Bank program 6; 1 operator; mid register demo.",
+          "midi_sha256": "5ed3c991a256c7065133a872d68a998b975ac6ed27bf73b01d7b4712c9af3c29",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 6
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "208",
+          "title": "7 Soft Pulse 12.5%",
+          "blurb": "Bank program 7; 2 operators; mid register demo.",
+          "midi_sha256": "a96507e3d349c979fffffc3b08a2857fa5424d26ea9f02e343e3ec6096f971af",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 7
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "209",
+          "title": "8 Fast Vibrato Lead",
+          "blurb": "Bank program 8; 2 operators; mid register demo.",
+          "midi_sha256": "e6f400a50e2c319eb3d82d869dff0dc89342b82adb5a8da6a6f57038bcce4da9",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 8
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "210",
+          "title": "9 Wide Delayed Vibrato",
+          "blurb": "Bank program 9; 2 operators; mid register demo.",
+          "midi_sha256": "ed1c39908d4f82d78fde417a5baa1b10650dc0afb2b8447cece5825adfbb647c",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 9
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "211",
+          "title": "12 Pulse 25% Pluck",
+          "blurb": "Bank program 12; 1 operator; mid register demo.",
+          "midi_sha256": "2ef27d66868eb991894f262104e78fde60d044686801d097788e02fdd0fb4482",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 12
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "212",
+          "title": "13 Pulse 12.5% Pluck",
+          "blurb": "Bank program 13; 1 operator; mid register demo.",
+          "midi_sha256": "0671751f940698a519f8f4f94fc367461b25f4d65b1ac2aad2b5ecb6380f0ead",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 13
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "213",
+          "title": "14 Square Pluck",
+          "blurb": "Bank program 14; 1 operator; low register demo.",
+          "midi_sha256": "a418116bb2df9a459ffb6b9f49d4cd705553cac72c3f10cb90042b5f32d78c09",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 14
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "214",
+          "title": "15 Triangle Pluck",
+          "blurb": "Bank program 15; 1 operator; low register demo.",
+          "midi_sha256": "d7fb53ed8ec66b6e6b09f330265ef4a90b1b2fa92b54fa4c1505fdcaac53f105",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 15
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "215",
+          "title": "16 4-bit Saw Pluck",
+          "blurb": "Bank program 16; 1 operator; low register demo.",
+          "midi_sha256": "1d550c3e5b17a1883b744afc1984fed6aeb47abc06fa90fe5e5ccad5d52ff9f4",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 16
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "216",
+          "title": "17 Chip Harp",
+          "blurb": "Bank program 17; 2 operators; mid register demo.",
+          "midi_sha256": "4a3de26cf7553cf3df458bdd97c254a83b29526bbc0b4c1d8a84d7edfb103af3",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 17
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "217",
+          "title": "18 Chip Piano",
+          "blurb": "Bank program 18; 1 operator; low register demo.",
+          "midi_sha256": "887ddf3d4ffe263cb34994180b776fca622175dcaac2f38c318f4ddcff5439c6",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 18
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "218",
+          "title": "19 Muted Pluck",
+          "blurb": "Bank program 19; 1 operator; mid register demo.",
+          "midi_sha256": "10be8ade1675a3928e232794378b804fab17bbe13a43e7b86a40e41b1e71299c",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 19
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "219",
+          "title": "50 Robot Hero Lead",
+          "blurb": "Bank program 50; 2 operators; mid register demo.",
+          "midi_sha256": "f503014b789e2f3c4a174b3554cad50d4e36f1c70f9a2b91d5e7c9348682c67d",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 50
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "220",
+          "title": "65 N163 Brass Wave",
+          "blurb": "Bank program 65; 2 operators; mid register demo.",
+          "midi_sha256": "dd856b6d9ad0d5037788a5ff56adb8df7e0da49aeb3e54feeb5cd96dd8f89f45",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 65
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "406",
+          "title": "Pan sweep",
+          "blurb": "Ping-pong between hard left and hard right, then a pan sweep.",
+          "midi_sha256": "2170ea529343f4989be60aaa52178cff19caf7158dfdb0dcbb0b67ef63e93e8c",
+          "midi_bytes": 702,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 0
+            },
+            {
+              "tick": 0,
+              "channel": 1,
+              "program": 0
+            },
+            {
+              "tick": 0,
+              "channel": 2,
+              "program": 0
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 40,
+          "min_pitch": 67,
+          "max_pitch": 79,
+          "end_tick": 15360,
+          "trace": {
+            "ppq": 480,
+            "notes": [
+              {
+                "tick": 0,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 480,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 960,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 1440,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 1920,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 2400,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 2880,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 3360,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 3840,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4080,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4320,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4560,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4800,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5040,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5280,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5520,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5760,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6000,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6240,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6480,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6720,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6960,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7200,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7440,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7680,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7920,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8160,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8400,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8640,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8880,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9120,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9360,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9600,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9840,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10080,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10320,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10560,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10800,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 11040,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 11280,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              }
+            ],
+            "programs": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "program": 0
+              },
+              {
+                "tick": 0,
+                "channel": 1,
+                "program": 0
+              },
+              {
+                "tick": 0,
+                "channel": 2,
+                "program": 0
+              }
+            ],
+            "controls": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 10,
+                "value": 0
+              },
+              {
+                "tick": 0,
+                "channel": 1,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 1,
+                "cc": 10,
+                "value": 127
+              },
+              {
+                "tick": 0,
+                "channel": 2,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 2,
+                "cc": 10,
+                "value": 0
+              },
+              {
+                "tick": 3840,
+                "channel": 2,
+                "cc": 10,
+                "value": 0
+              },
+              {
+                "tick": 3960,
+                "channel": 2,
+                "cc": 10,
+                "value": 4
+              },
+              {
+                "tick": 4080,
+                "channel": 2,
+                "cc": 10,
+                "value": 8
+              },
+              {
+                "tick": 4200,
+                "channel": 2,
+                "cc": 10,
+                "value": 12
+              },
+              {
+                "tick": 4320,
+                "channel": 2,
+                "cc": 10,
+                "value": 16
+              },
+              {
+                "tick": 4440,
+                "channel": 2,
+                "cc": 10,
+                "value": 20
+              },
+              {
+                "tick": 4560,
+                "channel": 2,
+                "cc": 10,
+                "value": 24
+              },
+              {
+                "tick": 4680,
+                "channel": 2,
+                "cc": 10,
+                "value": 28
+              },
+              {
+                "tick": 4800,
+                "channel": 2,
+                "cc": 10,
+                "value": 32
+              },
+              {
+                "tick": 4920,
+                "channel": 2,
+                "cc": 10,
+                "value": 36
+              },
+              {
+                "tick": 5040,
+                "channel": 2,
+                "cc": 10,
+                "value": 40
+              },
+              {
+                "tick": 5160,
+                "channel": 2,
+                "cc": 10,
+                "value": 44
+              },
+              {
+                "tick": 5280,
+                "channel": 2,
+                "cc": 10,
+                "value": 48
+              },
+              {
+                "tick": 5400,
+                "channel": 2,
+                "cc": 10,
+                "value": 52
+              },
+              {
+                "tick": 5520,
+                "channel": 2,
+                "cc": 10,
+                "value": 56
+              },
+              {
+                "tick": 5640,
+                "channel": 2,
+                "cc": 10,
+                "value": 60
+              },
+              {
+                "tick": 5760,
+                "channel": 2,
+                "cc": 10,
+                "value": 64
+              },
+              {
+                "tick": 5880,
+                "channel": 2,
+                "cc": 10,
+                "value": 67
+              },
+              {
+                "tick": 6000,
+                "channel": 2,
+                "cc": 10,
+                "value": 71
+              },
+              {
+                "tick": 6120,
+                "channel": 2,
+                "cc": 10,
+                "value": 75
+              },
+              {
+                "tick": 6240,
+                "channel": 2,
+                "cc": 10,
+                "value": 79
+              },
+              {
+                "tick": 6360,
+                "channel": 2,
+                "cc": 10,
+                "value": 83
+              },
+              {
+                "tick": 6480,
+                "channel": 2,
+                "cc": 10,
+                "value": 87
+              },
+              {
+                "tick": 6600,
+                "channel": 2,
+                "cc": 10,
+                "value": 91
+              },
+              {
+                "tick": 6720,
+                "channel": 2,
+                "cc": 10,
+                "value": 95
+              },
+              {
+                "tick": 6840,
+                "channel": 2,
+                "cc": 10,
+                "value": 99
+              },
+              {
+                "tick": 6960,
+                "channel": 2,
+                "cc": 10,
+                "value": 103
+              },
+              {
+                "tick": 7080,
+                "channel": 2,
+                "cc": 10,
+                "value": 107
+              },
+              {
+                "tick": 7200,
+                "channel": 2,
+                "cc": 10,
+                "value": 111
+              },
+              {
+                "tick": 7320,
+                "channel": 2,
+                "cc": 10,
+                "value": 115
+              },
+              {
+                "tick": 7440,
+                "channel": 2,
+                "cc": 10,
+                "value": 119
+              },
+              {
+                "tick": 7560,
+                "channel": 2,
+                "cc": 10,
+                "value": 123
+              },
+              {
+                "tick": 7680,
+                "channel": 2,
+                "cc": 10,
+                "value": 127
+              },
+              {
+                "tick": 7800,
+                "channel": 2,
+                "cc": 10,
+                "value": 123
+              },
+              {
+                "tick": 7920,
+                "channel": 2,
+                "cc": 10,
+                "value": 119
+              },
+              {
+                "tick": 8040,
+                "channel": 2,
+                "cc": 10,
+                "value": 115
+              },
+              {
+                "tick": 8160,
+                "channel": 2,
+                "cc": 10,
+                "value": 111
+              },
+              {
+                "tick": 8280,
+                "channel": 2,
+                "cc": 10,
+                "value": 107
+              },
+              {
+                "tick": 8400,
+                "channel": 2,
+                "cc": 10,
+                "value": 103
+              },
+              {
+                "tick": 8520,
+                "channel": 2,
+                "cc": 10,
+                "value": 99
+              },
+              {
+                "tick": 8640,
+                "channel": 2,
+                "cc": 10,
+                "value": 95
+              },
+              {
+                "tick": 8760,
+                "channel": 2,
+                "cc": 10,
+                "value": 91
+              },
+              {
+                "tick": 8880,
+                "channel": 2,
+                "cc": 10,
+                "value": 87
+              },
+              {
+                "tick": 9000,
+                "channel": 2,
+                "cc": 10,
+                "value": 83
+              },
+              {
+                "tick": 9120,
+                "channel": 2,
+                "cc": 10,
+                "value": 79
+              },
+              {
+                "tick": 9240,
+                "channel": 2,
+                "cc": 10,
+                "value": 75
+              },
+              {
+                "tick": 9360,
+                "channel": 2,
+                "cc": 10,
+                "value": 71
+              },
+              {
+                "tick": 9480,
+                "channel": 2,
+                "cc": 10,
+                "value": 67
+              },
+              {
+                "tick": 9600,
+                "channel": 2,
+                "cc": 10,
+                "value": 64
+              },
+              {
+                "tick": 9720,
+                "channel": 2,
+                "cc": 10,
+                "value": 60
+              },
+              {
+                "tick": 9840,
+                "channel": 2,
+                "cc": 10,
+                "value": 56
+              },
+              {
+                "tick": 9960,
+                "channel": 2,
+                "cc": 10,
+                "value": 52
+              },
+              {
+                "tick": 10080,
+                "channel": 2,
+                "cc": 10,
+                "value": 48
+              },
+              {
+                "tick": 10200,
+                "channel": 2,
+                "cc": 10,
+                "value": 44
+              },
+              {
+                "tick": 10320,
+                "channel": 2,
+                "cc": 10,
+                "value": 40
+              },
+              {
+                "tick": 10440,
+                "channel": 2,
+                "cc": 10,
+                "value": 36
+              },
+              {
+                "tick": 10560,
+                "channel": 2,
+                "cc": 10,
+                "value": 32
+              },
+              {
+                "tick": 10680,
+                "channel": 2,
+                "cc": 10,
+                "value": 28
+              },
+              {
+                "tick": 10800,
+                "channel": 2,
+                "cc": 10,
+                "value": 24
+              },
+              {
+                "tick": 10920,
+                "channel": 2,
+                "cc": 10,
+                "value": 20
+              },
+              {
+                "tick": 11040,
+                "channel": 2,
+                "cc": 10,
+                "value": 16
+              },
+              {
+                "tick": 11160,
+                "channel": 2,
+                "cc": 10,
+                "value": 12
+              },
+              {
+                "tick": 11280,
+                "channel": 2,
+                "cc": 10,
+                "value": 8
+              },
+              {
+                "tick": 11400,
+                "channel": 2,
+                "cc": 10,
+                "value": 4
+              },
+              {
+                "tick": 11520,
+                "channel": 2,
+                "cc": 10,
+                "value": 0
+              }
+            ],
+            "tempos": [
+              {
+                "tick": 0,
+                "tempo_us": 500000
+              }
+            ],
+            "end_tick": 15360
+          }
+        }
+      ]
+    },
+    {
+      "commit": "433f8261eb0b5fba2a3fa56574af95bc7af3a66c",
+      "index_html_sha256": "fd64b55b9883925ff3916182ad1822164ac57586b2f18caaafa1d0e4f69450c7",
+      "page_version": "0.3.0",
+      "generated": "2026-10-05T18:30:05.688Z",
+      "records": [
+        {
+          "id": "201",
+          "title": "Triangle Lead (vibrato) (0) \u00b7 90 BPM",
+          "blurb": "Bank program 0; 2 operators; mid register demo.",
+          "midi_sha256": "8a380414c97d6cbb9c11442db1b346992a4cd46d71f6134efd15da4fc603783f",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 0
+            }
+          ],
+          "tempo_us": 666667,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360,
+          "trace": {
+            "ppq": 480,
+            "notes": [
+              {
+                "tick": 0,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 240,
+                "duration": 200,
+                "pitch": 62,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 480,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 720,
+                "duration": 200,
+                "pitch": 65,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 960,
+                "duration": 200,
+                "pitch": 67,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1200,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1440,
+                "duration": 200,
+                "pitch": 71,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1680,
+                "duration": 200,
+                "pitch": 72,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 1920,
+                "duration": 200,
+                "pitch": 71,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2160,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2400,
+                "duration": 200,
+                "pitch": 67,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2640,
+                "duration": 200,
+                "pitch": 65,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 2880,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 3120,
+                "duration": 200,
+                "pitch": 62,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 3360,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 3840,
+                "duration": 1860,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 5760,
+                "duration": 1860,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 7680,
+                "duration": 200,
+                "pitch": 57,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 7920,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8160,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8400,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8640,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 8880,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9120,
+                "duration": 200,
+                "pitch": 57,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9360,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9600,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 9840,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10080,
+                "duration": 200,
+                "pitch": 72,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10320,
+                "duration": 200,
+                "pitch": 69,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10560,
+                "duration": 200,
+                "pitch": 64,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 10800,
+                "duration": 200,
+                "pitch": 60,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 11040,
+                "duration": 200,
+                "pitch": 57,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 11280,
+                "duration": 200,
+                "pitch": 52,
+                "velocity": 96,
+                "channel": 0
+              },
+              {
+                "tick": 11520,
+                "duration": 30,
+                "pitch": 60,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 11760,
+                "duration": 30,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12000,
+                "duration": 30,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12240,
+                "duration": 30,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12480,
+                "duration": 30,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12720,
+                "duration": 30,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 12960,
+                "duration": 30,
+                "pitch": 60,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13200,
+                "duration": 30,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13440,
+                "duration": 30,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13680,
+                "duration": 30,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 13920,
+                "duration": 30,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14160,
+                "duration": 30,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14400,
+                "duration": 30,
+                "pitch": 60,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14640,
+                "duration": 30,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 14880,
+                "duration": 30,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 15120,
+                "duration": 30,
+                "pitch": 64,
+                "velocity": 100,
+                "channel": 0
+              }
+            ],
+            "programs": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "program": 0
+              }
+            ],
+            "controls": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 10,
+                "value": 64
+              }
+            ],
+            "tempos": [
+              {
+                "tick": 0,
+                "tempo_us": 666667
+              }
+            ],
+            "end_tick": 15360
+          }
+        },
+        {
+          "id": "202",
+          "title": "Pulse 12.5% Lead (1) \u00b7 100 BPM",
+          "blurb": "Bank program 1; 2 operators; mid register demo.",
+          "midi_sha256": "257ea67bab282eb700d8e1a37fb740a1c521301ab22467e391427eff6f56568f",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 1
+            }
+          ],
+          "tempo_us": 600000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "203",
+          "title": "Pulse 25% Lead (2) \u00b7 120 BPM",
+          "blurb": "Bank program 2; 2 operators; mid register demo.",
+          "midi_sha256": "7b19f1addd54a4eb11d67067b85f5419e42c80c05b6de98d4dac7978d301e815",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 2
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "204",
+          "title": "Square Lead (3) \u00b7 127.66 BPM",
+          "blurb": "Bank program 3; 2 operators; mid register demo.",
+          "midi_sha256": "38550e03b797d5ef97d81809d41a64270ed9ee42dfc83aa451528f82473a1b79",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 3
+            }
+          ],
+          "tempo_us": 469998,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "205",
+          "title": "4-bit Saw Lead (4) \u00b7 131.87 BPM",
+          "blurb": "Bank program 4; 2 operators; mid register demo.",
+          "midi_sha256": "6ee1d5960280fd5c24fd4ca57c68d22e94644336bc34af2bc413f8468ad3084d",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 4
+            }
+          ],
+          "tempo_us": 454994,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "206",
+          "title": "Square Lead (dry) (5) \u00b7 150 BPM",
+          "blurb": "Bank program 5; 1 operator; mid register demo.",
+          "midi_sha256": "f70ce3edf481aeddd0bab5800db106932ee094abe4e054823a4be34e0aee1e52",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 5
+            }
+          ],
+          "tempo_us": 400000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "207",
+          "title": "Pulse 25% Lead (dry) (6) \u00b7 175 BPM",
+          "blurb": "Bank program 6; 1 operator; mid register demo.",
+          "midi_sha256": "0ac5bd61c4ff1f0b95175a141201b38a50f0d38f2a0e34c810cd01d829d61c8a",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 6
+            }
+          ],
+          "tempo_us": 342857,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "208",
+          "title": "Soft Pulse 12.5% (7) \u00b7 90 BPM",
+          "blurb": "Bank program 7; 2 operators; mid register demo.",
+          "midi_sha256": "2b69d7edcc050d249918ffecdf900301838e95595fda21948562bb04a43f8d59",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 7
+            }
+          ],
+          "tempo_us": 666667,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "209",
+          "title": "Fast Vibrato Lead (8) \u00b7 100 BPM",
+          "blurb": "Bank program 8; 2 operators; mid register demo.",
+          "midi_sha256": "0622e67bc2f4b6c9599aca655608df87fbc7a5d552816caa7dc22568e51203b6",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 8
+            }
+          ],
+          "tempo_us": 600000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "210",
+          "title": "Wide Delayed Vibrato (9) \u00b7 120 BPM",
+          "blurb": "Bank program 9; 2 operators; mid register demo.",
+          "midi_sha256": "ed1c39908d4f82d78fde417a5baa1b10650dc0afb2b8447cece5825adfbb647c",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 9
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "211",
+          "title": "Pulse 25% Pluck (12) \u00b7 127.66 BPM",
+          "blurb": "Bank program 12; 1 operator; mid register demo.",
+          "midi_sha256": "39eef85e879ab7d1d95c552e7188db4972afe61041b523f1a192ae4f75539fae",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 12
+            }
+          ],
+          "tempo_us": 469998,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "212",
+          "title": "Pulse 12.5% Pluck (13) \u00b7 131.87 BPM",
+          "blurb": "Bank program 13; 1 operator; mid register demo.",
+          "midi_sha256": "76303cf569e307d81fde9e1da6a2c6d070c48708a1e8785476b885143b30af9f",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 13
+            }
+          ],
+          "tempo_us": 454994,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "213",
+          "title": "Square Pluck (14) \u00b7 150 BPM",
+          "blurb": "Bank program 14; 1 operator; low register demo.",
+          "midi_sha256": "024533336960da2edad1143906176e164f95190ec522c9ecc86ba0c10918ffde",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 14
+            }
+          ],
+          "tempo_us": 400000,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "214",
+          "title": "Triangle Pluck (15) \u00b7 175 BPM",
+          "blurb": "Bank program 15; 1 operator; low register demo.",
+          "midi_sha256": "54cd4ea798fb2a9ddfd8078c42c909ccecd674dc1c0cfc10f69f3bfc24569feb",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 15
+            }
+          ],
+          "tempo_us": 342857,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "215",
+          "title": "4-bit Saw Pluck (16) \u00b7 90 BPM",
+          "blurb": "Bank program 16; 1 operator; low register demo.",
+          "midi_sha256": "d45c26c56806aa54602ec46d042eb2c83cf5fb887fb6225695ff464089533cb7",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 16
+            }
+          ],
+          "tempo_us": 666667,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "216",
+          "title": "Chip Harp (17) \u00b7 100 BPM",
+          "blurb": "Bank program 17; 2 operators; mid register demo.",
+          "midi_sha256": "37e6cd9c1a22ad0869b116f8317f9ecf83642f1344b7db2a2be682f8442606e1",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 17
+            }
+          ],
+          "tempo_us": 600000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "217",
+          "title": "Chip Piano (18) \u00b7 120 BPM",
+          "blurb": "Bank program 18; 1 operator; low register demo.",
+          "midi_sha256": "887ddf3d4ffe263cb34994180b776fca622175dcaac2f38c318f4ddcff5439c6",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 18
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 49,
+          "min_pitch": 40,
+          "max_pitch": 60,
+          "end_tick": 15360
+        },
+        {
+          "id": "218",
+          "title": "Muted Pluck (19) \u00b7 127.66 BPM",
+          "blurb": "Bank program 19; 1 operator; mid register demo.",
+          "midi_sha256": "c797dcac3fe8ab730ad03320955c672e1721b0e65781de68f209dc6a8c93fe05",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 19
+            }
+          ],
+          "tempo_us": 469998,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "219",
+          "title": "Robot Hero Lead (50) \u00b7 131.87 BPM",
+          "blurb": "Bank program 50; 2 operators; mid register demo.",
+          "midi_sha256": "87ae65fd9893842d73eeff95d544a6b3e7aea320d99b2d30d11aa5a3db63cfba",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 50
+            }
+          ],
+          "tempo_us": 454994,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "220",
+          "title": "N163 Brass Wave (65) \u00b7 150 BPM",
+          "blurb": "Bank program 65; 2 operators; mid register demo.",
+          "midi_sha256": "8c87b91a1c9cc7ce398639f791684feac88b07724d353529b0d3921da0650215",
+          "midi_bytes": 499,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 65
+            }
+          ],
+          "tempo_us": 400000,
+          "note_count": 49,
+          "min_pitch": 52,
+          "max_pitch": 72,
+          "end_tick": 15360
+        },
+        {
+          "id": "406",
+          "title": "Pan sweep \u00b7 120 BPM",
+          "blurb": "Ping-pong between hard left and hard right, then a pan sweep.",
+          "midi_sha256": "2170ea529343f4989be60aaa52178cff19caf7158dfdb0dcbb0b67ef63e93e8c",
+          "midi_bytes": 702,
+          "ppq": 480,
+          "programs": [
+            {
+              "tick": 0,
+              "channel": 0,
+              "program": 0
+            },
+            {
+              "tick": 0,
+              "channel": 1,
+              "program": 0
+            },
+            {
+              "tick": 0,
+              "channel": 2,
+              "program": 0
+            }
+          ],
+          "tempo_us": 500000,
+          "note_count": 40,
+          "min_pitch": 67,
+          "max_pitch": 79,
+          "end_tick": 15360,
+          "trace": {
+            "ppq": 480,
+            "notes": [
+              {
+                "tick": 0,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 480,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 960,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 1440,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 1920,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 2400,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 2880,
+                "duration": 400,
+                "pitch": 72,
+                "velocity": 100,
+                "channel": 0
+              },
+              {
+                "tick": 3360,
+                "duration": 400,
+                "pitch": 79,
+                "velocity": 100,
+                "channel": 1
+              },
+              {
+                "tick": 3840,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4080,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4320,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4560,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 4800,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5040,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5280,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5520,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 5760,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6000,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6240,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6480,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6720,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 6960,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7200,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7440,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7680,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 7920,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8160,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8400,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8640,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 8880,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9120,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9360,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9600,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 9840,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10080,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10320,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10560,
+                "duration": 220,
+                "pitch": 67,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 10800,
+                "duration": 220,
+                "pitch": 69,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 11040,
+                "duration": 220,
+                "pitch": 71,
+                "velocity": 100,
+                "channel": 2
+              },
+              {
+                "tick": 11280,
+                "duration": 220,
+                "pitch": 73,
+                "velocity": 100,
+                "channel": 2
+              }
+            ],
+            "programs": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "program": 0
+              },
+              {
+                "tick": 0,
+                "channel": 1,
+                "program": 0
+              },
+              {
+                "tick": 0,
+                "channel": 2,
+                "program": 0
+              }
+            ],
+            "controls": [
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 0,
+                "cc": 10,
+                "value": 0
+              },
+              {
+                "tick": 0,
+                "channel": 1,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 1,
+                "cc": 10,
+                "value": 127
+              },
+              {
+                "tick": 0,
+                "channel": 2,
+                "cc": 7,
+                "value": 100
+              },
+              {
+                "tick": 0,
+                "channel": 2,
+                "cc": 10,
+                "value": 0
+              },
+              {
+                "tick": 3840,
+                "channel": 2,
+                "cc": 10,
+                "value": 0
+              },
+              {
+                "tick": 3960,
+                "channel": 2,
+                "cc": 10,
+                "value": 4
+              },
+              {
+                "tick": 4080,
+                "channel": 2,
+                "cc": 10,
+                "value": 8
+              },
+              {
+                "tick": 4200,
+                "channel": 2,
+                "cc": 10,
+                "value": 12
+              },
+              {
+                "tick": 4320,
+                "channel": 2,
+                "cc": 10,
+                "value": 16
+              },
+              {
+                "tick": 4440,
+                "channel": 2,
+                "cc": 10,
+                "value": 20
+              },
+              {
+                "tick": 4560,
+                "channel": 2,
+                "cc": 10,
+                "value": 24
+              },
+              {
+                "tick": 4680,
+                "channel": 2,
+                "cc": 10,
+                "value": 28
+              },
+              {
+                "tick": 4800,
+                "channel": 2,
+                "cc": 10,
+                "value": 32
+              },
+              {
+                "tick": 4920,
+                "channel": 2,
+                "cc": 10,
+                "value": 36
+              },
+              {
+                "tick": 5040,
+                "channel": 2,
+                "cc": 10,
+                "value": 40
+              },
+              {
+                "tick": 5160,
+                "channel": 2,
+                "cc": 10,
+                "value": 44
+              },
+              {
+                "tick": 5280,
+                "channel": 2,
+                "cc": 10,
+                "value": 48
+              },
+              {
+                "tick": 5400,
+                "channel": 2,
+                "cc": 10,
+                "value": 52
+              },
+              {
+                "tick": 5520,
+                "channel": 2,
+                "cc": 10,
+                "value": 56
+              },
+              {
+                "tick": 5640,
+                "channel": 2,
+                "cc": 10,
+                "value": 60
+              },
+              {
+                "tick": 5760,
+                "channel": 2,
+                "cc": 10,
+                "value": 64
+              },
+              {
+                "tick": 5880,
+                "channel": 2,
+                "cc": 10,
+                "value": 67
+              },
+              {
+                "tick": 6000,
+                "channel": 2,
+                "cc": 10,
+                "value": 71
+              },
+              {
+                "tick": 6120,
+                "channel": 2,
+                "cc": 10,
+                "value": 75
+              },
+              {
+                "tick": 6240,
+                "channel": 2,
+                "cc": 10,
+                "value": 79
+              },
+              {
+                "tick": 6360,
+                "channel": 2,
+                "cc": 10,
+                "value": 83
+              },
+              {
+                "tick": 6480,
+                "channel": 2,
+                "cc": 10,
+                "value": 87
+              },
+              {
+                "tick": 6600,
+                "channel": 2,
+                "cc": 10,
+                "value": 91
+              },
+              {
+                "tick": 6720,
+                "channel": 2,
+                "cc": 10,
+                "value": 95
+              },
+              {
+                "tick": 6840,
+                "channel": 2,
+                "cc": 10,
+                "value": 99
+              },
+              {
+                "tick": 6960,
+                "channel": 2,
+                "cc": 10,
+                "value": 103
+              },
+              {
+                "tick": 7080,
+                "channel": 2,
+                "cc": 10,
+                "value": 107
+              },
+              {
+                "tick": 7200,
+                "channel": 2,
+                "cc": 10,
+                "value": 111
+              },
+              {
+                "tick": 7320,
+                "channel": 2,
+                "cc": 10,
+                "value": 115
+              },
+              {
+                "tick": 7440,
+                "channel": 2,
+                "cc": 10,
+                "value": 119
+              },
+              {
+                "tick": 7560,
+                "channel": 2,
+                "cc": 10,
+                "value": 123
+              },
+              {
+                "tick": 7680,
+                "channel": 2,
+                "cc": 10,
+                "value": 127
+              },
+              {
+                "tick": 7800,
+                "channel": 2,
+                "cc": 10,
+                "value": 123
+              },
+              {
+                "tick": 7920,
+                "channel": 2,
+                "cc": 10,
+                "value": 119
+              },
+              {
+                "tick": 8040,
+                "channel": 2,
+                "cc": 10,
+                "value": 115
+              },
+              {
+                "tick": 8160,
+                "channel": 2,
+                "cc": 10,
+                "value": 111
+              },
+              {
+                "tick": 8280,
+                "channel": 2,
+                "cc": 10,
+                "value": 107
+              },
+              {
+                "tick": 8400,
+                "channel": 2,
+                "cc": 10,
+                "value": 103
+              },
+              {
+                "tick": 8520,
+                "channel": 2,
+                "cc": 10,
+                "value": 99
+              },
+              {
+                "tick": 8640,
+                "channel": 2,
+                "cc": 10,
+                "value": 95
+              },
+              {
+                "tick": 8760,
+                "channel": 2,
+                "cc": 10,
+                "value": 91
+              },
+              {
+                "tick": 8880,
+                "channel": 2,
+                "cc": 10,
+                "value": 87
+              },
+              {
+                "tick": 9000,
+                "channel": 2,
+                "cc": 10,
+                "value": 83
+              },
+              {
+                "tick": 9120,
+                "channel": 2,
+                "cc": 10,
+                "value": 79
+              },
+              {
+                "tick": 9240,
+                "channel": 2,
+                "cc": 10,
+                "value": 75
+              },
+              {
+                "tick": 9360,
+                "channel": 2,
+                "cc": 10,
+                "value": 71
+              },
+              {
+                "tick": 9480,
+                "channel": 2,
+                "cc": 10,
+                "value": 67
+              },
+              {
+                "tick": 9600,
+                "channel": 2,
+                "cc": 10,
+                "value": 64
+              },
+              {
+                "tick": 9720,
+                "channel": 2,
+                "cc": 10,
+                "value": 60
+              },
+              {
+                "tick": 9840,
+                "channel": 2,
+                "cc": 10,
+                "value": 56
+              },
+              {
+                "tick": 9960,
+                "channel": 2,
+                "cc": 10,
+                "value": 52
+              },
+              {
+                "tick": 10080,
+                "channel": 2,
+                "cc": 10,
+                "value": 48
+              },
+              {
+                "tick": 10200,
+                "channel": 2,
+                "cc": 10,
+                "value": 44
+              },
+              {
+                "tick": 10320,
+                "channel": 2,
+                "cc": 10,
+                "value": 40
+              },
+              {
+                "tick": 10440,
+                "channel": 2,
+                "cc": 10,
+                "value": 36
+              },
+              {
+                "tick": 10560,
+                "channel": 2,
+                "cc": 10,
+                "value": 32
+              },
+              {
+                "tick": 10680,
+                "channel": 2,
+                "cc": 10,
+                "value": 28
+              },
+              {
+                "tick": 10800,
+                "channel": 2,
+                "cc": 10,
+                "value": 24
+              },
+              {
+                "tick": 10920,
+                "channel": 2,
+                "cc": 10,
+                "value": 20
+              },
+              {
+                "tick": 11040,
+                "channel": 2,
+                "cc": 10,
+                "value": 16
+              },
+              {
+                "tick": 11160,
+                "channel": 2,
+                "cc": 10,
+                "value": 12
+              },
+              {
+                "tick": 11280,
+                "channel": 2,
+                "cc": 10,
+                "value": 8
+              },
+              {
+                "tick": 11400,
+                "channel": 2,
+                "cc": 10,
+                "value": 4
+              },
+              {
+                "tick": 11520,
+                "channel": 2,
+                "cc": 10,
+                "value": 0
+              }
+            ],
+            "tempos": [
+              {
+                "tick": 0,
+                "tempo_us": 500000
+              }
+            ],
+            "end_tick": 15360
+          }
+        }
+      ]
+    }
+  ]
+}

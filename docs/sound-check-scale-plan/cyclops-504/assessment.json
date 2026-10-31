@@ -1,0 +1,512 @@
+{
+  "title": "Cyclops sound-check compatibility review: historical track 504",
+  "scope": "Read-only review. No music, source implementation, deployment, commit, or push changes.",
+  "user_preference": "Whole sequence: preserve all eight presets and the original 504 arrangement.",
+  "repositories": {
+    "midi_fun_contract": {
+      "commit": "cdcad0a4b5d6ef4f3ddb6555f3448cbb017766e1",
+      "worktree": "/tmp/cyclops-504-preset-review",
+      "source_status": "clean before this report artifact; no source files changed"
+    },
+    "historical_lab": {
+      "repo": "/workspace/beast-sound-check",
+      "file": "original-lab/sound-check.html",
+      "sha256": "fd64b55b9883925ff3916182ad1822164ac57586b2f18caaafa1d0e4f69450c7",
+      "identity": "byte-identical to 433f826:index.html",
+      "pre-existing_status": "README.md modified and original-lab/ untracked at review start; left untouched"
+    }
+  },
+  "verdict": {
+    "feasible": "Yes, all eight sounds are in the current full TinyChip bank and the existing conversion supports their operators and waves.",
+    "current_onchain_status": "Unavailable in the current Cyclops Brute settings and current Check MIDI family selection. Programs 34-41 are outside the 20 ESSENTIALS and outside all three six-program family pools. Program 39 alone has a prepared optional-pack entry, which is not part of the normal provider settings.",
+    "wave_support": "No new waveform implementation is needed. Track 504 uses nP12, nP25, and nP50. All are registered sample waves in the current converter; nP12/nP25 are already generated for Magic settings and nP50 is already in Brute settings. The Brute-specific settings returned to Cyclops do not currently include nP12 or nP25.",
+    "minimum_route": "Generate a dedicated Sound Check settings value containing only timbre slots 34-41 and those three sample waves, and route it for species 64. Preserve the track 504 program changes and 175 BPM. This avoids adding eight presets to every Brute family settings value.",
+    "effects_policy": "The historical track is written with sound effects 0. The current mainnet effects=1 path changes the performance (25,000 us faster, velocity ceiling +12, tenuto) and selects mega programs 50/65. Literal 504 playback therefore needs an explicit Cyclops Sound Check exception to that transform; applying effects=1 makes it an adaptation, not the exact reference."
+  },
+  "track_504": {
+    "html_locator": "<script type=\"application/json\" id=\"data\"> -> tracks[id=\"504\"]",
+    "generated": "2026-10-05T18:30:05.688Z",
+    "section": "Client chip bank (not onchain)",
+    "title": "Bank: Arp/FX · 175 BPM",
+    "art_species": {
+      "id": 64,
+      "name": "Cyclops",
+      "shiny": true
+    },
+    "tempo_bpm": 175,
+    "tempo_us_per_quarter": 342857,
+    "ppq": 480,
+    "midi_bytes": 735,
+    "settings_text_bytes": 772,
+    "settings": {
+      "format_version": 1,
+      "quality": 1,
+      "reverb": 30,
+      "master_vol": 40,
+      "voices": 64,
+      "timbre_slots": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41
+      ],
+      "sampled_custom_waves": [
+        "nP12",
+        "nP25",
+        "nP50"
+      ],
+      "sample_steps_per_cycle": {
+        "nP12": 8,
+        "nP25": 4,
+        "nP50": 2
+      },
+      "drums": []
+    },
+    "midi": {
+      "format": "SMF format 1; two tracks; one instrument channel (channel 0)",
+      "loop_end_tick": 38400,
+      "duration_seconds": 27.42856,
+      "program_changes": [
+        {
+          "tick": 0,
+          "seconds": 0.0,
+          "program": 34
+        },
+        {
+          "tick": 4800,
+          "seconds": 3.429,
+          "program": 35
+        },
+        {
+          "tick": 9600,
+          "seconds": 6.857,
+          "program": 36
+        },
+        {
+          "tick": 14400,
+          "seconds": 10.286,
+          "program": 37
+        },
+        {
+          "tick": 19200,
+          "seconds": 13.714,
+          "program": 38
+        },
+        {
+          "tick": 24000,
+          "seconds": 17.143,
+          "program": 39
+        },
+        {
+          "tick": 28800,
+          "seconds": 20.571,
+          "program": 40
+        },
+        {
+          "tick": 33600,
+          "seconds": 24.0,
+          "program": 41
+        }
+      ],
+      "repeated_figure": {
+        "quarter_notes": [
+          {
+            "tick_offset": 0,
+            "pitch": 60,
+            "name": "C4"
+          },
+          {
+            "tick_offset": 480,
+            "pitch": 64,
+            "name": "E4"
+          },
+          {
+            "tick_offset": 960,
+            "pitch": 67,
+            "name": "G4"
+          },
+          {
+            "tick_offset": 1440,
+            "pitch": 72,
+            "name": "C5"
+          }
+        ],
+        "held_note": {
+          "tick_offset": 1920,
+          "pitch": 67,
+          "name": "G4",
+          "duration_ticks": 1100
+        },
+        "staccato_notes": [
+          {
+            "tick_offset": 3360,
+            "pitch": 60,
+            "name": "C4",
+            "duration_ticks": 58
+          },
+          {
+            "tick_offset": 3600,
+            "pitch": 64,
+            "name": "E4",
+            "duration_ticks": 58
+          },
+          {
+            "tick_offset": 3840,
+            "pitch": 67,
+            "name": "G4",
+            "duration_ticks": 58
+          },
+          {
+            "tick_offset": 4080,
+            "pitch": 72,
+            "name": "C5",
+            "duration_ticks": 58
+          }
+        ],
+        "velocity": 100
+      },
+      "note": "The generator spaces each preset at five seconds in its 120 BPM tick reference; at the recorded 175 BPM, starts are 3.429 seconds apart and the complete loop is 27.429 seconds."
+    },
+    "programs": [
+      {
+        "id": 34,
+        "name": "Octave Arp",
+        "category": "Arp/FX",
+        "operator_count": 2,
+        "operators": [
+          {
+            "role": "carrier",
+            "wave": "nP50",
+            "route": 0,
+            "ratio": 1.5,
+            "level": 0.32776,
+            "attack": 0.003,
+            "hold": 0.02,
+            "decay": 0.15,
+            "sustain": 0.85,
+            "release": 0.04,
+            "pitch_ratio": 1,
+            "pitch_time": 1
+          },
+          {
+            "role": "FM modulator",
+            "wave": "square",
+            "route": 1,
+            "ratio": 0,
+            "offset_hz": 15,
+            "level": 0.333333,
+            "attack": 0,
+            "hold": 0,
+            "decay": 0.01,
+            "sustain": 1,
+            "release": 0.05
+          }
+        ]
+      },
+      {
+        "id": 35,
+        "name": "Fifth Arp",
+        "category": "Arp/FX",
+        "operator_count": 2,
+        "operators": [
+          {
+            "role": "carrier",
+            "wave": "nP25",
+            "route": 0,
+            "ratio": 1.25,
+            "level": 0.376,
+            "attack": 0.003,
+            "hold": 0.02,
+            "decay": 0.15,
+            "sustain": 0.85,
+            "release": 0.04,
+            "pitch_ratio": 1,
+            "pitch_time": 1
+          },
+          {
+            "role": "FM modulator",
+            "wave": "square",
+            "route": 1,
+            "ratio": 0,
+            "offset_hz": 15,
+            "level": 0.2,
+            "attack": 0,
+            "hold": 0,
+            "decay": 0.01,
+            "sustain": 1,
+            "release": 0.05
+          }
+        ]
+      },
+      {
+        "id": 36,
+        "name": "Major Third Arp",
+        "category": "Arp/FX",
+        "operator_count": 2,
+        "operators": [
+          {
+            "role": "carrier",
+            "wave": "nP25",
+            "route": 0,
+            "ratio": 1.129960525,
+            "level": 0.3804,
+            "attack": 0.003,
+            "hold": 0.02,
+            "decay": 0.15,
+            "sustain": 0.85,
+            "release": 0.04,
+            "pitch_ratio": 1,
+            "pitch_time": 1
+          },
+          {
+            "role": "FM modulator",
+            "wave": "square",
+            "route": 1,
+            "ratio": 0,
+            "offset_hz": 18,
+            "level": 0.115013,
+            "attack": 0,
+            "hold": 0,
+            "decay": 0.01,
+            "sustain": 1,
+            "release": 0.05
+          }
+        ]
+      },
+      {
+        "id": 37,
+        "name": "Minor Third Arp",
+        "category": "Arp/FX",
+        "operator_count": 2,
+        "operators": [
+          {
+            "role": "carrier",
+            "wave": "nP12",
+            "route": 0,
+            "ratio": 1.094603558,
+            "level": 0.4728,
+            "attack": 0.003,
+            "hold": 0.02,
+            "decay": 0.15,
+            "sustain": 0.85,
+            "release": 0.04,
+            "pitch_ratio": 1,
+            "pitch_time": 1
+          },
+          {
+            "role": "FM modulator",
+            "wave": "square",
+            "route": 1,
+            "ratio": 0,
+            "offset_hz": 18,
+            "level": 0.0864272,
+            "attack": 0,
+            "hold": 0,
+            "decay": 0.01,
+            "sustain": 1,
+            "release": 0.05
+          }
+        ]
+      },
+      {
+        "id": 38,
+        "name": "Pulse Blip",
+        "category": "Arp/FX",
+        "operator_count": 1,
+        "operators": [
+          {
+            "role": "oscillator",
+            "wave": "nP12",
+            "route": 0,
+            "ratio": 2,
+            "level": 0.6111,
+            "attack": 0.002,
+            "hold": 0,
+            "decay": 0.15,
+            "sustain": 0.5,
+            "release": 0.04,
+            "pitch_ratio": 0.5,
+            "pitch_time": 0.012
+          }
+        ]
+      },
+      {
+        "id": 39,
+        "name": "Square Blip",
+        "category": "Arp/FX",
+        "operator_count": 1,
+        "operators": [
+          {
+            "role": "oscillator",
+            "wave": "nP50",
+            "route": 0,
+            "ratio": 2,
+            "level": 0.49428,
+            "attack": 0.002,
+            "hold": 0,
+            "decay": 0.12,
+            "sustain": 0.4,
+            "release": 0.04,
+            "pitch_ratio": 0.5,
+            "pitch_time": 0.012
+          }
+        ]
+      },
+      {
+        "id": 40,
+        "name": "Laser Drop",
+        "category": "Arp/FX",
+        "operator_count": 1,
+        "operators": [
+          {
+            "role": "oscillator",
+            "wave": "nP25",
+            "route": 0,
+            "ratio": 4,
+            "level": 0.49224,
+            "attack": 0.002,
+            "hold": 0,
+            "decay": 0.2,
+            "sustain": 0.3,
+            "release": 0.04,
+            "pitch_ratio": 0.25,
+            "pitch_time": 0.06
+          }
+        ]
+      },
+      {
+        "id": 41,
+        "name": "Pitch Rise",
+        "category": "Arp/FX",
+        "operator_count": 1,
+        "operators": [
+          {
+            "role": "oscillator",
+            "wave": "nP50",
+            "route": 0,
+            "ratio": 0.5,
+            "level": 0.34704,
+            "attack": 0.002,
+            "hold": 0,
+            "decay": 0.2,
+            "sustain": 0.8,
+            "release": 0.04,
+            "pitch_ratio": 2,
+            "pitch_time": 0.04
+          }
+        ]
+      }
+    ],
+    "audio_shape": "Programs 34-37 are two-operator pulse-carrier + square-FM timbres. Programs 38-41 are single pulse-wave oscillators with pitch envelopes (38/39/40 drop; 41 rises). All levels are after the bank loudness gain. No filters, AM modulators, drums, or per-program effect settings appear in this sequence."
+  },
+  "cyclops_current_check": {
+    "species_id": 64,
+    "name": "Cyclops",
+    "type": "Brute",
+    "brute_family_programs": {
+      "leads": [
+        3,
+        4,
+        5
+      ],
+      "plucks": [
+        16,
+        14,
+        18
+      ]
+    },
+    "unnamed_regular_base_slot": 3,
+    "unnamed_regular_program": 16,
+    "unnamed_regular_program_name": "4-bit Saw Pluck",
+    "named_token_caveat": "A nonzero name variant rotates the six-slot selection by a deterministic 1-5 positions; the exact mainnet token inputs are required to name that chosen base preset.",
+    "shiny_token_caveat": "The generic Sound Check call passes mega=true for shiny Beasts and selects program 50 or 65. Program 50 is Robot Hero Lead; 65 is N163 Brass Wave."
+  },
+  "availability": {
+    "full_bank": "Programs 34-41 are present in tinysynth-chip.js. The historical builder successfully converts all eight into the self-contained 772-byte SETTINGS value embedded in track 504.",
+    "essentials": "None of 34-41 are in ESSENTIALS [0-9, 12-19, 50, 65].",
+    "generated_cairo": "The Brute settings expose Brute family programs and drum-kit timbres, plus 50/65 when mega. Brute normal waves are nP50/nTRI/nSAW; mega adds nN16. 34-41 are not timbre slots there, and nP12/nP25 are not included in Brute-specific returned waves.",
+    "optional_pack": "Optional-pack program list includes 39 (Square Blip) but not the other seven. The pack is described as a separate pre-encoded payload, not the normal provider settings.",
+    "production_converter": "The existing TinyChip conversion supports nP12/nP25/nP50 as sampled custom waves and supports the 2-op FM routes used by 34-37. No unavailable wave class or unsupported operator is involved."
+  },
+  "interpretation": {
+    "whole_sequence_vs_preset": "User explicitly selected the whole track. Reusing only one of 34-41 would preserve a timbre choice but lose the defining eight-way program-change tour, the repeated arpeggio/held/staccato arrangement, and 175 BPM.",
+    "art_vs_audio": "The shiny flag on the historical Cyclops card belongs to the lab art metadata. The MIDI itself explicitly changes through programs 34-41; it does not use mega programs 50/65.",
+    "mainnet_tradeoff": "Current production effects=1 is incompatible with literal playback: it makes the written track faster and more tenuto/louder and forces mega program selection. Exact 504 should bypass that transform for this one sound-check case, or be described as an adapted rendition."
+  },
+  "sources": [
+    {
+      "file": "/workspace/beast-sound-check/original-lab/sound-check.html",
+      "locator": "embedded JSON script id=data, track id=504, .d SETTINGS followed by script id=midi",
+      "claim": "generated metadata, bank section/title, eight check strings, species64 Cyclops shiny card, settingsBytes 772, midiBytes 735."
+    },
+    {
+      "file": "/workspace/beast-sound-check/tools/gen_tracks.mjs",
+      "line": 855,
+      "claim": "section 5 is the client chip bank, outside the 20 onchain essentials."
+    },
+    {
+      "file": "/workspace/beast-sound-check/tools/gen_tracks.mjs",
+      "line": 884,
+      "claim": "historical bank instruments are converted into track settings through beastSynthSettings."
+    },
+    {
+      "file": "/workspace/beast-sound-check/tools/gen_tracks.mjs",
+      "line": 886,
+      "claim": "program change sequence and repeated notes/held/staccato motif."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/offchain/beast-sound/onchain/tinychip/essentials.mjs",
+      "line": 10,
+      "claim": "the exact 20 ESSENTIALS program IDs."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/offchain/beast-sound/onchain/tinychip/tinysynth-chip.js",
+      "line": 155,
+      "claim": "full-bank definitions for programs 34-41 and their waves/roles."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/offchain/beast-sound/onchain/tinychip/synth_settings.mjs",
+      "line": 70,
+      "claim": "nP12/nP25/nP50 are supported sampled waves; line 130 documents FM routing; lines 167-173 build settings for selected arbitrary program arrays."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/offchain/beast-sound/onchain/tinychip/presets/convert.mjs",
+      "line": 70,
+      "claim": "optional pack includes program39 but not the remaining 504 programs."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/beasts/beast_contracts/src/synth_settings.cairo",
+      "line": 114,
+      "claim": "Brute normal settings waves and timbres; lines128-134 show Brute mega settings."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/offchain/beast-sound/src/engine.js",
+      "line": 30,
+      "claim": "species IDs 51-75 are Brute; species64 name is at line19."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/offchain/beast-sound/src/full_midi.js",
+      "line": 110,
+      "claim": "Brute family programs are leads3/4/5 and plucks16/14/18."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/beasts/beast_composer/src/composition/sound_check.cairo",
+      "line": 101,
+      "claim": "base slot derives from species_id; lines107-113 choose mega50/65 or the family slot, with name-variant rotation."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/beasts/beast_contracts/src/pure_composer.cairo",
+      "line": 55,
+      "claim": "production Sound Check derives mega mode from sound_effects and routes program selection/settings accordingly."
+    },
+    {
+      "file": "/tmp/cyclops-504-preset-review/beasts/beast_composer/src/composition/performance.cairo",
+      "line": 12,
+      "claim": "effect1 is 25,000 us faster, +12 velocity ceiling, tenuto; lines18-20 define mega."
+    }
+  ]
+}

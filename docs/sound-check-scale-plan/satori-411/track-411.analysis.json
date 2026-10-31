@@ -1,0 +1,194 @@
+{
+  "source_html_sha256": "fd64b55b9883925ff3916182ad1822164ac57586b2f18caaafa1d0e4f69450c7",
+  "midi_sha256": "4b2a582e3c83736b7beaaac19fa44421735006a618c525409d88beb2f2b28aaf",
+  "settings_sha256": "22dbcc5f874f2d3c73cce061a979e69b9d3da1c52f923098b60aebca6208b85e",
+  "midi_bytes": 9720,
+  "settings_bytes": 813,
+  "format": 1,
+  "ppq": 480,
+  "tracks": [
+    {
+      "index": 0,
+      "end_tick": 69120,
+      "event_count": 2
+    },
+    {
+      "index": 1,
+      "end_tick": 69120,
+      "event_count": 228
+    },
+    {
+      "index": 2,
+      "end_tick": 69120,
+      "event_count": 580
+    },
+    {
+      "index": 3,
+      "end_tick": 69120,
+      "event_count": 1124
+    },
+    {
+      "index": 4,
+      "end_tick": 69120,
+      "event_count": 325
+    }
+  ],
+  "channels": {
+    "0": {
+      "programs": [
+        0
+      ],
+      "controllers": [
+        {
+          "tick": 0,
+          "controller": 7,
+          "value": 100
+        },
+        {
+          "tick": 0,
+          "controller": 10,
+          "value": 50
+        }
+      ],
+      "notes": 112,
+      "pitches": [
+        72,
+        76,
+        77,
+        79,
+        81,
+        83,
+        84,
+        86,
+        88
+      ],
+      "velocities": [
+        100
+      ],
+      "first_on": 7680,
+      "last_on": 68880,
+      "last_off": 69100
+    },
+    "1": {
+      "programs": [
+        15
+      ],
+      "controllers": [
+        {
+          "tick": 0,
+          "controller": 7,
+          "value": 100
+        },
+        {
+          "tick": 0,
+          "controller": 10,
+          "value": 40
+        }
+      ],
+      "notes": 288,
+      "pitches": [
+        36,
+        41,
+        43,
+        45,
+        48,
+        50,
+        52
+      ],
+      "velocities": [
+        100
+      ],
+      "first_on": 0,
+      "last_on": 68880,
+      "last_off": 69080
+    },
+    "2": {
+      "programs": [
+        17
+      ],
+      "controllers": [
+        {
+          "tick": 0,
+          "controller": 7,
+          "value": 100
+        },
+        {
+          "tick": 0,
+          "controller": 10,
+          "value": 80
+        }
+      ],
+      "notes": 560,
+      "pitches": [
+        60,
+        64,
+        65,
+        67,
+        69,
+        71,
+        72,
+        74,
+        76,
+        77,
+        79,
+        81,
+        83,
+        84,
+        86,
+        88
+      ],
+      "velocities": [
+        70
+      ],
+      "first_on": 1920,
+      "last_on": 69000,
+      "last_off": 69100
+    },
+    "9": {
+      "programs": [],
+      "controllers": [
+        {
+          "tick": 0,
+          "controller": 7,
+          "value": 100
+        },
+        {
+          "tick": 0,
+          "controller": 10,
+          "value": 64
+        }
+      ],
+      "notes": 322,
+      "pitches": [
+        36,
+        38,
+        42,
+        49
+      ],
+      "velocities": [
+        50,
+        76,
+        100,
+        110
+      ],
+      "first_on": 0,
+      "last_on": 68880,
+      "last_off": null
+    }
+  },
+  "tempo": [
+    {
+      "track": 0,
+      "tick": 0,
+      "type": "meta",
+      "kind": 81,
+      "data": [
+        7,
+        161,
+        32
+      ]
+    }
+  ],
+  "pitch_bends": 0,
+  "all_note_ons": 1282
+}

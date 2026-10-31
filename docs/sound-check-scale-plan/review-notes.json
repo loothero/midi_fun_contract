@@ -1,0 +1,29 @@
+{
+  "sourceSnapshot": "433f826",
+  "notes": [
+    {
+      "trackId": "411",
+      "trackTitle": "Long track: loop and seam \u00b7 120 BPM",
+      "species": "Satori",
+      "preference": "Really good pairing; assess replacing the current Satori Species Song and using this as the base for the 1:1 Agony Bane Satori track.",
+      "status": "feasibility assessment complete; no musical implementation",
+      "reviewAgent": "satori_411_feasibility",
+      "model": "GPT-6.1 Sol",
+      "reasoningEffort": "medium",
+      "assessment": "satori-411/ASSESSMENT.md"
+    },
+    {
+      "trackId": "504",
+      "trackTitle": "Bank: Arp/FX \u00b7 175 BPM",
+      "species": "Cyclops",
+      "preference": "Really fun pairing; use for mainnet Cyclops Sound Check. Determine whether the preset is available in midi_fun_contract.",
+      "status": "feasibility assessment complete; no musical implementation",
+      "reviewAgent": "cyclops_504_preset",
+      "model": "GPT-6 Luna",
+      "reasoningEffort": "max",
+      "scope": "Whole sequence: all eight presets, in their original order.",
+      "assessment": "cyclops-504/assessment.json"
+    }
+  ],
+  "designDirection": "Distinct musical identities across Beasts; diversity of motif, rhythm, sound and pacing, not the same scale transposed. Track 406 is an additional reference."
+}
