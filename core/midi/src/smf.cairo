@@ -174,6 +174,9 @@ pub impl TrackWriterImpl of TrackWriterTrait {
     }
 
     /// A channel message with two data bytes (note off/on, aftertouch, control, pitch bend).
+    // Shared by authored and generated tracks; keep one encoder rather than specializing every
+    // call.
+    #[inline(never)]
     fn message(ref self: TrackWriter, time: u32, status: u8, data1: u8, data2: u8) {
         self.delta(time);
         self.status(status);
