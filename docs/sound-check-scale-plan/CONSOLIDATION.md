@@ -1,6 +1,6 @@
 # Consolidate Beast Music in beasts-v3
 
-Plan only, assessed on 2026-10-31. No implementation, contract changes, declarations, deployments or chain-state verification are part of this assessment.
+Plan only, assessed on 2026-10-31. No implementation, contract changes, declarations, deployments or chain-state verification are part of this assessment. Updated after review to bound the migration and require explicit MIT preservation in beasts-v3.
 
 ## Recommendation
 
@@ -9,6 +9,15 @@ Make `Provable-Games/beasts-v3` the source and release owner for all **Beast-spe
 This is a repository/package consolidation, not an onchain contract merger. It removes cross-repository coordination when changing Beast music without coupling every composer change to manager storage, NFT code or player implementation. The existing Cairo design already supports this: `core/` does not depend on `beasts/`, and the upstream move guide describes replacing the workspace's local `midi` dependency with a pinned Git dependency. That guide is useful evidence, but incomplete for today's inputs package and V3 release tooling. [M1]
 
 Start with a behavior-preserving import. Do not combine it with the 75-species music redesign in [PLAN.md](PLAN.md), codec redesign, generator changes, new token decoding, mass formatting or onchain updates. Once the imported release is qualified, that music roadmap can be implemented entirely in beasts-v3 through separate changes.
+
+**Decision after review:** proceed with the bounded source consolidation below before substantial new music implementation. The benefit is simpler ownership and coordinated releases, not improved sound, lower gas or a smaller composer. If qualification would jeopardize a fixed launch deadline, retain the existing external pin for launch and defer the move; do not weaken equivalence checks to meet that deadline.
+
+The initial migration has four fixed boundaries:
+
+- Preserve music, MIDI/settings output, codecs, public package APIs, manager storage and historical purchase interpretation. Investigate artifact changes independently of musical changes.
+- Keep Manager, Generator and Composer as separate contracts/packages, and generic MIDI/player implementations as immutable external dependencies.
+- Keep current released engine artifacts and deployment records authoritative until the local build passes qualification. Source consolidation requires no deployment or target update.
+- Preserve MIT licensing for the imported Beast music code and its future first-party modifications, with explicit V3 license coverage in the source-import change.
 
 ## Verified baseline
 
@@ -102,13 +111,30 @@ The first move should register `offchain/beast-sound` with pnpm and migrate its 
 
 ## Import, ownership and history
 
-Use one reviewed import at the inspected source commit, retaining the upstream MIT license and a file/path mapping. Preserve authorship with a filtered Git history import if practical; alternatively use a normal source import commit with the full source SHA and path map in its message and the existing upstream history linked in the package NOTICE. A deep history rewrite of either active repository is unnecessary. The history-preserving option is a one-time migration cost; it should not add a permanent subtree synchronization workflow.
+Use one normal source import commit at the inspected source revision, retaining the upstream MIT license, copyright notices and a file/path mapping. Record the full source SHA and link upstream history in the commit and package NOTICE. This is the default, bounded approach; a filtered history import is optional only if it is straightforward. Neither history rewriting nor permanent subtree synchronization is a prerequisite.
 
 V3 becomes canonical for new Beast music releases. Coordinate a small upstream follow-up marking moved directories and their last supported release; stop dual authoring. Keep `v1.0.0`, `v1.0.1`, historical commits and reproducible upstream archives available. Consumers can transition on their own release schedule. No upstream deletion or archival is required for the V3 import to work.
 
 Do not fork the entire generic MIDI/player system into V3 by default. Adding a pinned `midi` Git dependency is the same build-time relationship already anticipated upstream; it introduces no render-time service or RPC. If generic MIDI development later stalls and changes become necessary, assess a clearly owned vendored/forked library separately. The current task does not demonstrate that maintenance cost is warranted. [M1]
 
-Preserve the imported source's MIT grant and Casey Wescott copyright. V3's root license has reserved-material terms but explicitly preserves MIDI Fun/music MIT terms; an explicit NOTICE covering the imported subtree prevents ambiguity. Preserve third-party Apache/MIT notices in TinySynth and generated downloadable HTML as well as V3's separate player-fragment notices. This plan is a source/notice inventory, not a determination of rights for new third-party music. [M8, V6]
+### Required beasts-v3 licensing update
+
+The migration must keep the imported Beast music code MIT, as it is in midi_fun_contract. A NOTICE alone is insufficient for a clear repository policy: update V3's root `LICENSE` in the same change that imports the code. The current root already preserves MIDI Fun/music MIT rights and lists Sound Manager Cairo source as MIT, but does not explicitly list the incoming packages and tools. [M8, V6]
+
+Required changes in beasts-v3:
+
+1. **Expand the root MIT coverage list.** Explicitly cover `packages/beast_composer/` (including `inputs/`), `packages/beast_contracts/`, `offchain/beast-sound/`, `scripts/music/`, `tools/music-bench/` and `docs/music/`, including their tests, first-party fixtures and generated music code/data. Cover any first-party music helpers placed outside those directories by exact path. State that first-party modifications and additions in these music paths remain MIT; they do not acquire the root reserved-code restrictions. Separately licensed embedded components keep their existing terms.
+2. **Retain the complete upstream MIT text.** Preserve `licenses/MIDI_FUN_MIT_LICENSE` and `Copyright (c) 2024-2026 Casey Wescott` verbatim. Its current text matches the inspected upstream license; verify that match at import. Record the imported source revision in the relevant NOTICE rather than modifying the upstream license text. Keep upstream file notices; add Provable Games attribution for its contributions without replacing Casey's notice. Use the existing `licenses/MIT_LICENSE` for Provable Games contributions.
+3. **Make the license discoverable at each imported package boundary.** Give the two Cairo packages, nested inputs package and JS package a NOTICE pointing to both applicable MIT texts and the import revision/path map. Keep or add `license = "MIT"` / `"license": "MIT"` metadata where supported. Distributable package archives must include the applicable full license texts and notices, not only links to files outside the archive.
+4. **Update the existing Sound Manager NOTICE.** Retain its MIT coverage and historical upstream attribution, and document the new local canonical source plus imported baseline. Do not rewrite old release provenance or suggest that all future music is still the old v1.0.0 release.
+5. **Preserve embedded third-party terms and generated notices.** TinySynth/player Apache-2.0 components and other third-party material retain their own licenses. Generated lab/download HTML must continue carrying their applicable notices. The root MIT list does not relicense these components, reserved renderer/card implementations or unrelated assets. Imported original music retains its existing MIT terms; unrelated uploaded music retains its own terms.
+
+Suggested root `LICENSE` wording alongside the explicit path list:
+
+> The Beast music packages, tools and documentation listed above, including their first-party modifications and additions, are MIT-licensed. Imported MIDI Fun material retains the copyright and license in licenses/MIDI_FUN_MIT_LICENSE; Provable Games contributions are MIT under licenses/MIT_LICENSE. The reserved-code production, registration and royalty restrictions do not apply to this MIT material. Embedded third-party components retain their separately stated terms.
+
+**License acceptance gate:** review the actual import path map against the root MIT list; compare the upstream license text; inspect package metadata/NOTICES and any distributed package contents; confirm generated outputs retain third-party notices. No imported MIT first-party music path may fall through to the root reserved default. Missing coverage blocks the source import, not merely a later release. This uses the existing license files and notices; no new licensing service or broad compliance framework is needed.
+
 
 ## Scarb wiring and artifact compatibility
 
@@ -170,6 +196,16 @@ The one unavoidable generic/Beast tooling seam is the legacy MIDI sound page: `o
 
 ## Phases and completion gates
 
+Deliver the migration in two reviewable implementation changes, followed by the consumer cutover. Use separate PRs when each can pass required checks; otherwise keep them as separate commits in one mergeable PR. Do not turn it into a package-renaming or general cleanup project.
+
+| Change | Scope | Required exit gate |
+|---|---|---|
+| PR 1: source import and MIT coverage | Import/wire packages, move tools/tests, retain APIs/editions and generated data, update V3 root LICENSE/NOTICES; leave released engine fixtures in place | Coherent dependencies; affected package/generator tests pass; MIT coverage complete; baseline comparison recorded |
+| PR 2: build/release qualification | Adapt existing manifest/fixture/deployment tooling for local source and historical upstream builds; update affected CI routes | Relevant parity/integration checks pass; MIDI/settings, ABI, class hashes and size compared; historical builds remain supported; no unresolved release-blocking difference |
+| Consumer and authoring cutover | Update sampler adapters and source pointers; designate V3 canonical for new Beast music | Qualified package produces expected consumer output; no dual authoring or ordinary sibling-checkout dependency |
+
+PR 1 can land independently only if existing required checks pass with released fixtures still authoritative. The current fixture checker requires the external Git pin, so local dependency wiring may require PR 2's tooling changes in the same mergeable PR. Never merge a knowingly broken intermediate pipeline. Landing the import is not completion of the migration; the cutover requires PR 2's evidence. If identical-source relocation changes a class hash, first investigate compiler/package/profile context; any necessary release identity change must be explicit and reviewed. Do not replace old fixtures merely to obtain green checks. Do not advance the music roadmap until the source migration is qualified.
+
 ### 1. Freeze the import baseline
 
 Record exact source SHAs, file/path map, licenses, public package/CLI consumers and generated artifacts. Confirm with maintainers who owns future Beast music releases and whether `beast-sound` has published consumers. Preserve upstream release tags and reproducibility. The V3 baseline already matches current MIDI Cairo source, so no music upgrade is necessary in this phase.
@@ -178,7 +214,7 @@ Record exact source SHAs, file/path map, licenses, public package/CLI consumers 
 
 Import three Beast Cairo packages and the complete JS authoring package; move Beast-specific scripts/docs. Add explicit editions/dependencies/workspace paths and pnpm entry. Keep all class/package names, codecs, manager logic, generated musical data and committed engine fixtures stable. Repair generator/fixture output roots, benchmark wrappers/symlinks and tool working-directory assumptions. Keep generic MIDI/player implementations external.
 
-Gate: workspace resolution is coherent, no external duplicate inputs package remains, normal package tests/JS tests and generators run from the new paths, and generic MIDI consumers still have a supported build path.
+Gate: workspace resolution is coherent, no external duplicate inputs package remains, affected package tests/JS tests and generators run from the new paths, generic MIDI consumers still have a supported build path, and the root license/package notices explicitly preserve MIT coverage for every imported first-party music path.
 
 ### 3. Qualify release tooling and historical compatibility
 
